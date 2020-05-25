@@ -4,6 +4,8 @@ using System.Text;
 
 abstract class ResourceLoader
 {
+    public static string root = @"C:\Users\Ghost\source\repos\ASCII_Game\ASCII_Game\";
+
     public static Dictionary<uint, string> stringPool = new Dictionary<uint, string>();
 
     public static Dictionary<string, Atlas> symbolTextures = new Dictionary<string, Atlas>();

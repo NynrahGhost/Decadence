@@ -52,15 +52,21 @@ class Game
 
     static void Main(string[] args)
     {
+        System.Console.Write(INIReader.Read(@"Config\config.ini").Count);
+        /*
         Game game = new Game();
 
         long delta = DateTime.Now.Ticks;
         int framerate = 1000 / game.config.framerate;
 
+
+
         //Console.WriteLine("‗");
         //Console.WriteLine("♥");
         //Console.OutputEncoding = System.Text.Encoding.ASCII;
         //Thread.Sleep(500);
+
+        /*
         while (game.running)
         {
             delta = DateTime.Now.Ticks - delta;
@@ -72,12 +78,7 @@ class Game
             delta = DateTime.Now.Ticks;
             Thread.Sleep(framerate);
         }
-        
-        Console.SetWindowSize(20, 10);
-        Console.WriteLine("Hello World!");
-        Console.SetCursorPosition(1, 1);
-        Console.Write("\u001b[31m@");
-        
+        */
     }
 
     static void Test()
