@@ -1,5 +1,4 @@
-﻿using System.Text;
-
+﻿
 abstract class Shader
 {
     public abstract Fragment8 Compute(
@@ -7,11 +6,8 @@ abstract class Shader
         Vector2d16 start,
         Vector2d16 end
         );
-}
 
-namespace Shaders
-{
-    class Plain : Shader
+    public class Plain : Shader
     {
         Color8fg foreground;
         Color8bg background;
@@ -38,7 +34,7 @@ namespace Shaders
         }
     }
 
-    class Gradient : Shader
+    public class Gradient : Shader
     {
         Color8fg foregroundStart;
         Color8fg foregroundEnd;
@@ -83,12 +79,12 @@ namespace Shaders
         }
     }
 
-    class PolyGradient
+    public class PolyGradient
     {
 
     }
 
-    class Texture : Shader
+    public class Texture : Shader
     {
         Atlas atlas;
         Vector2d32 start;

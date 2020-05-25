@@ -1,79 +1,83 @@
 ﻿using System.Collections.Generic;
 using System;
-using System.Text;
-using System.IO;
 
-class Renderer
+abstract class Renderer
 {
-    private GameObject[] objects;
-    public Vector2d16 center = new Vector2d16(0, 0);
+    private static GameObject[] objects;
+    public static Vector2d16 worldPosition = new Vector2d16(0, 0);
 
-    public Renderer()
-    {
+    public static int Width => Config.screenWidth;
+    public static int Height => Config.screenHeight;
 
-    }
+    public static Fragment8[,] buffer = new Fragment8[Config.screenHeight, Config.screenWidth];
 
-    public void SetObjects(List<GameObject> objects)
+    public static void SetObjects(List<GameObject> objects)
     {
         objects.Sort((x, y) => ((IRenderable)x).Image.zIndex.CompareTo(((IRenderable)y).Image.zIndex));
-        this.objects = objects.ToArray();
+        Renderer.objects = objects.ToArray();
     }
 
-    public void Render()
+    public static void Render()
     {
-        var inputStream = Console.OpenStandardOutput();
-
-        var writer = new StreamWriter(inputStream);
-        //BufferedStream w = new BufferedStream(writer);
+        for (int y = 0; y < Config.screenHeight; ++y)
+        {
+            for (int x = 0; x < Config.screenWidth; ++x)
+            {
+                //buffer[y, x] = new Fragment8(new Color8fg(0,0,0), new Color8bg(0,0,0), ' ');
+            }
+        }
+        Console.Write(buffer[0,0]);
 
         foreach (GameObject obj in objects)
         {
-            writer.Write(ANSII.CursorPosition(obj.position - center));
-            writer.Write(((IRenderable)obj).Render());
+            ((IRenderable)obj).Render(obj.position);
+            Console.Write("Here: " + obj.GetBoundingBox());
         }
 
-        writer.Flush();
+        System.Text.StringBuilder sb = new System.Text.StringBuilder();
+        //sb.Append(ANSII.CursorPosition(0, 0));
 
-        /*
-        Console.Clear();
-        StringBuilder sb = new StringBuilder();
-
-        foreach (GameObject obj in objects)
+        int shift = 0;
+        Color8fg fg = new Color8fg(0);
+        Color8bg bg = new Color8bg(0);
+        for (int y = 0; y < Config.screenHeight; ++y)
         {
-            sb.Append(ANSII.CursorPosition(obj.position-center));
-            sb.Append(((IRenderable)obj).Render());
+            sb.Append(ANSII.CursorPosition(y, 0));
+            shift = 0;
+
+            for (int x = 0; x < Config.screenWidth; ++x)
+            {
+                Fragment8 current = buffer[y, x];
+
+                if (current.IsNull())
+                {
+                    ++shift;
+                    continue;
+                }
+
+                if (current.foreground != fg)
+                {
+                    sb.Append(fg);
+                    fg = current.foreground;
+                }
+                if (current.background != bg)
+                {
+                    sb.Append(bg);
+                    bg = current.background;
+                }
+
+                //sb.Append(fg+bg+current.symbol);
+                if(shift>0)
+                    sb.Append(ANSII.CursorRight(shift));
+                sb.Append(fg + bg + current.symbol);
+                shift = 0;
+            }
         }
-        Console.Write(sb);
-        sb.Clear();
-        */
+        sb.Append(ANSII.ResetInitial());
+        Console.Write(sb.ToString());
 
-        /*
-        Console.SetCursorPosition(0, 0);
-        //Console.Clear();
+        //Console.Write("\x1B[38;5;0]");
 
-        System.IO.TextWriter tw = new System.IO.StreamWriter(new System.IO.MemoryStream(1000));
-
-        //tw.Write("\u001b0J");
-
-        foreach (GameObject obj in objects)
-        {
-            SetPosition(obj.position);
-            //Console.Write(((IRenderable)obj).Render());
-            tw.Write(((IRenderable)obj).Render());
-        }
-
-        //tw.Close();
-        Console.Write
-        //tw.Flush();
-        //Console.OpenStandardOutput() = tw;
-        Console.SetOut(tw);
-        tw.Flush();
-        */
-    }
-
-    public void SetPosition(Vector2d16 position)
-    {
-        position -= center;
-        Console.SetCursorPosition(position._1, position._2);
+        Console.WriteLine(sb.Length);
     }
 }

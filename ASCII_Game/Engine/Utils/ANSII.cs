@@ -24,12 +24,12 @@ abstract class ANSII
         return "\x1B[" + value + 'B';
     }
 
-    public static string CursorLeft(int value)
+    public static string CursorRight(int value)
     {
         return "\x1B[" + value + 'C';
     }
 
-    public static string CursorRight(int value)
+    public static string CursorLeft(int value)
     {
         return "\x1B[" + value + 'D';
     }
@@ -37,5 +37,10 @@ abstract class ANSII
     public static string ClearScreen()
     {
         return "\x1B[2J";
+    }
+
+    public static string ResetInitial()
+    {
+        return "\x1Bc";
     }
 }

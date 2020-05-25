@@ -1,24 +1,47 @@
 ﻿class Config
 {
-    public readonly int screenWidth = 100;
-    public readonly int screenHeight = 35;
+    public static int screenWidth;
+    public static int screenHeight;
 
-    public readonly int framerate = 15;
+    public static int framerate;
 
-    public readonly char moveForward = 'w';
-    public readonly char moveBackward = 's';
-    public readonly char moveLeft = 'a';
-    public readonly char moveRight = 'd';
+    public static char moveForward;
+    public static char moveBackward;
+    public static char moveLeft;
+    public static char moveRight;
 
-    /*
-    char MoveAltForward = 'w';
-    char moveBackward = 's';
-    char moveLeft = 'a';
-    char moveRight = 'd';
-    */
 
-    public readonly char use = 'e';
-    public readonly char attack = ' ';
+    public static char moveAltForward = (char)System.ConsoleKey.UpArrow;
+    public static char moveAltBackward = (char)System.ConsoleKey.DownArrow;
+    public static char moveAltLeft = (char)System.ConsoleKey.LeftArrow;
+    public static char moveAltRight = (char)System.ConsoleKey.RightArrow;
+    
+
+    public static char use;
+    public static char attack;
+
+    public static char escape = (char)System.ConsoleKey.Escape;
+
+    static Config()
+    {
+        RestoreDefaults();
+    }
+
+    public static void RestoreDefaults()
+    {
+        screenWidth = 100;
+        screenHeight = 50;
+
+        framerate = 15;
+
+        moveForward = 'w';
+        moveBackward = 's';
+        moveLeft = 'a';
+        moveRight = 'd';
+
+        use = 'e';
+        attack = ' ';
+    }
 
     public Config() { }
 

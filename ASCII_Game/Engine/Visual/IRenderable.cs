@@ -2,5 +2,5 @@
 {
     public Image Image { get; }
 
-    public System.Text.StringBuilder Render();
+    public void Render(Vector2d16 position);
 }

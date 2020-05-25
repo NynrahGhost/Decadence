@@ -279,6 +279,11 @@ struct Color8fg
         color = (byte)(r * 36 + g * 6 + b + 16);
     }
 
+    public bool IsNull()
+    {
+        return color == 0;
+    }
+
     public byte GetRed()
     {
         return (byte)((color - 16) / 36 % 6 * 51);
@@ -325,6 +330,11 @@ struct Color8bg
     {
         r /= 51; g /= 51; b /= 51;
         color = (byte)(r * 36 + g * 6 + b + 16);
+    }
+
+    public bool IsNull()
+    {
+        return color == 0;
     }
 
     public byte GetRed()
@@ -400,9 +410,16 @@ struct Color24bg
 
 struct Fragment8
 {
-    Color8fg foreground;
-    Color8bg background;
-    char symbol;
+    public Color8fg foreground;
+    public Color8bg background;
+    public char symbol;
+
+    public static Fragment8 nullFragment = new Fragment8(new Color8fg(0), new Color8bg(0), (char)0);
+
+    public bool IsNull()
+    {
+        return foreground.IsNull() && background.IsNull() && (symbol == 0);
+    }
 
     public Fragment8(Color8fg foreground, Color8bg background, char symbol)
     {
@@ -416,3 +433,4 @@ struct Fragment8
         return fragment.foreground + fragment.background + fragment.symbol;
     }
 }
+

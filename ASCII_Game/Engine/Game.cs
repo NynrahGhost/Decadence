@@ -3,29 +3,26 @@ using System.Threading;
 
 class Game
 {
-    IGameState currentState = new GameState.Intro();
-    bool running = true;
+    public static GameState gameState = new GameState.Game();
+    public static bool running = true;
 
-    Config config = new Config();
-    EInput input = EInput.none;
-
-    Renderer renderer = new Renderer();
+    public static EInput input = EInput.none;
 
     public Game()
     {
         Console.OutputEncoding = System.Text.Encoding.UTF8;
-        Console.SetWindowSize(config.screenWidth, config.screenHeight);
+        Console.SetWindowSize(Config.screenWidth, Config.screenHeight);
         Console.CursorVisible = false;
 
         System.Collections.Generic.List<GameObject> list = new System.Collections.Generic.List<GameObject>();
 
-        Shader plainShader = new Shaders.Plain(new Color8fg(255, 0, 0), new Color8bg(0, 255, 255), ' ');
-        Shader gradientShader = new Shaders.Gradient(new Color8fg(255, 0, 0), new Color8fg(0, 0, 255), new Color8bg(255, 0, 0), new Color8bg(0, 0, 255), ' ');
+        Shader plainShader = new Shader.Plain(new Color8fg(255, 0, 0), new Color8bg(0, 255, 255), ' ');
+        Shader gradientShader = new Shader.Gradient(new Color8fg(255, 0, 0), new Color8fg(255, 255, 255), new Color8bg(255, 0, 0), new Color8bg(0, 0, 255), ' ');
 
 
-        Shader textureShader = new Shaders.Texture(new Atlas16(@"C:\Users\Ghost\source\repos\ASCII_Game\ASCII_Game\Textures\characters.bms"), new Vector2d32(0, 2), new Vector2d32(7, 7));
+        Shader textureShader = new Shader.Texture(new Atlas16(@"C:\Users\Ghost\source\repos\ASCII_Game\ASCII_Game\Textures\characters.bms"), new Vector2d32(0, 2), new Vector2d32(7, 7));
 
-        Image textureImage = new Image.Rectangle(textureShader, new Vector2d16(7, 6));
+        Image textureImage = new Image.Rectangle(textureShader, new Vector2d16(7, 6), 127);
 
 
         Image plainImage = new Image.Rectangle(plainShader, new Vector2d16(20, 10));
@@ -35,29 +32,30 @@ class Game
 
         Image plainImage2 = new Image.Rectangle(plainShader, new Vector2d16(20, 10));
 
-        Shader blackShader = new Shaders.Plain(new Color8fg(0, 0, 0), new Color8bg(0, 0, 0), ' ');
-        Image blackImage = new Image.Rectangle(blackShader, new Vector2d16(80, 25), 0);
+        Shader blackShader = new Shader.Plain(new Color8fg(0, 0, 0), new Color8bg(0, 0, 0), ' ');
+        Image blackImage = new Image.Rectangle(blackShader, new Vector2d16(80, 25), 250);
 
-        list.Add(new VisualObject( new Vector2d16(10, 10), plainImage));
-        list.Add(new VisualObject( new Vector2d16(15, 10), gradientImage));
+        //list.Add(new VisualObject( new Vector2d16(-5, 0), plainImage));
+        list.Add(new VisualObject( new Vector2d16(30, 10), gradientImage));
 
-        list.Add(new VisualObject(new Vector2d16(0, 0), blackImage));
+        //list.Add(new VisualObject(new Vector2d16(0, 0), blackImage));
 
-        list.Add(new VisualObject(new Vector2d16(30, 10), plainImage2));
+        //list.Add(new VisualObject(new Vector2d16(30, 10), plainImage2));
 
-        list.Add(new VisualObject(new Vector2d16(30, 10), textureImage));
+        list.Add(new VisualObject(new Vector2d16(0, 0), textureImage));
+        //list.Add(new VisualObject(new Vector2d16(0, 0), blackImage));
 
-        renderer.SetObjects(list);
+        Renderer.SetObjects(list);
     }
 
     static void Main(string[] args)
     {
-        System.Console.Write(INIReader.Read(@"Config\config.ini").Count);
-        /*
+        //System.Console.Write(INIReader.Read(@"Config\config.ini").Count);
+        
         Game game = new Game();
 
         long delta = DateTime.Now.Ticks;
-        int framerate = 1000 / game.config.framerate;
+        int framerate = 1000 / Config.framerate;
 
 
 
@@ -66,8 +64,8 @@ class Game
         //Console.OutputEncoding = System.Text.Encoding.ASCII;
         //Thread.Sleep(500);
 
-        /*
-        while (game.running)
+        
+        while (running)
         {
             delta = DateTime.Now.Ticks - delta;
 
@@ -78,74 +76,17 @@ class Game
             delta = DateTime.Now.Ticks;
             Thread.Sleep(framerate);
         }
-        */
-    }
-
-    static void Test()
-    {
-        Console.SetWindowSize(100, 50);
-        //Console.WriteLine("\033[38;2;"+((char)0)+";"+ ((char)255) + ";" + ((char)0) + "mHello");
-
-        //Console.WriteLine("\x1b[38;2;255;82;197;48;2;155;106;0mHello");
-        //Console.SetCursorPosition(1, 1);
-        //Console.Write("\u001b[31m@");
-        //Console.Write("\u001b[31m@");
-
-        Color8bg color = new Color8bg(255, 205, 0);
-        //Console.Write(color.GetRed());
-
-        Shader plainShader = new Shaders.Plain(new Color8fg(255, 0, 0), new Color8bg(0, 255, 255), ' ');
-        Shader gradientShader = new Shaders.Gradient(new Color8fg(255, 0, 0), new Color8fg(0, 0, 255), new Color8bg(255, 0, 0), new Color8bg(0, 0, 255), ' ');
-
-        Image plainImage = new Image.Rectangle(plainShader, new Vector2d16(20, 40));
-        Image gradientImage = new Image.Rectangle(gradientShader, new Vector2d16(20, 10));
-        Image lineImage = new Image.Line(plainShader, new Vector2d16(0, 0), new Vector2d16(5, 0), 1);
-        Image curveBezierImage = new Image.BezierCurve(gradientShader, new Vector2d16(10, -5), new Vector2d16(10, -10), new Vector2d16(20, -10), 1);
-
-
-        //Console.Write(lineImage.Render().ToString());
-        //Console.Write(curveBezierImage.Render().ToString());
-
-        Console.Write('\t');
-        Console.Write(plainImage.Render().ToString());
-        Console.Write('\t');
-        Console.Write(gradientImage.Render().ToString());
-        Console.Write('\t');
-        Console.Write('\t');
-        Console.Write('\t');
-        Console.Write(curveBezierImage.Render().ToString());
+        /**/
     }
 
     void Render(float delta)
     {
-        renderer.Render();
+        Renderer.Render();
     }
 
     void Physics(float delta)
     {
-        switch (input)
-        {
-            case EInput.moveForward:
-                renderer.center._2 -= 1;
-                break;
-            case EInput.moveBackward:
-                renderer.center._2 += 1;
-                break;
-            case EInput.moveLeft:
-                renderer.center._1 -= 2;
-                break;
-            case EInput.moveRight:
-                renderer.center._1 += 2;
-                break;
-            case EInput.use:
-                Console.Beep();
-                break;
-            case EInput.attack:
-                Console.Beep();
-                Console.Beep();
-                Console.Beep();
-                break;
-        }
+        gameState.Physics(input);
     }
 
     void Inputs()
@@ -158,63 +99,59 @@ class Game
         ConsoleKeyInfo keyInfo = Console.ReadKey(true);
         char key = keyInfo.KeyChar;
 
-        if(key == config.moveForward)
+        if(key == Config.moveForward)
         {
             input = EInput.moveForward;
         } 
-        else if (key == config.moveBackward)
+        else if (key == Config.moveBackward)
         {
             input = EInput.moveBackward;
         } 
-        else if (key == config.moveLeft)
+        else if (key == Config.moveLeft)
         {
             input = EInput.moveLeft;
         }
-        else if (key == config.moveRight)
+        else if (key == Config.moveRight)
         {
             input = EInput.moveRight;
         }
 
-        else if (key == config.use)
+
+        if (key == Config.moveAltForward)
+        {
+            Console.Beep();
+            input = EInput.moveAltForward;
+        }
+        else if (key == Config.moveAltBackward)
+        {
+            input = EInput.moveAltBackward;
+        }
+        else if (key == Config.moveAltLeft)
+        {
+            input = EInput.moveAltLeft;
+        }
+        else if (key == Config.moveAltRight)
+        {
+            input = EInput.moveAltRight;
+        }
+
+
+        else if (key == Config.use)
         {
             input = EInput.use;
         }
-        else if (key == config.attack)
+        else if (key == Config.attack)
         {
             input = EInput.attack;
         }
 
-        //Console.WriteLine(Console.ReadKey(true).KeyChar);
+        else if (key == Config.escape)
+        {
+            input = EInput.escape;
+            Environment.Exit(0);
+        }
     }
 
-}
-
-interface IGameState
-{
-
-}
-
-namespace GameState
-{
-    class Intro : IGameState
-    {
-
-    }
-
-    class Menu : IGameState
-    {
-
-    }
-
-    class Game : IGameState
-    {
-
-    }
-
-    class Editor : IGameState
-    {
-
-    }
 }
 
 enum EInput
@@ -232,22 +169,7 @@ enum EInput
     moveAltRight,
 
     use,
-    attack
-}
+    attack,
 
-[Flags]
-enum EUserInput
-{
-    moveForward = 1,
-    moveBackward = 2,
-    moveLeft = 4,
-    moveRight = 8,
-
-    moveAltForward = 16,
-    moveAltBackward = 32,
-    moveAltLeft = 64,
-    moveAltRight = 128,
-
-    use = 256,
-    attack = 512
+    escape
 }

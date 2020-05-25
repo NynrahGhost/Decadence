@@ -1,16 +1,18 @@
 ﻿using System.Text;
 
-abstract class Image
+abstract class Image : IRenderable
 {
     public Shader shader;
     public byte zIndex;
+
+    Image IRenderable.Image => this;
 
     public Image(Shader shader, byte zIndex=127)
     {
         this.shader = shader;
     }
 
-    public abstract StringBuilder Render();
+    public abstract void Render(Vector2d16 position);
 
 
     
@@ -22,7 +24,7 @@ abstract class Image
             get { return frames[current]; }
         }
 
-        short current;
+        short current = 0;
         Image[] frames;
 
         public Animated(Shader shader, byte zIndex = 127) : base(shader, zIndex) { }
@@ -32,9 +34,9 @@ abstract class Image
             this.frames = frames;
         }
 
-        public override StringBuilder Render()
+        public override void Render(Vector2d16 position)
         {
-            return frames[current].Render();
+            frames[current].Render(position);
         }
     }
 
@@ -47,9 +49,9 @@ abstract class Image
             this.points = points;
         }
 
-        public override StringBuilder Render()
+        public override void Render(Vector2d16 position)
         {
-            return null;
+
         }
     }
 
@@ -62,10 +64,8 @@ abstract class Image
             this.dimensions = dimensions;
         }
 
-        public override StringBuilder Render()
+        public override void Render(Vector2d16 position)
         {
-            StringBuilder sb = new StringBuilder();
-
             Vector2d16 start = new Vector2d16(0,0);
             Vector2d16 end = dimensions;
 
@@ -73,12 +73,25 @@ abstract class Image
             {
                 for (int x = 0; x < dimensions._1; ++x)
                 {
-                    sb.Append(shader.Compute(new Vector2d16(x, y), start, end));
+                    int posX = position._1 - Renderer.worldPosition._1 + x;
+                    int posY = position._2 - Renderer.worldPosition._2 + y;
+                    if (posX < 0 || posX >= (Renderer.Width) || posY < 0 || posY >= (Renderer.Height))
+                        continue;
+                    Renderer.buffer[posY, posX] = shader.Compute(new Vector2d16(x, y), start, end);
                 }
-                sb.Append("\u001b[1B\u001b["+dimensions._1+'D');
             }
-            sb.Append("\u001b["+ dimensions._2+'A');
-            return sb;
+
+            /*for (int y = -(dimensions._2 << 1); y < dimensions._2 << 1; ++y)
+            {
+                for (int x = -(dimensions._1 << 1); x < dimensions._1 << 1; ++x)
+                {
+                    int posX = Renderer.worldPosition._1 - position._1 + x;
+                    int posY = Renderer.worldPosition._2 - position._2 + y;
+                    if (posX < Renderer.Width << 1 || posY < Renderer.Height << 1)
+                        continue;
+                    Renderer.buffer[posX, posY] = shader.Compute(new Vector2d16(x, y) + (dimensions*0.5), start, end);
+                }
+            }*/
         }
     }
 
@@ -115,7 +128,7 @@ abstract class Image
             this.density = density;
         }
 
-        public override StringBuilder Render()
+        public override void Render(Vector2d16 position)
         {
             StringBuilder sb = new StringBuilder();
 
@@ -146,8 +159,6 @@ abstract class Image
                 sb.Append(shader.Compute(current, start, end));
                 previous = current;
             }
-
-            return sb;
         }
     }
 
@@ -166,7 +177,7 @@ abstract class Image
             this.density = density;
         }
 
-        public override StringBuilder Render()
+        public override void Render(Vector2d16 position)
         {
             StringBuilder sb = new StringBuilder();
 
@@ -201,7 +212,6 @@ abstract class Image
                 }
                 previous = current;
             }
-            return sb;
         }
     }
 }

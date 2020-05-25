@@ -11,8 +11,8 @@ class VisualObject : GameObject, IRenderable
         this.image = image;
     }
 
-    public StringBuilder Render()
+    public void Render(Vector2d16 position)
     {
-        return image.Render();
+        image.Render(position);
     }
 }
