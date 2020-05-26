@@ -1,68 +1,51 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 abstract class ResourceLoader
 {
-    public static string root = @"C:\Users\Ghost\source\repos\ASCII_Game\ASCII_Game\";
+    public static string root = System.IO.Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName+'\\';
 
-    public static Dictionary<uint, string> stringPool = new Dictionary<uint, string>();
+    public static Dictionary<string, Atlas> atlasPool = new Dictionary<string, Atlas>();
 
-    public static Dictionary<string, Atlas> symbolTextures = new Dictionary<string, Atlas>();
-    public static Dictionary<string, Atlas> foregroundTextures = new Dictionary<string, Atlas>();
-    public static Dictionary<string, Atlas> backgroundTextures = new Dictionary<string, Atlas>();
-
-    public IResource LoadResource(string path)
+    public static T LoadResource<T>(string path)
     {
-        return null;
+        string[] splittedPath = path.Split('\\');
+
+        switch (splittedPath[0])
+        {
+            case "Textures":
+                return (T)LoadAtlas(path);
+        }
+        Console.WriteLine(splittedPath[0]);
+        return default(T);
+    }
+
+    public static IResource LoadResource(string path)
+    {
+        return LoadResource<IResource>(path);
+    }
+
+    public static IResource LoadAtlas(string fileName)
+    {
+        Atlas atlas;
+        ResourceLoader.atlasPool.TryGetValue(fileName, out atlas);
+        if (atlas != null)
+            return atlas;
+
+        string[] splittedName = fileName.Split('.');
+
+        if (splittedName[1].Equals("bms"))
+            atlas = new Atlas16(fileName);
+        else
+            atlas = new Atlas8(fileName);
+
+        atlasPool.Add(fileName, atlas);
+
+        return atlas;
     }
 }
-
+ 
 interface IResource
 {
     public static string notLoaded = "Resource not loaded";
-}
-
-struct String : IResource
-{
-    private uint id;
-
-    private String(uint id)
-    {
-        this.id = id;
-    }
-
-    public static implicit operator String(string str)
-    {
-        if (ResourceLoader.stringPool.ContainsValue(str))
-        {
-            string tmp;
-            foreach (uint key in ResourceLoader.stringPool.Keys)
-            {
-                ResourceLoader.stringPool.TryGetValue(key, out tmp);
-                if (tmp.Equals(str))
-                    return new String(key);
-            }
-        }
-        for (uint key = 0; key < uint.MaxValue - 1; ++key)
-            if (!ResourceLoader.stringPool.ContainsKey(key))
-            {
-                ResourceLoader.stringPool.Add(key, str);
-                return new String(key);
-            }
-        throw new ResourceException("String pool is full!");
-    }
-
-    public static implicit operator string(String str)
-    {
-        string res;
-        if (ResourceLoader.stringPool.TryGetValue(str.id, out res))
-        {
-            return res;
-        }
-        else
-        {
-            return IResource.notLoaded;
-        }
-    }
 }

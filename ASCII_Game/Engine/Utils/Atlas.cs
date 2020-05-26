@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-interface Atlas
+interface Atlas : IResource
 {
     public int GetData(Vector2d32 position);
 }
@@ -11,9 +11,9 @@ struct Atlas8 : Atlas
 {
     byte[,] data;
 
-    public Atlas8(string path)
+    public Atlas8(string fileName)
     {
-        byte[] bytes = System.IO.File.ReadAllBytes(path);
+        byte[] bytes = System.IO.File.ReadAllBytes(ResourceLoader.root + @"Textures\"+fileName);
         int width = BitConverter.ToInt32(bytes, 0);
         int height = BitConverter.ToInt32(bytes, 0);
 
@@ -35,9 +35,9 @@ struct Atlas16 : Atlas
 {
     char[,] data;
 
-    public Atlas16(string path)
+    public Atlas16(string fileName)
     {
-        string[] lines = System.IO.File.ReadAllLines(path);
+        string[] lines = System.IO.File.ReadAllLines(ResourceLoader.root + fileName);
 
         data = new char[lines[0].Length, lines.Length];
 

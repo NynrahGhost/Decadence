@@ -20,7 +20,7 @@ class Game
         Shader gradientShader = new Shader.Gradient(new Color8fg(255, 0, 0), new Color8fg(255, 255, 255), new Color8bg(255, 0, 0), new Color8bg(0, 0, 255), ' ');
 
 
-        Shader textureShader = new Shader.Texture(new Atlas16(@"C:\Users\Ghost\source\repos\ASCII_Game\ASCII_Game\Textures\characters.bms"), new Vector2d32(0, 2), new Vector2d32(7, 7));
+        Shader textureShader = new Shader.Texture(ResourceLoader.LoadResource<Atlas16>(@"Textures\characters.bms"), new Vector2d32(0, 2), new Vector2d32(7, 7));
 
         Image textureImage = new Image.Rectangle(textureShader, new Vector2d16(7, 6), 127);
 
@@ -35,14 +35,14 @@ class Game
         Shader blackShader = new Shader.Plain(new Color8fg(0, 0, 0), new Color8bg(0, 0, 0), ' ');
         Image blackImage = new Image.Rectangle(blackShader, new Vector2d16(80, 25), 250);
 
-        //list.Add(new VisualObject( new Vector2d16(-5, 0), plainImage));
+        //list.Add(new VisualObject( new Vector2d16(-35, 5), plainImage));
         list.Add(new VisualObject( new Vector2d16(30, 10), gradientImage));
 
         //list.Add(new VisualObject(new Vector2d16(0, 0), blackImage));
 
         //list.Add(new VisualObject(new Vector2d16(30, 10), plainImage2));
 
-        list.Add(new VisualObject(new Vector2d16(0, 0), textureImage));
+        list.Add(new VisualObject(new Vector2d16(30, 5), textureImage));
         //list.Add(new VisualObject(new Vector2d16(0, 0), blackImage));
 
         Renderer.SetObjects(list);

@@ -264,7 +264,18 @@ struct Angle
     }
 }
 
-struct Color8fg
+interface Color
+{
+    public bool IsNull();
+
+    public byte GetRed();
+
+    public byte GetGreen();
+
+    public byte GetBlue();
+}
+
+struct Color8fg : Color
 {
     byte color;
 
@@ -317,7 +328,7 @@ struct Color8fg
     }
 }
 
-struct Color8bg
+struct Color8bg : Color
 {
     byte color;
 
@@ -370,7 +381,7 @@ struct Color8bg
     }
 }
 
-struct Color24fg
+struct Color24fg : Color
 {
     byte red;
     byte green;
@@ -383,13 +394,33 @@ struct Color24fg
         blue = (byte)b;
     }
 
+    public byte GetRed()
+    {
+        return red;
+    }
+
+    public byte GetGreen()
+    {
+        return green;
+    }
+
+    public byte GetBlue()
+    {
+        return blue;
+    }
+
+    public bool IsNull()
+    {
+        return red + green + blue == 0;
+    }
+
     public static implicit operator string(Color24fg color)
     {
         return "\u001b[38;2;" + color.red + ';' + color.green + ';' + color.blue + 'm';
     }
 }
 
-struct Color24bg
+struct Color24bg : Color
 {
     byte red;
     byte green;
@@ -400,6 +431,26 @@ struct Color24bg
         red = (byte) r;
         green = (byte)g;
         blue = (byte) b;
+    }
+
+    public byte GetRed()
+    {
+        return red;
+    }
+
+    public byte GetGreen()
+    {
+        return green;
+    }
+
+    public byte GetBlue()
+    {
+        return blue;
+    }
+
+    public bool IsNull()
+    {
+        return red + green + blue == 0;
     }
 
     public static implicit operator string(Color24bg color)
