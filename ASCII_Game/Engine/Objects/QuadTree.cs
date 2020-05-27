@@ -4,9 +4,11 @@ using System.Text;
 
 class QuadTree
 {
-    Vector2d16 dimensions;
+    protected Vector2d16 dimensions;
 
-    Node root;
+    protected Node root;
+
+    protected QuadTree() { }
 
     public QuadTree(Vector2d16 dimensions, int depth, KinematicObject[] objects) : this(dimensions, depth)
     {
@@ -45,7 +47,7 @@ class QuadTree
         root.Add(obj);
     }
 
-    abstract class Node
+    protected abstract class Node
     {
         public GameObject[] objects;
 

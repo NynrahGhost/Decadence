@@ -15,8 +15,10 @@ abstract class ResourceLoader
         {
             case "Textures":
                 return (T)LoadAtlas(path);
+            case "Maps":
+                return (T)LoadMap(path);
         }
-        Console.WriteLine(splittedPath[0]);
+
         return default(T);
     }
 
@@ -42,6 +44,12 @@ abstract class ResourceLoader
         atlasPool.Add(fileName, atlas);
 
         return atlas;
+    }
+
+    public static IResource LoadMap(string fileName)
+    {
+        
+        return null;
     }
 }
  

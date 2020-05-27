@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-abstract class INIReader
+abstract class INI
 {
     public static Dictionary<string, string> Read(string path)
     {
@@ -15,7 +15,6 @@ abstract class INIReader
         char ch;
         while(input.Peek() != -1)
         {
-            System.Console.WriteLine(state);
             ch = (char)input.Read();
             if (state == EState.comment)
                 if(ch == '\n')
@@ -34,6 +33,9 @@ abstract class INIReader
                 case '\r':
                     break;
                 case '\t':
+                    break;
+                case '#':
+                    state = EState.comment;
                     break;
                 case '=':
                     if (state == EState.key)
@@ -68,6 +70,8 @@ abstract class INIReader
                     }
                     break;
                 default :
+                    if (state == EState.comment)
+                        continue;
                     if (state == EState.value)
                         value.Append(ch);
                     if (state == EState.key)
@@ -76,7 +80,32 @@ abstract class INIReader
             }
         }
         input.Close();
+
+        if (key.Length != 0)
+        {
+            dictionary.Add(key.ToString(), value.ToString());
+            key.Clear();
+            value.Clear();
+        }
+
         return dictionary;
+    }
+
+    public static void Write(string path, Dictionary<string, string> dict)
+    {
+        StringBuilder sb = new StringBuilder();
+        foreach (KeyValuePair<string, string> entry in dict)
+        {
+            if (entry.Value.StartsWith('[') || entry.Key.StartsWith('#'))
+                sb.Append(entry.Value);
+            else
+                sb.Append(entry.Key+"= "+entry.Value);
+            sb.Append('\n');
+        }
+
+        StreamWriter input = new StreamWriter(ResourceLoader.root + path);
+        input.Write(sb);
+        input.Close();
     }
 
     enum EState

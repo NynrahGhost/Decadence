@@ -19,6 +19,7 @@ abstract class Renderer
 
     public static void Render()
     {
+        /*
         for (int y = 0; y < Config.screenHeight; ++y)
         {
             for (int x = 0; x < Config.screenWidth; ++x)
@@ -27,11 +28,10 @@ abstract class Renderer
             }
         }
         Console.Write(buffer[0,0]);
-
+        */
         foreach (GameObject obj in objects)
         {
             ((IRenderable)obj).Render(obj.position);
-            Console.Write("Here: " + obj.GetBoundingBox());
         }
 
         System.Text.StringBuilder sb = new System.Text.StringBuilder();
@@ -75,9 +75,5 @@ abstract class Renderer
         }
         sb.Append(ANSII.ResetInitial());
         Console.Write(sb.ToString());
-
-        //Console.Write("\x1B[38;5;0]");
-
-        Console.WriteLine(sb.Length);
     }
 }

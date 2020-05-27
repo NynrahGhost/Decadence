@@ -10,6 +10,10 @@ class Game
 
     public Game()
     {
+        Config.RestoreDefaults();
+        Config.Load(@"Config\config.ini");
+        Config.Save(@"Config\" + Config.profileName + ".ini");
+
         Console.OutputEncoding = System.Text.Encoding.UTF8;
         Console.SetWindowSize(Config.screenWidth, Config.screenHeight);
         Console.CursorVisible = false;
@@ -50,10 +54,9 @@ class Game
 
     static void Main(string[] args)
     {
-        //System.Console.Write(INIReader.Read(@"Config\config.ini").Count);
         
         Game game = new Game();
-
+        
         long delta = DateTime.Now.Ticks;
         int framerate = 1000 / Config.framerate;
 
