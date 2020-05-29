@@ -1,0 +1,16 @@
+{
+	"name": "nameVal",
+	"key": "keyVal",
+	"key2": "key2Val",
+	"array": [true, "2", 3],
+	"obj": {
+		"key": "value",
+		"innerKey": "inner"
+	},
+	"obj2": {
+		"key": "value",
+		"innerKey": "inner"
+	},
+	"key3": "key3Val",
+	"key4": "key4Val"
+}

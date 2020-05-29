@@ -54,14 +54,13 @@ class Game
 
     static void Main(string[] args)
     {
-        
         Game game = new Game();
         
         long delta = DateTime.Now.Ticks;
         int framerate = 1000 / Config.framerate;
 
 
-
+        
         //Console.WriteLine("‗");
         //Console.WriteLine("♥");
         //Console.OutputEncoding = System.Text.Encoding.ASCII;
