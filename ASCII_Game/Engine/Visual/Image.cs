@@ -14,8 +14,7 @@ abstract class Image : IRenderable
 
     public abstract void Render(Vector2d16 position);
 
-
-    
+    public abstract Vector2d16 GetVisualBB();
 
     public class Animated : Image, IRenderable
     {
@@ -38,6 +37,11 @@ abstract class Image : IRenderable
         {
             frames[current].Render(position);
         }
+
+        public override Vector2d16 GetVisualBB()
+        {
+            return frames[current].GetVisualBB();
+        }
     }
 
     class Polygon : Image
@@ -47,6 +51,11 @@ abstract class Image : IRenderable
         public Polygon(Shader shader = null, params Vector2d16[] points) : base(shader)
         {
             this.points = points;
+        }
+
+        public override Vector2d16 GetVisualBB()
+        {
+            throw new System.NotImplementedException();
         }
 
         public override void Render(Vector2d16 position)
@@ -62,6 +71,11 @@ abstract class Image : IRenderable
         public Rectangle(Shader shader, Vector2d16 dimensions, byte zIndex = 0) : base(shader, zIndex)
         {
             this.dimensions = dimensions;
+        }
+
+        public override Vector2d16 GetVisualBB()
+        {
+            return dimensions;
         }
 
         public override void Render(Vector2d16 position)
@@ -128,6 +142,11 @@ abstract class Image : IRenderable
             this.density = density;
         }
 
+        public override Vector2d16 GetVisualBB()
+        {
+            return end - start;
+        }
+
         public override void Render(Vector2d16 position)
         {
             StringBuilder sb = new StringBuilder();
@@ -175,6 +194,11 @@ abstract class Image : IRenderable
             this.middle = middle;
             this.end = end;
             this.density = density;
+        }
+
+        public override Vector2d16 GetVisualBB()
+        {
+            return end - start;
         }
 
         public override void Render(Vector2d16 position)

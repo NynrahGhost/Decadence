@@ -2,8 +2,9 @@
 {
     public abstract void Physics(EInput input);
 
-    public QuadTree map;
+    public Map map;
 
+    public KinematicObject hero;
 
     public class Intro
     {
@@ -17,26 +18,43 @@
 
     public class Game : GameState
     {
-        /*public Game(QuadTree map)
+        public Game()
         {
-
-        }*/
+            Shader gradientShader = new Shader.Gradient(new Color8fg(255, 0, 0), new Color8fg(255, 255, 255), new Color8bg(255, 0, 0), new Color8bg(0, 0, 255), ' ');
+            Image gradientImage = new Image.Rectangle(gradientShader, new Vector2d16(20, 10));
+            Shader textureShader = new Shader.Texture(ResourceLoader.LoadResource<Atlas16>(@"Textures\characters.bms"), new Vector2d32(0, 2), new Vector2d32(7, 7));
+            Image textureImage = new Image.Rectangle(textureShader, new Vector2d16(7, 6), 127);
+            Shape circle = new Shape.Circle(3);
+            var tmp = new GameObject[]
+            {
+                new PhysicalObject(new Vector2d16(30,5), circle, gradientImage),
+                new PhysicalObject(new Vector2d16(50,10), circle, gradientImage)
+            };
+            map = new Map("Test", new Vector2d16(2000,1000), 1, tmp);
+            hero = new KinematicObject(new Vector2d16(40, 15), circle, textureImage);
+        }
 
         public override void Physics(EInput input)
         {
+            if (input == EInput.none)
+                Renderer.SetObjects(map.GetVisuals());
             switch (input)
             {
                 case EInput.moveForward:
-                    Renderer.worldPosition._2 -= 1;
+                    if(hero.Move(hero.position + new Vector2d16(0, -1)))
+                        Renderer.worldPosition._2 -= 1;
                     break;
                 case EInput.moveBackward:
-                    Renderer.worldPosition._2 += 1;
+                    if (hero.Move(hero.position + new Vector2d16(0, 1)))
+                        Renderer.worldPosition._2 += 1;
                     break;
                 case EInput.moveLeft:
-                    Renderer.worldPosition._1 -= 2;
+                    if (hero.Move(hero.position + new Vector2d16(-2, 0)))
+                        Renderer.worldPosition._1 -= 2;
                     break;
                 case EInput.moveRight:
-                    Renderer.worldPosition._1 += 2;
+                    if (hero.Move(hero.position + new Vector2d16(2, 0)))
+                        Renderer.worldPosition._1 += 2;
                     break;
                 case EInput.use:
                     System.Console.Beep();

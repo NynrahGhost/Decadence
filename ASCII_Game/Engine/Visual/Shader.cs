@@ -1,5 +1,4 @@
-﻿
-abstract class Shader
+﻿abstract class Shader
 {
     public abstract Fragment8 Compute(
         Vector2d16 current,

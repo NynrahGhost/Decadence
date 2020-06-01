@@ -15,4 +15,9 @@ class VisualObject : GameObject, IRenderable
     {
         image.Render(position);
     }
+
+    public Vector2d16 GetVisualBB()
+    {
+        return image.GetVisualBB();
+    }
 }

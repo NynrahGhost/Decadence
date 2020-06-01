@@ -10,24 +10,25 @@ class QuadTree
 
     protected QuadTree() { }
 
-    public QuadTree(Vector2d16 dimensions, int depth, KinematicObject[] objects) : this(dimensions, depth)
+    public QuadTree(Vector2d16 dimensions, int depth, GameObject[] objects) : this(dimensions, depth)
     {
         FillTree(objects);
     }
 
     public QuadTree(Vector2d16 dimensions, int depth)
     {
+        this.dimensions = dimensions;
         if(depth == 0)
         {
             root = new Leaf();
             return;
         }
-        root = new Link(dimensions, dimensions/2, depth);
+        root = new Link(dimensions, dimensions / 2, depth);
     }
 
-    public void FillTree(KinematicObject[] objects)
+    public void FillTree(GameObject[] objects)
     {
-        foreach (KinematicObject obj in objects)
+        foreach (GameObject obj in objects)
         {
             root.Add(obj);
         }
@@ -42,43 +43,75 @@ class QuadTree
         return result.ToArray();
     }
 
+    public IRenderable[] GetVisuals()
+    {
+        List<IRenderable> result = new List<IRenderable>();
+        root.GetVisuals(result);
+        return result.ToArray();
+    }
+
     public void Add(GameObject obj)
     {
         root.Add(obj);
     }
 
+
+
     protected abstract class Node
     {
-        public GameObject[] objects;
+        public GameObject[] objects = new GameObject[0];
 
         public abstract void Add(GameObject obj);
 
         public abstract void GetCollisions(List<TactileObject> result, KinematicObject obj);
 
+        public abstract void GetVisuals(List<IRenderable> result);
+
         protected void GetLocalCollisions(List<TactileObject> result, KinematicObject obj)
         {
-            foreach (TactileObject gameObj in objects)
-            {
-                if (obj.Collide(gameObj))
+            if (objects != null)
+                foreach (TactileObject gameObj in objects)
                 {
-                    if (gameObj is Area)
+                    if (obj.Collide(gameObj))
                     {
-                        ((Area)gameObj).Add(obj);
-                    }
-                    else
-                    {
-                        result.Add(gameObj);
+                        if (gameObj is Area)
+                        {
+                            ((Area)gameObj).Add(obj);
+                        }
+                        else
+                        {
+                            result.Add(gameObj);
+                        }
                     }
                 }
-            }
         }
-    
+
+        protected void GetLocalVisuals(List<IRenderable> result)
+        {
+            //Console.WriteLine(objects.ToString());
+            if (objects != null)
+                foreach (IRenderable gameObj in objects)
+                {
+                    Vector2d16 aMin = ((GameObject)gameObj).position - (gameObj.GetVisualBB() * 0.5);
+                    Vector2d16 aMax = ((GameObject)gameObj).position + (gameObj.GetVisualBB() * 0.5);
+                    Vector2d16 bMin = Renderer.worldPosition - Renderer.Dimensions * 0.5;
+                    Vector2d16 bMax = Renderer.worldPosition + Renderer.Dimensions * 0.5;
+                    if (
+                        (aMin._1 <= bMax._1 & aMax._1 >= bMin._1) &&
+                        (aMin._2 <= bMax._2 & aMax._2 >= bMin._2)
+                    )
+                        result.Add(gameObj);
+                }
+        }
+
         protected void AddToArray(GameObject obj)
         {
-            GameObject[] newArr = new GameObject[objects.Length];
+            Console.WriteLine(objects.Length);
+            GameObject[] newArr = new GameObject[objects.Length+1];
             for (int i = 0; i < objects.Length; ++i)
                 newArr[i] = objects[i];
             newArr[objects.Length] = obj;
+            objects = newArr;
         }
     }
 
@@ -93,8 +126,10 @@ class QuadTree
 
         public Link(Vector2d16 dimensions, Vector2d16 position, int depth)
         {
+            //Console.WriteLine(position);
+            dimensions /= 2;
             this.position = position;
-            if(depth-- == 0)
+            if(depth-- <= 0)
             {
                 _1 = new Leaf();
                 _2 = new Leaf();
@@ -103,21 +138,27 @@ class QuadTree
             } 
             else
             {
-                _1 = new Link(dimensions / 2, new Vector2d16(position._1 / 4, position._2 * 3 / 4), depth);
-                _2 = new Link(dimensions / 2, new Vector2d16(position._1 * 3/ 4, position._2 * 3 / 4), depth);
-                _3 = new Link(dimensions / 2, new Vector2d16(position._1 / 4, position._2 / 4), depth);
-                _4 = new Link(dimensions / 2, new Vector2d16(position._1 * 3 / 4, position._2 / 4), depth);
+                _1 = new Link(dimensions, new Vector2d16(position._1 - dimensions._1 / 2, position._2 - dimensions._2 / 2), depth);
+                _2 = new Link(dimensions, new Vector2d16(position._1 + dimensions._1 / 2, position._2 - dimensions._2 / 2), depth);
+                _3 = new Link(dimensions, new Vector2d16(position._1 + dimensions._1 / 2, position._2 + dimensions._2 / 2), depth);
+                _4 = new Link(dimensions, new Vector2d16(position._1 - dimensions._1 / 2, position._2 + dimensions._2 / 2), depth);
+
+                /*_1 = new Link(dimensions / 2, new Vector2d16(position._1 + dimensions._1 / 4, position._2 + dimensions._2 * 3 / 4), depth);
+                _2 = new Link(dimensions / 2, new Vector2d16(position._1 + dimensions._1 * 3/ 4, position._2 + dimensions._2 * 3 / 4), depth);
+                _3 = new Link(dimensions / 2, new Vector2d16(position._1 + dimensions._1 / 4, position._2 + dimensions._2 / 4), depth);
+                _4 = new Link(dimensions / 2, new Vector2d16(position._1 + dimensions._1 * 3 / 4, position._2 + dimensions._2 / 4), depth);*/
             }
 
         }
 
         public override void Add(GameObject obj)
         {
-            Vector2d16 bb = obj.GetBoundingBox();
+            Vector2d16 bb = obj.GetPhysicAABB();
 
             if ((obj.position._1 - position._1 < bb._1 >> 1) || (obj.position._2 - position._2 < bb._2 >> 1))
             {
                 AddToArray(obj);
+                //Console.WriteLine(position);
                 return;
             }
 
@@ -148,10 +189,30 @@ class QuadTree
                 else
                     _4.GetCollisions(result, obj);
         }
+
+        public override void GetVisuals(List<IRenderable> result)
+        {
+            GetLocalVisuals(result);
+            //Console.WriteLine(objects.Length);
+            if (Renderer.Dimensions._1 < position._1)
+                if (Renderer.Dimensions._2 > position._2)
+                    _1.GetVisuals(result);
+                else
+                    _3.GetVisuals(result);
+            else
+                if (Renderer.Dimensions._2 > position._2)
+                _2.GetVisuals(result);
+            else
+                _4.GetVisuals(result);
+        }
     }
 
     class Leaf : Node
     {
+        public Leaf()
+        {
+            //Console.WriteLine("Leaf");
+        }
         public override void Add(GameObject obj)
         {
             AddToArray(obj);
@@ -160,6 +221,11 @@ class QuadTree
         public override void GetCollisions(List<TactileObject> result, KinematicObject obj)
         {
             GetLocalCollisions(result, obj);
+        }
+
+        public override void GetVisuals(List<IRenderable> result)
+        {
+            GetLocalVisuals(result);
         }
     }
 }

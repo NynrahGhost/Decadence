@@ -7,6 +7,10 @@ abstract class ResourceLoader
 
     public static Dictionary<string, Atlas> atlasPool = new Dictionary<string, Atlas>();
 
+    public static Image images;
+
+    public static Shader shaders;
+
     public static T LoadResource<T>(string path)
     {
         string[] splittedPath = path.Split('\\');

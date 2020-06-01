@@ -8,16 +8,8 @@ class Game
 
     public static EInput input = EInput.none;
 
-    public Game()
+    public static void Test()
     {
-        Config.RestoreDefaults();
-        Config.Load(@"Config\config.ini");
-        Config.Save(@"Config\" + Config.profileName + ".ini");
-
-        Console.OutputEncoding = System.Text.Encoding.UTF8;
-        Console.SetWindowSize(Config.screenWidth, Config.screenHeight);
-        Console.CursorVisible = false;
-
         System.Collections.Generic.List<GameObject> list = new System.Collections.Generic.List<GameObject>();
 
         Shader plainShader = new Shader.Plain(new Color8fg(255, 0, 0), new Color8bg(0, 255, 255), ' ');
@@ -40,7 +32,7 @@ class Game
         Image blackImage = new Image.Rectangle(blackShader, new Vector2d16(80, 25), 250);
 
         //list.Add(new VisualObject( new Vector2d16(-35, 5), plainImage));
-        list.Add(new VisualObject( new Vector2d16(30, 10), gradientImage));
+        list.Add(new VisualObject(new Vector2d16(30, 10), gradientImage));
 
         //list.Add(new VisualObject(new Vector2d16(0, 0), blackImage));
 
@@ -49,7 +41,20 @@ class Game
         list.Add(new VisualObject(new Vector2d16(30, 5), textureImage));
         //list.Add(new VisualObject(new Vector2d16(0, 0), blackImage));
 
-        Renderer.SetObjects(list);
+        //Renderer.SetObjects(list);
+    }
+
+    public Game()
+    {
+        Config.RestoreDefaults();
+        Config.Load(@"Config\config.ini");
+        Config.Save(@"Config\" + Config.profileName + ".ini");
+
+        Console.OutputEncoding = System.Text.Encoding.UTF8;
+        Console.SetWindowSize(Config.screenWidth, Config.screenHeight);
+        Console.CursorVisible = false;
+
+        //Test();
     }
 
     static void Main(string[] args)
@@ -59,7 +64,7 @@ class Game
         long delta = DateTime.Now.Ticks;
         int framerate = 1000 / Config.framerate;
 
-
+        //map.
         
         //Console.WriteLine("‗");
         //Console.WriteLine("♥");

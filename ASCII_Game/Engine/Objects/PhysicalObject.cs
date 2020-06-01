@@ -15,4 +15,9 @@ class PhysicalObject : TactileObject, IRenderable
     {
         image.Render(position);
     }
+
+    public Vector2d16 GetVisualBB()
+    {
+        return image.GetVisualBB();
+    }
 }

@@ -10,7 +10,7 @@ class GameObject
         this.position = position;
     }
 
-    public Vector2d16 GetBoundingBox()
+    public Vector2d16 GetPhysicAABB()
     {
         return new Vector2d16(1, 1);
     }

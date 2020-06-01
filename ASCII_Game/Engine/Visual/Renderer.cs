@@ -3,39 +3,36 @@ using System;
 
 abstract class Renderer
 {
-    private static GameObject[] objects;
+    private static IRenderable[] objects;
     public static Vector2d16 worldPosition = new Vector2d16(0, 0);
 
+    public static Vector2d16 Dimensions => new Vector2d16(Config.screenWidth, Config.screenHeight);
     public static int Width => Config.screenWidth;
     public static int Height => Config.screenHeight;
 
     public static Fragment8[,] buffer = new Fragment8[Config.screenHeight, Config.screenWidth];
 
-    public static void SetObjects(List<GameObject> objects)
+    public static void SetObjects(IRenderable[] objects)
     {
-        objects.Sort((x, y) => ((IRenderable)x).Image.zIndex.CompareTo(((IRenderable)y).Image.zIndex));
-        Renderer.objects = objects.ToArray();
+        //.Sort((x, y) => x.Image.zIndex.CompareTo(y.Image.zIndex));
+        Array.Sort(objects, delegate (IRenderable _1, IRenderable _2) {
+            return _1.Image.zIndex.CompareTo(_2.Image.zIndex);
+        });
+
+        Renderer.objects = objects;
     }
 
     public static void Render()
     {
-        /*
-        for (int y = 0; y < Config.screenHeight; ++y)
-        {
-            for (int x = 0; x < Config.screenWidth; ++x)
+        //Console.Write(worldPosition);
+        if (objects.Length != 0)
+            foreach (IRenderable obj in objects)
             {
-                //buffer[y, x] = new Fragment8(new Color8fg(0,0,0), new Color8bg(0,0,0), ' ');
+                obj.Render(((GameObject)obj).position);
             }
-        }
-        Console.Write(buffer[0,0]);
-        */
-        foreach (GameObject obj in objects)
-        {
-            ((IRenderable)obj).Render(obj.position);
-        }
-
+        Game.gameState.hero.Render(Game.gameState.hero.position);
+        
         System.Text.StringBuilder sb = new System.Text.StringBuilder();
-        //sb.Append(ANSII.CursorPosition(0, 0));
 
         int shift = 0;
         Color8fg fg = new Color8fg(0);
@@ -66,7 +63,6 @@ abstract class Renderer
                     bg = current.background;
                 }
 
-                //sb.Append(fg+bg+current.symbol);
                 if(shift>0)
                     sb.Append(ANSII.CursorRight(shift));
                 sb.Append(fg + bg + current.symbol);

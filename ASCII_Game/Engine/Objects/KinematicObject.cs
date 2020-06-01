@@ -5,13 +5,15 @@
 
     }
 
-    public void Move(Vector2d16 position)
+    public bool Move(Vector2d16 position)
     {
         Vector2d16 oldPosition = this.position;
         this.position = position;
         if (Game.gameState.map.GetCollisions(this).Length > 0)
         {
             this.position = oldPosition;
+            return false;
         }
+        return true;
     }
 }

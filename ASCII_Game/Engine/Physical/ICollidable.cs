@@ -4,5 +4,7 @@ using System.Text;
 
 interface ICollidable
 {
-    public bool Collide(GameObject obj);
+    public Shape Shape { get; }
+
+    public bool Collide(ICollidable obj);
 }
