@@ -20,6 +20,8 @@
     {
         public Game()
         {
+            Shader plainShader = new Shader.Plain(new Color8fg(0, 0, 0), new Color8bg(0, 0, 0), ' ');
+            Image plainImage = new Image.Rectangle(plainShader, new Vector2d16(300, 150));
             Shader gradientShader = new Shader.Gradient(new Color8fg(255, 0, 0), new Color8fg(255, 255, 255), new Color8bg(255, 0, 0), new Color8bg(0, 0, 255), ' ');
             Image gradientImage = new Image.Rectangle(gradientShader, new Vector2d16(20, 10));
             Shader textureShader = new Shader.Texture(ResourceLoader.LoadResource<Atlas16>(@"Textures\characters.bms"), new Vector2d32(0, 2), new Vector2d32(7, 7));
@@ -27,6 +29,7 @@
             Shape circle = new Shape.Circle(3);
             var tmp = new GameObject[]
             {
+                new VisualObject(new Vector2d16(0, 0), plainImage),
                 new PhysicalObject(new Vector2d16(30,5), circle, gradientImage),
                 new PhysicalObject(new Vector2d16(50,10), circle, gradientImage)
             };

@@ -34,9 +34,9 @@ class QuadTree
         }
     }
 
-    public TactileObject[] GetCollisions(KinematicObject obj)
+    public ICollidable[] GetCollisions(KinematicObject obj)
     {
-        List<TactileObject> result = new List<TactileObject>();
+        List<ICollidable> result = new List<ICollidable>();
 
         root.GetCollisions(result, obj);
 
@@ -63,24 +63,28 @@ class QuadTree
 
         public abstract void Add(GameObject obj);
 
-        public abstract void GetCollisions(List<TactileObject> result, KinematicObject obj);
+        public abstract void GetCollisions(List<ICollidable> result, KinematicObject obj);
 
         public abstract void GetVisuals(List<IRenderable> result);
 
-        protected void GetLocalCollisions(List<TactileObject> result, KinematicObject obj)
+        protected void GetLocalCollisions(List<ICollidable> result, KinematicObject obj)
         {
             if (objects != null)
-                foreach (TactileObject gameObj in objects)
+                foreach (GameObject gameObj in objects)
                 {
-                    if (obj.Collide(gameObj))
+                    if (gameObj is ICollidable)
                     {
-                        if (gameObj is Area)
+                        ICollidable collidable = gameObj as ICollidable;
+                        if (obj.Collide(collidable))
                         {
-                            ((Area)gameObj).Add(obj);
-                        }
-                        else
-                        {
-                            result.Add(gameObj);
+                            if (gameObj is Area)
+                            {
+                                ((Area)gameObj).Add(obj);
+                            }
+                            else
+                            {
+                                result.Add(collidable);
+                            }
                         }
                     }
                 }
@@ -174,7 +178,7 @@ class QuadTree
                     _4.Add(obj);
         }
 
-        public override void GetCollisions(List<TactileObject> result, KinematicObject obj)
+        public override void GetCollisions(List<ICollidable> result, KinematicObject obj)
         {
             GetLocalCollisions(result, obj);
 
@@ -218,7 +222,7 @@ class QuadTree
             AddToArray(obj);
         }
 
-        public override void GetCollisions(List<TactileObject> result, KinematicObject obj)
+        public override void GetCollisions(List<ICollidable> result, KinematicObject obj)
         {
             GetLocalCollisions(result, obj);
         }
