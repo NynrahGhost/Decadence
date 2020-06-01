@@ -16,7 +16,7 @@ class Game
         Shader gradientShader = new Shader.Gradient(new Color8fg(255, 0, 0), new Color8fg(255, 255, 255), new Color8bg(255, 0, 0), new Color8bg(0, 0, 255), ' ');
 
 
-        Shader textureShader = new Shader.Texture(ResourceLoader.LoadResource<Atlas16>(@"Textures\characters.bms"), new Vector2d32(0, 2), new Vector2d32(7, 7));
+        Shader textureShader = new Shader.TextureSymbol(ResourceLoader.LoadResource<Atlas16>(@"Textures\characters.bms"), new Vector2d32(0, 2), new Vector2d32(7, 7));
 
         Image textureImage = new Image.Rectangle(textureShader, new Vector2d16(7, 6), 127);
 
@@ -64,14 +64,16 @@ class Game
         long delta = DateTime.Now.Ticks;
         int framerate = 1000 / Config.framerate;
 
+        Shader earthShader = new Shader.TextureSymbol(ResourceLoader.LoadResource<AtlasPNG>(@"Textures\earth.png"), new Vector2d32(0, 0), new Vector2d32(15, 15));
+
         //map.
-        
+
         //Console.WriteLine("‗");
         //Console.WriteLine("♥");
         //Console.OutputEncoding = System.Text.Encoding.ASCII;
         //Thread.Sleep(500);
 
-        
+
         while (running)
         {
             delta = DateTime.Now.Ticks - delta;

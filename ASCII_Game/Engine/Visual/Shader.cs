@@ -83,13 +83,13 @@
 
     }
 
-    public class Texture : Shader
+    public class TextureSymbol : Shader
     {
         Atlas atlas;
         Vector2d32 start;
         Vector2d32 end;
 
-        public Texture(Atlas atlas, Vector2d32 start, Vector2d32 end)
+        public TextureSymbol(Atlas atlas, Vector2d32 start, Vector2d32 end)
         {
             this.atlas = atlas;
             this.start = start;
@@ -98,7 +98,27 @@
 
         public override Fragment8 Compute(Vector2d16 current, Vector2d16 start, Vector2d16 end)
         {
-            return new Fragment8( new Color8fg(0), new Color8bg(0), (char) atlas.GetData(this.start - start + current));
+            return new Fragment8( new Color8fg(255,255,255), new Color8bg(0), (char) atlas.GetData(this.start - start + current));
+        }
+    }
+
+    public class TextureBackground : Shader
+    {
+        Atlas atlas;
+        Vector2d32 start;
+        Vector2d32 end;
+
+        public TextureBackground(Atlas atlas, Vector2d32 start, Vector2d32 end)
+        {
+            this.atlas = atlas;
+            this.start = start;
+            this.end = end;
+        }
+
+        public override Fragment8 Compute(Vector2d16 current, Vector2d16 start, Vector2d16 end)
+        {
+            System.Drawing.Color color = System.Drawing.Color.FromArgb(atlas.GetData(this.start - start + current));
+            return new Fragment8(new Color8fg(0), new Color8bg(color.R, color.G, color.B), ' ');
         }
     }
 }

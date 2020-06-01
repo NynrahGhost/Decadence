@@ -44,6 +44,36 @@ abstract class Image : IRenderable
         }
     }
 
+    public class Group : Image, IRenderable
+    {
+        Image[] group;
+
+        public Group(Shader shader, byte zIndex = 127) : base(shader, zIndex) { }
+
+        public Group(Shader shader, Image[] group, byte zIndex = 127) : base(shader, zIndex)
+        {
+            this.group = group;
+        }
+
+        public override void Render(Vector2d16 position)
+        {
+            foreach (Image image in group)
+                image.Render(position);
+        }
+
+        public override Vector2d16 GetVisualBB()
+        {
+            Vector2d16 max = new Vector2d16(0, 0);
+            foreach(Image image in group)
+            {
+                Vector2d16 current = image.GetVisualBB();
+                if (current._1 * current._2 > max._1 * max._2)
+                    max = current;
+            }
+            return max;
+        }
+    }
+
     class Polygon : Image
     {
         public Vector2d16[] points;

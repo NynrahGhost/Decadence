@@ -18,7 +18,7 @@ abstract class ResourceLoader
         switch (splittedPath[0])
         {
             case "Textures":
-                return (T)LoadAtlas(path);
+                return (T)(dynamic)LoadAtlas(path);
             case "Maps":
                 return (T)LoadMap(path);
         }
@@ -34,16 +34,24 @@ abstract class ResourceLoader
     public static IResource LoadAtlas(string fileName)
     {
         Atlas atlas;
-        ResourceLoader.atlasPool.TryGetValue(fileName, out atlas);
+        atlasPool.TryGetValue(fileName, out atlas);
         if (atlas != null)
             return atlas;
 
         string[] splittedName = fileName.Split('.');
 
-        if (splittedName[1].Equals("bms"))
-            atlas = new Atlas16(fileName);
-        else
-            atlas = new Atlas8(fileName);
+        switch (splittedName[1])
+        {
+            case "bms":
+                atlas = new Atlas16(fileName);
+                break;
+            case "png":
+                atlas = new AtlasPNG(fileName);
+                break;
+            default:
+                atlas = new Atlas8(fileName);
+                break;
+        }
 
         atlasPool.Add(fileName, atlas);
 

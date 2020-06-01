@@ -24,13 +24,18 @@
             Image plainImage = new Image.Rectangle(plainShader, new Vector2d16(300, 150));
             Shader gradientShader = new Shader.Gradient(new Color8fg(255, 0, 0), new Color8fg(255, 255, 255), new Color8bg(255, 0, 0), new Color8bg(0, 0, 255), ' ');
             Image gradientImage = new Image.Rectangle(gradientShader, new Vector2d16(20, 10));
-            Shader textureShader = new Shader.Texture(ResourceLoader.LoadResource<Atlas16>(@"Textures\characters.bms"), new Vector2d32(0, 2), new Vector2d32(7, 7));
+            Shader textureShader = new Shader.TextureSymbol(ResourceLoader.LoadResource<Atlas16>(@"Textures\characters.bms"), new Vector2d32(0, 2), new Vector2d32(7, 7));
             Image textureImage = new Image.Rectangle(textureShader, new Vector2d16(7, 6), 127);
+
+            Shader earthShader = new Shader.TextureBackground(ResourceLoader.LoadResource<AtlasPNG>(@"Textures\earth.png"), new Vector2d32(0, 0), new Vector2d32(15, 15));
+            Image earthImage = new Image.Rectangle(earthShader, new Vector2d16(30, 15), 126);
+
             Shape circle = new Shape.Circle(3);
             var tmp = new GameObject[]
             {
                 new VisualObject(new Vector2d16(0, 0), plainImage),
-                new PhysicalObject(new Vector2d16(30,5), circle, gradientImage),
+                new VisualObject(new Vector2d16(10, 0), earthImage),
+                //new PhysicalObject(new Vector2d16(30,5), circle, gradientImage),
                 new PhysicalObject(new Vector2d16(50,10), circle, gradientImage)
             };
             map = new Map("Test", new Vector2d16(2000,1000), 1, tmp);
