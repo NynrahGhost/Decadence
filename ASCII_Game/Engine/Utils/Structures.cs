@@ -485,3 +485,28 @@ struct Fragment8
     }
 }
 
+struct Fragment24
+{
+    public Color24fg foreground;
+    public Color24bg background;
+    public char symbol;
+
+    public static Fragment24 nullFragment = new Fragment24(new Color24fg(0,0,0), new Color24bg(0,0,0), (char)0);
+
+    public bool IsNull()
+    {
+        return foreground.IsNull() && background.IsNull() && (symbol == 0);
+    }
+
+    public Fragment24(Color24fg foreground, Color24bg background, char symbol)
+    {
+        this.foreground = foreground;
+        this.background = background;
+        this.symbol = symbol;
+    }
+
+    public static implicit operator string(Fragment24 fragment)
+    {
+        return fragment.foreground + fragment.background + fragment.symbol;
+    }
+}

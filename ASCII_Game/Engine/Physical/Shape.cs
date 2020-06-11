@@ -8,18 +8,18 @@ abstract class Shape
 
     public abstract bool Collide(Vector2d16 ownPosition, Shape shape, Vector2d16 position);
 
-    public static bool Collide(Circle circle1, Vector2d16 pos1, Circle circle2, Vector2d16 pos2)
+    private static bool Collide(Circle circle1, Vector2d16 pos1, Circle circle2, Vector2d16 pos2)
     {
         return pos1.Distance(pos2) < circle1.radius + circle2.radius;
     }
 
-    public static bool Collide(Circle circle, Vector2d16 pos1, Rectangle rectangle, Vector2d16 pos2)
+    private static bool Collide(Circle circle, Vector2d16 pos1, Rectangle rectangle, Vector2d16 pos2)
     {
         //return pos1.Distance(pos2) < circle.radius + circle2.radius;
         return false;
     }
 
-    public static bool Collide(Rectangle rectangle1, Vector2d16 pos1, Rectangle rectangle2, Vector2d16 pos2)
+    private static bool Collide(Rectangle rectangle1, Vector2d16 pos1, Rectangle rectangle2, Vector2d16 pos2)
     {
         //return pos1.Distance(pos2) < circle.radius + circle2.radius;
         return false;

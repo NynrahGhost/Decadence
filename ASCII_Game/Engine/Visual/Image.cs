@@ -10,6 +10,7 @@ abstract class Image : IRenderable
     public Image(Shader shader, byte zIndex=127)
     {
         this.shader = shader;
+        this.zIndex = zIndex;
     }
 
     public abstract void Render(Vector2d16 position);

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Text;
 
 abstract class JSON
@@ -155,31 +156,91 @@ abstract class JSON
         throw new JSONFormatException("Invalid value: " + value);
     }
 
-    public static string ToString(Dictionary<string, object> json)
+    public static StringBuilder ToString(Dictionary<string, object> json)
     {
         StringBuilder sb = new StringBuilder();
+        sb.Append('{');
         foreach (var entry in json)
         {
-            if (entry.Value.GetType() == json.GetType())
-                foreach (var entry2 in ((System.Collections.Generic.Dictionary<string, object>)entry.Value))
-                    sb.Append('\t' + entry2.Key + ": " + entry2.Value);
-            else if (entry.Value.GetType() == (new System.Collections.Generic.List<object>()).GetType())
+            sb.Append("\n\t\""+entry.Key+"\": ");
+            switch (entry.Value)
             {
-                sb.Append(entry.Key + ": ");
-                foreach (var entry3 in ((System.Collections.Generic.List<object>)entry.Value))
-                    sb.Append(entry3 + " ");
+                case Dictionary<string, object> d:
+                    sb.Append(ToString(d));
+                    break;
+                case List<object> l:
+                    sb.Append(ToString(l));
+                    break;
+                default:
+                    sb.Append(ToString(entry.Value));
+                    break;
             }
-            else
-                sb.Append(entry.Key + ": " + entry.Value);
-            sb.Append('\n');
         }
-        
-        return sb.ToString();
+        sb.Append("\n}\n");
+        return sb;
     }
 
-    class JSONObject : Dictionary<string, object>
+    public static StringBuilder ToString(List<object> array)
     {
+        StringBuilder sb = new StringBuilder();
+        sb.Append("[\n");
+        foreach (var entry in array)
+        {
+            sb.Append(' ');
+            switch (entry)
+            {
+                case Dictionary<string, object> d:
+                    sb.Append(ToString(d));
+                    break;
+                case List<object> l:
+                    sb.Append(ToString(l));
+                    break;
+                default:
+                    sb.Append(ToString(entry));
+                    break;
+            }
+        }
+        sb.Append("]\n");
+        return sb;
+    }
+
+    public static StringBuilder ToString(object obj)
+    {
+        StringBuilder sb = new StringBuilder();
+        switch (obj)
+        {
+            case string s:
+                sb.Append('"' + s + '"');
+                break;
+            default:
+                sb.Append(obj);
+                break;
+        }
+        return sb;
+    }
+
+    public static Dictionary<string, object> ToJSON(object obj)
+    {
+        Dictionary<string, object> dict = new Dictionary<string, object>();
         
+        dict.Add("TypeName", obj.GetType().Name);
+        
+        foreach (FieldInfo mi in obj.GetType().GetFields())
+        {
+            if (mi.GetValue(obj).GetType().IsPrimitive &&
+                mi.GetValue(obj).GetType().IsArray
+                )
+                dict.Add(mi.Name, mi.GetValue(obj));
+            else
+                dict.Add(mi.Name, ToJSON(mi.GetValue(obj)));
+        }
+
+        return dict;
+    }
+
+    public static void Write(Dictionary<string, object> json, string path)
+    {
+
     }
 
     enum EState
@@ -187,3 +248,42 @@ abstract class JSON
         key, value
     }
 }
+
+/*
+interface JSONComponent { }
+
+class JSONObject : Dictionary<string, JSONComponent>, JSONComponent
+{
+    public static implicit operator JSONObject(Dictionary<string, object> v)
+    {
+        return new JSONObject();
+    }
+}
+
+class JSONArray : List<JSONComponent> , JSONComponent
+{
+
+}
+
+class JSONText : JSONComponent
+{
+    private readonly string _1;
+
+    private JSONText(string text)
+    {
+        _1 = text;
+    }
+
+    public static implicit operator string(JSONText text)
+    {
+        return text._1;
+    }
+
+    public static implicit operator JSONText(string text)
+    {
+        return new JSONText(text);
+    }
+}
+
+class JSONNumber
+*/

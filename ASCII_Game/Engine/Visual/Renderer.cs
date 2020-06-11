@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System;
+﻿using System;
 
 abstract class Renderer
 {
@@ -15,11 +14,13 @@ abstract class Renderer
     public static void SetObjects(IRenderable[] objects)
     {
         //.Sort((x, y) => x.Image.zIndex.CompareTo(y.Image.zIndex));
+        
         Array.Sort(objects, delegate (IRenderable _1, IRenderable _2) {
             return _1.Image.zIndex.CompareTo(_2.Image.zIndex);
         });
-
+        //objects.OrderBy(IRenderable => IRenderable.Image.zIndex).ToArray<IRenderable>();
         Renderer.objects = objects;
+        //Renderer.objects = objects.OrderBy(IRenderable => IRenderable.Image.zIndex).ToArray();
     }
 
     public static void Render()

@@ -64,8 +64,8 @@ class Game
         long delta = DateTime.Now.Ticks;
         int framerate = 1000 / Config.framerate;
 
-        Shader earthShader = new Shader.TextureSymbol(ResourceLoader.LoadResource<AtlasPNG>(@"Textures\earth.png"), new Vector2d32(0, 0), new Vector2d32(15, 15));
-
+        //Console.WriteLine(JSON.ToString(JSON.ToJSON(new Game())));
+        
         //map.
 
         //Console.WriteLine("‗");
@@ -81,7 +81,7 @@ class Game
             game.Inputs();
             game.Physics(delta * 0.0000001f);
             game.Render(delta * 0.0000001f);
-            
+
             delta = DateTime.Now.Ticks;
             Thread.Sleep(framerate);
         }
