@@ -98,8 +98,10 @@ class QuadTree
                 {
                     Vector2d16 aMin = ((GameObject)gameObj).position - (gameObj.GetVisualBB() * 0.5);
                     Vector2d16 aMax = ((GameObject)gameObj).position + (gameObj.GetVisualBB() * 0.5);
-                    Vector2d16 bMin = Renderer.worldPosition - Renderer.Dimensions * 0.5;
-                    Vector2d16 bMax = Renderer.worldPosition + Renderer.Dimensions * 0.5;
+                    //Vector2d16 bMin = Renderer.worldPosition - Renderer.Dimensions * 0.5;
+                    //Vector2d16 bMax = Renderer.worldPosition + Renderer.Dimensions * 0.5;
+                    Vector2d16 bMin = Renderer.worldPosition;
+                    Vector2d16 bMax = Renderer.worldPosition + Renderer.Dimensions;
                     if (
                         (aMin._1 <= bMax._1 & aMax._1 >= bMin._1) &&
                         (aMin._2 <= bMax._2 & aMax._2 >= bMin._2)

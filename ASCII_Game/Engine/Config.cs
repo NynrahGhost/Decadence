@@ -1,7 +1,7 @@
 ﻿static class Config
 {
     public static string profileName = "user1";
-    private static object[] controlls = new object[]
+    public static object[] controlls = new object[]
     {
         100, 50, 15,
         'w', 's', 'a', 'd',

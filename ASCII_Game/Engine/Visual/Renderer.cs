@@ -11,6 +11,11 @@ abstract class Renderer
 
     public static Fragment8[,] buffer = new Fragment8[Config.screenHeight, Config.screenWidth];
 
+    public static void Reload()
+    {
+        buffer = new Fragment8[Config.screenHeight, Config.screenWidth];
+    }
+
     public static void SetObjects(IRenderable[] objects)
     {
         //.Sort((x, y) => x.Image.zIndex.CompareTo(y.Image.zIndex));
@@ -26,7 +31,7 @@ abstract class Renderer
     public static void Render()
     {
         //Console.Write(worldPosition);
-        if (objects.Length != 0)
+        if (objects != null)
             foreach (IRenderable obj in objects)
             {
                 obj.Render(((GameObject)obj).position);
@@ -38,6 +43,7 @@ abstract class Renderer
         int shift = 0;
         Color8fg fg = new Color8fg(0);
         Color8bg bg = new Color8bg(0);
+        
         for (int y = 0; y < Config.screenHeight; ++y)
         {
             sb.Append(ANSII.CursorPosition(y, 0));

@@ -290,6 +290,11 @@ struct Color8fg : Color
         color = (byte)(r * 36 + g * 6 + b + 16);
     }
 
+    public static Color8fg GetNull()
+    {
+        return new Color8fg(0);
+    }
+
     public bool IsNull()
     {
         return color == 0;
@@ -341,6 +346,11 @@ struct Color8bg : Color
     {
         r /= 51; g /= 51; b /= 51;
         color = (byte)(r * 36 + g * 6 + b + 16);
+    }
+
+    public static Color8bg GetNull()
+    {
+        return new Color8bg(0);
     }
 
     public bool IsNull()
@@ -466,6 +476,11 @@ struct Fragment8
     public char symbol;
 
     public static Fragment8 nullFragment = new Fragment8(new Color8fg(0), new Color8bg(0), (char)0);
+
+    public static Fragment8 GetNull()
+    {
+        return new Fragment8(Color8fg.GetNull(), Color8bg.GetNull(), (char)0);
+    }
 
     public bool IsNull()
     {

@@ -3,7 +3,7 @@ using System.Threading;
 
 class Game
 {
-    public static GameState gameState = new GameState.Game();
+    public static GameState gameState = new GameState.Menu();
     public static bool running = true;
 
     public static EInput input = EInput.none;
@@ -65,7 +65,7 @@ class Game
         int framerate = 1000 / Config.framerate;
 
         //Console.WriteLine(JSON.ToString(JSON.ToJSON(new Game())));
-        
+
         //map.
 
         //Console.WriteLine("‗");
@@ -73,7 +73,7 @@ class Game
         //Console.OutputEncoding = System.Text.Encoding.ASCII;
         //Thread.Sleep(500);
 
-
+        
         while (running)
         {
             delta = DateTime.Now.Ticks - delta;
@@ -157,7 +157,6 @@ class Game
         else if (key == Config.escape)
         {
             input = EInput.escape;
-            Environment.Exit(0);
         }
     }
 

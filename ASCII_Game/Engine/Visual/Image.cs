@@ -27,6 +27,11 @@ abstract class Image : IRenderable
         short current = 0;
         Image[] frames;
 
+        public Animated(params Image[] frames) : base(null)
+        {
+            this.frames = frames;
+        }
+
         public Animated(Shader shader, byte zIndex = 127) : base(shader, zIndex) { }
 
         public Animated(Shader shader, Image[] frames, byte zIndex = 127) : base(shader, zIndex)
