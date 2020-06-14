@@ -10,6 +10,15 @@ abstract class Renderer
     public static int Height => Config.screenHeight;
 
     public static Fragment8[,] buffer = new Fragment8[Config.screenHeight, Config.screenWidth];
+    private static VisualObject plain = new VisualObject(
+        new Vector2d16() - Dimensions / 2, 
+        new Image.Rectangle(
+            new Shader.Plain(
+                new Color8fg(0, 0, 0), 
+                new Color8bg(0, 0, 0), ' '),
+            Dimensions * 3,
+            0)
+        );
 
     public static void Reload()
     {
@@ -30,14 +39,18 @@ abstract class Renderer
 
     public static void Render()
     {
-        //Console.Write(worldPosition);
+        plain.Render(plain.position + worldPosition);
         if (objects != null)
             foreach (IRenderable obj in objects)
             {
                 obj.Render(((GameObject)obj).position);
             }
         Game.gameState.hero.Render(Game.gameState.hero.position);
-        
+        foreach (IRenderable obj in Game.gameState.hud)
+        {
+            obj.Render(((GameObject)obj).position + worldPosition);
+        }
+
         System.Text.StringBuilder sb = new System.Text.StringBuilder();
 
         int shift = 0;
