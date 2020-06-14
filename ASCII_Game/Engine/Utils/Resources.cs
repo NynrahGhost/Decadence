@@ -42,6 +42,7 @@ abstract class ResourceLoader
 
         switch (splittedName[1])
         {
+            case "txt":
             case "bms":
                 atlas = new Atlas16(fileName);
                 break;
