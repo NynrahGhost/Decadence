@@ -32,6 +32,7 @@
     public static char inventory => (char)controlls[14];
     public static char map => (char)controlls[15];
 
+    public static char enter = (char)System.ConsoleKey.Enter;
     public static char escape = (char)System.ConsoleKey.Escape;
 
     static Config()

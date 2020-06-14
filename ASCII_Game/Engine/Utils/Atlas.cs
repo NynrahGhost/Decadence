@@ -16,7 +16,7 @@ struct Atlas8 : Atlas
     {
         byte[] bytes = System.IO.File.ReadAllBytes(ResourceLoader.root + @"Textures\" + fileName);
         int width = BitConverter.ToInt32(bytes, 0);
-        int height = BitConverter.ToInt32(bytes, 0);
+        int height = BitConverter.ToInt32(bytes, 4);
 
         data = new byte[height,width];
 
@@ -28,18 +28,18 @@ struct Atlas8 : Atlas
 
     public int GetData(Vector2d32 position)
     {
-        return data[position._1, position._2];
+        return data[position._2, position._1];
     }
 }
 
 struct Atlas16 : Atlas
 {
-    char[,] data;
+    string[] data;
 
     public Atlas16(string fileName)
     {
-        string[] lines = System.IO.File.ReadAllLines(ResourceLoader.root + fileName);
-
+        data = System.IO.File.ReadAllLines(ResourceLoader.root + fileName);
+        /*
         data = new char[lines[0].Length, lines.Length];
 
         for (int height = 0; height < lines.Length; ++height)
@@ -48,12 +48,14 @@ struct Atlas16 : Atlas
             {
                 data[width, height] = lines[height][width];
             }
-        }
+        }*/
     }
 
     public int GetData(Vector2d32 position)
     {
-        return data[position._1, position._2];
+        if(data[position._2].Length > position._1)
+            return data[position._2][position._1];
+        return ' ';
     }
 }
 

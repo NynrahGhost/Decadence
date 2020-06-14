@@ -3,7 +3,7 @@ using System.Threading;
 
 class Game
 {
-    public static GameState gameState = new GameState.Menu();
+    public static GameState gameState = new GameStates.Menu();
     public static bool running = true;
 
     public static EInput input = EInput.none;
@@ -154,6 +154,10 @@ class Game
             input = EInput.attack;
         }
 
+        else if (key == Config.enter)
+        {
+            input = EInput.enter;
+        }
         else if (key == Config.escape)
         {
             input = EInput.escape;
@@ -179,5 +183,6 @@ enum EInput
     use,
     attack,
 
+    enter,
     escape
 }
