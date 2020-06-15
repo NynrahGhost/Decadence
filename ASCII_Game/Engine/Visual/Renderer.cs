@@ -10,15 +10,28 @@ abstract class Renderer
     public static int Height => Config.screenHeight;
 
     public static Fragment8[,] buffer = new Fragment8[Config.screenHeight, Config.screenWidth];
+
+    // false - off, true - on
+    private static bool bold = false;
+    private static bool faint = false;
+    private static bool italic = false;
+    private static bool underline = false;
+    private static bool crossedOut = false;
+    private static bool blink = false;
+    private static bool reverse = false;
+    private static bool fraktur = false;
+
     private static VisualObject plain = new VisualObject(
-        new Vector2d16() - Dimensions / 2, 
+        new Vector2d16() - Dimensions / 2,
         new Image.Rectangle(
             new Shader.Plain(
-                new Color8fg(0, 0, 0), 
+                new Color8fg(0, 0, 0),
                 new Color8bg(0, 0, 0), ' '),
             Dimensions * 3,
             0)
         );
+
+
 
     public static void Reload()
     {
@@ -68,6 +81,106 @@ abstract class Renderer
                     continue;
                 }
 
+                switch (current.symbol)
+                {
+                    case (char)0xDB80:
+                        switch (bold)
+                        {
+                            case false:
+                                sb.Append(ANSII.Bold);
+                                bold = true;
+                                continue;
+                            case true:
+                                sb.Append(ANSII.BoldOff);
+                                bold = false;
+                                continue;
+                        }
+                    case (char)0xDB81:
+                        switch (faint)
+                        {
+                            case false:
+                                sb.Append(ANSII.Faint);
+                                faint = true;
+                                continue;
+                            case true:
+                                sb.Append(ANSII.FaintOff);
+                                faint = false;
+                                continue;
+                        }
+                    case (char)0xDB82:
+                        switch (italic)
+                        {
+                            case false:
+                                sb.Append(ANSII.Italic);
+                                italic = true;
+                                continue;
+                            case true:
+                                sb.Append(ANSII.ItalicOff);
+                                italic = false;
+                                continue;
+                        }
+                    case (char)0xDB83:
+                        switch (underline)
+                        {
+                            case false:
+                                sb.Append(ANSII.Underline);
+                                underline = true;
+                                continue;
+                            case true:
+                                sb.Append(ANSII.UnderlineOff);
+                                underline = false;
+                                continue;
+                        }
+                    case (char)0xDB84:
+                        switch (crossedOut)
+                        {
+                            case false:
+                                sb.Append(ANSII.CrossedOut);
+                                crossedOut = true;
+                                continue;
+                            case true:
+                                sb.Append(ANSII.CrossedOutOff);
+                                crossedOut = false;
+                                continue;
+                        }
+                    case (char)0xDB85:
+                        switch (blink)
+                        {
+                            case false:
+                                sb.Append(ANSII.Blink);
+                                blink = true;
+                                continue;
+                            case true:
+                                sb.Append(ANSII.BlinkOff);
+                                blink = false;
+                                continue;
+                        }
+                    case (char)0xDB86:
+                        switch (reverse)
+                        {
+                            case false:
+                                sb.Append(ANSII.Reverse);
+                                reverse = true;
+                                continue;
+                            case true:
+                                sb.Append(ANSII.ReverseOff);
+                                reverse = false;
+                                continue;
+                        }
+                    case (char)0xDB87:
+                        switch (fraktur)
+                        {
+                            case false:
+                                sb.Append(ANSII.Fraktur);
+                                fraktur = true;
+                                continue;
+                            case true:
+                                sb.Append(ANSII.FrakturOff);
+                                fraktur = false;
+                                continue;
+                        }
+                }
+
                 if (current.foreground != fg)
                 {
                     sb.Append(fg);
@@ -85,7 +198,7 @@ abstract class Renderer
                 shift = 0;
             }
         }
-        sb.Append(ANSII.ResetInitial());
+        sb.Append(ANSII.ResetInitial);
         Console.Write(sb.ToString());
     }
 }

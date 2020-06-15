@@ -26,7 +26,7 @@ namespace GameStates
 
             //Image mainMenuImage = new Image.Rectangle(mainMenu, new Vector2d16(30, 15), 126);
 
-            Image team = new Image.Rectangle(new Shader.RichText("Made by Code_0", new Color8fg(60, 60, 60)), new Vector2d16(14, 1), 200);
+            Image team = new Image.Rectangle(new Shader.RichText("Made by Code0", new Color8fg(60, 60, 60)), new Vector2d16(14, 1), 200);
 
             Shader cursorShader = new Shader.Plain(new Color8fg(0, 0, 255), Color8bg.GetNull(), '>');
             Image cursor = new Image.Rectangle(cursorShader, new Vector2d16(1, 1), 127);

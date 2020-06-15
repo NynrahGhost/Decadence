@@ -1,5 +1,9 @@
 ﻿using System;
 
+/// <summary>
+/// Structure that represents a bundle of two short values.<br/>
+/// Supposed to be used as coordinates.
+/// </summary>
 struct Vector2d16
 {
     public short _1;
@@ -70,6 +74,10 @@ struct Vector2d16
     }
 }
 
+/// <summary>
+/// Structure that represents a bundle of two int values.<br/>
+/// Supposed to be used as line & character in file reading.
+/// </summary>
 struct Vector2d32
 {
     public int _1;
@@ -130,6 +138,9 @@ struct Vector2d32
     }
 }
 
+/// <summary>
+/// Structure that represents a bundle of two float values.
+/// </summary>
 struct Vector2d32f
 {
     public float _1;
@@ -190,6 +201,9 @@ struct Vector2d32f
     }
 }
 
+/// <summary>
+/// Structure that represents a bundle of two double values.
+/// </summary>
 struct Vector2d64f
 {
     public double _1;
@@ -244,6 +258,10 @@ struct Vector2d64f
     }
 }
 
+/// <summary>
+/// Structure that represents byte value as angle (0-360).<br/>
+/// Currently not supported.
+/// </summary>
 struct Angle
 {
     private byte angle;
@@ -264,6 +282,10 @@ struct Angle
     }
 }
 
+/// <summary>
+/// Interface for common color operations.<br/>
+/// Not used.
+/// </summary>
 interface Color
 {
     public bool IsNull();
@@ -275,6 +297,11 @@ interface Color
     public byte GetBlue();
 }
 
+/// <summary>
+/// Structure that represents an 8-bit foreground color.<br/>
+/// Due to the way of ASCII escape sequences handling foreground and background colors,<br/>
+/// they're divided in two different structs.
+/// </summary>
 struct Color8fg : Color
 {
     byte color;
@@ -333,6 +360,11 @@ struct Color8fg : Color
     }
 }
 
+/// <summary>
+/// Structure that represents an 8-bit background color.<br/>
+/// Due to the way of ASCII escape sequences handling foreground and background colors,<br/>
+/// they're divided in two different structs.
+/// </summary>
 struct Color8bg : Color
 {
     byte color;
@@ -391,6 +423,10 @@ struct Color8bg : Color
     }
 }
 
+/// <summary>
+/// Structure that represents a 24-bit foreground color.<br/>
+/// Currently not supported.
+/// </summary>
 struct Color24fg : Color
 {
     byte red;
@@ -430,6 +466,10 @@ struct Color24fg : Color
     }
 }
 
+/// <summary>
+/// Structure that represents a 24-bit background color.<br/>
+/// Currently not supported.
+/// </summary>
 struct Color24bg : Color
 {
     byte red;
@@ -469,17 +509,22 @@ struct Color24bg : Color
     }
 }
 
+/// <summary>
+/// Structure that holds information about a symbol, its color and background.<br/>
+/// Uses 8-bit color.
+/// </summary>
 struct Fragment8
 {
     public Color8fg foreground;
     public Color8bg background;
     public char symbol;
 
-    public static Fragment8 nullFragment = new Fragment8(new Color8fg(0), new Color8bg(0), (char)0);
+    public static Fragment8 nullFragment = new Fragment8(Color8fg.GetNull(), Color8bg.GetNull(), (char)0);
 
     public static Fragment8 GetNull()
     {
-        return new Fragment8(Color8fg.GetNull(), Color8bg.GetNull(), (char)0);
+        //return new Fragment8(Color8fg.GetNull(), Color8bg.GetNull(), ' ');
+        return nullFragment;
     }
 
     public bool IsNull()
@@ -500,6 +545,10 @@ struct Fragment8
     }
 }
 
+/// <summary>
+/// Structure that holds information about a symbol, its color and background.<br/>
+/// Uses 24-bit color.
+/// </summary>
 struct Fragment24
 {
     public Color24fg foreground;

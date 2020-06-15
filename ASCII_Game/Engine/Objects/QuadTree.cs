@@ -99,8 +99,8 @@ class QuadTree
                     if (gameObj is IRenderable)
                     {
                         IRenderable renderable = gameObj as IRenderable;
-                        Vector2d16 aMin = (gameObj).position - (renderable.GetVisualBB() * 0.5);
-                        Vector2d16 aMax = (gameObj).position + (renderable.GetVisualBB() * 0.5);
+                        Vector2d16 aMin = (gameObj).position - (renderable.GetVisualBB());
+                        Vector2d16 aMax = (gameObj).position + (renderable.GetVisualBB());
                         //Vector2d16 bMin = Renderer.worldPosition - Renderer.Dimensions * 0.5;
                         //Vector2d16 bMax = Renderer.worldPosition + Renderer.Dimensions * 0.5;
                         Vector2d16 bMin = Renderer.worldPosition;

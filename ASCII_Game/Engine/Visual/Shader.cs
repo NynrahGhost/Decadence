@@ -2,12 +2,22 @@
 
 abstract class Shader
 {
+    /// <summary>
+    /// Calculates output symbol with it's color and background.
+    /// </summary>
+    /// <param name="current">Current processed point of an image.</param>
+    /// <param name="start">The upper-left-most point of the image.</param>
+    /// <param name="end">The lower-right-most point of the image.</param>
+    /// <returns>Resulting fragment</returns>
     public abstract Fragment8 Compute(
         Vector2d16 current,
         Vector2d16 start,
         Vector2d16 end
         );
 
+    /// <summary>
+    /// Shader that fills an image with one symbol and corresponding foreground and background color.
+    /// </summary>
     public class Plain : Shader
     {
         Color8fg foreground;
@@ -35,6 +45,9 @@ abstract class Shader
         }
     }
 
+    /// <summary>
+    /// Shader that fills an image with two colors, with one gradually morphing into another.
+    /// </summary>
     public class Gradient : Shader
     {
         Color8fg foregroundStart;
@@ -80,11 +93,17 @@ abstract class Shader
         }
     }
 
+    /// <summary>
+    /// Shader that fills an image with multiple colors, each gradually morphing into the next one.
+    /// </summary>
     public class PolyGradient
     {
 
     }
 
+    /// <summary>
+    /// Shader that references symbols from a text file.
+    /// </summary>
     public class TextureSymbol : Shader
     {
         protected Atlas atlas;
@@ -104,6 +123,9 @@ abstract class Shader
         }
     }
 
+    /// <summary>
+    /// Shader that references background data from an image.
+    /// </summary>
     public class TextureBackground : Shader
     {
         Atlas atlas;
@@ -124,6 +146,9 @@ abstract class Shader
         }
     }
 
+    /// <summary>
+    /// Shader that renders colored symbols.
+    /// </summary>
     public class TextureColoredSymbol : TextureSymbol
     {
         Atlas atlasColor;
@@ -144,6 +169,9 @@ abstract class Shader
         }
     }
 
+    /// <summary>
+    /// Base class for text objects.
+    /// </summary>
     public class Text : Shader
     {
         protected string[] text;
@@ -183,10 +211,24 @@ abstract class Shader
         {
             if (text.Length <= current._2 || text[current._2].Length <= current._1)
                 return Fragment8.GetNull();
-            return new Fragment8(Color8fg.GetNull(), Color8bg.GetNull(), text[current._2][current._1]);
+            return new Fragment8(new Color8fg(255,255,255), Color8bg.GetNull(), text[current._2][current._1]);
         }
     }
-
+    
+    /// <summary>
+    /// Extended class for text objects.
+    /// Styles can be added by encapsulating text with tags.<br/>
+    /// # - bold*<br/>
+    /// | - faint*<br/>
+    /// / - italic*<br/>
+    /// _ - underlined<br/>
+    /// ^ - blink*<br/>
+    /// % - cross-out*<br/>
+    /// ~ - video inverse<br/>
+    /// @ - fraktur*<br/><br/>
+    /// 
+    /// <i>*Not supported in windows 10 console.</i>
+    /// </summary>
     public class RichText : Text
     {
         public Color8fg foreground;
@@ -205,7 +247,27 @@ abstract class Shader
         {
             if (text.Length <= current._2 || text[current._2].Length <= current._1)
                 return Fragment8.GetNull();
-            return new Fragment8(foreground, Color8bg.GetNull(), text[current._2][current._1]);
+            switch (text[current._2][current._1])
+            {
+                case '#': //Bold
+                    return new Fragment8(foreground, Color8bg.GetNull(), (char)0xDB80);
+                case '|': //Faint
+                    return new Fragment8(foreground, Color8bg.GetNull(), (char)0xDB81);
+                case '/': //Italic
+                    return new Fragment8(foreground, Color8bg.GetNull(), (char)0xDB82);
+                case '_': //Underlined
+                    return new Fragment8(foreground, Color8bg.GetNull(), (char)0xDB83);
+                case '^': //Blink
+                    return new Fragment8(foreground, Color8bg.GetNull(), (char)0xDB84);
+                case '%': //Crossed-out
+                    return new Fragment8(foreground, Color8bg.GetNull(), (char)0xDB85);
+                case '~': //Video inverse
+                    return new Fragment8(foreground, Color8bg.GetNull(), (char)0xDB86);
+                case '@': //Fraktur
+                    return new Fragment8(foreground, Color8bg.GetNull(), (char)0xDB87);
+                default:
+                    return new Fragment8(foreground, Color8bg.GetNull(), text[current._2][current._1]);
+            }
         }
     }
 }

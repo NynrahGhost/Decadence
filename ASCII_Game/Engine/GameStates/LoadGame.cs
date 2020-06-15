@@ -23,8 +23,8 @@ namespace GameStates
             Shader.TextureSymbol logo = new Shader.TextureSymbol(ResourceLoader.LoadResource<Atlas16>(@"Textures\mainMenu.bms"), new Vector2d32(0, 17), new Vector2d32(59, 20));
             list.Add(new VisualObject(new Vector2d16(Config.screenWidth / 2 - 30, Config.screenHeight / 5), new Image.Rectangle(logo, new Vector2d16(59, 4))));
             
-            Shader cursorShaderLeft = new Shader.RichText(new string[] { "  _", " / ", " ) ", "(  ", " ) ", " \\_"}, new Color8fg(255, 255, 255));
-            Shader cursorShaderRight = new Shader.RichText(new string[] { "_  ", " \\ ", " ( ", "  )", " ( ", "_/ "}, new Color8fg(255, 255, 255));
+            Shader cursorShaderLeft = new Shader.Text(new string[] { "  _", " / ", " ) ", "(  ", " ) ", " \\_"});
+            Shader cursorShaderRight = new Shader.Text(new string[] { "_  ", " \\ ", " ( ", "  )", " ( ", "_/ "});
             
             Image cursorLeft = new Image.Rectangle(cursorShaderLeft, new Vector2d16(3, 7));
             Image cursorRight = new Image.Rectangle(cursorShaderRight, new Vector2d16(3, 7));
@@ -65,19 +65,19 @@ namespace GameStates
 
                 list.Add(new VisualObject(new Vector2d16(Config.screenWidth / 2 - 12, Config.screenHeight / 5 + 8 + i * 6), new Image.Rectangle(frame, new Vector2d16(24, 6))));
                 list.Add(new VisualObject(new Vector2d16(Config.screenWidth / 2 - 6, Config.screenHeight / 5 + 12 + i * 6), new Image.Rectangle(
-                    new Shader.RichText(date, new Color8fg(255, 255, 255)), new Vector2d16(16, 1), 128)));
+                    new Shader.Text(date), new Vector2d16(16, 1), 128)));
                 list.Add(new VisualObject(new Vector2d16(Config.screenWidth / 2 - 11, Config.screenHeight / 5 + 10 + i * 6), new Image.Rectangle(
-                    new Shader.RichText(name, new Color8fg(255, 255, 255)), new Vector2d16(22, 1), 128)));
+                    new Shader.Text(name), new Vector2d16(22, 1), 128)));
             }
-            Image.ProgressBarV progressBar = new Image.ProgressBarV(19)
+            Image.ProgressBarV progressBarV = new Image.ProgressBarV(19)
             {
                 zIndex = 128
             };
-            progressBar.SetPreset(1);
+            progressBarV.SetPreset(0);
+
             hud = new IRenderable[]
             {
-                new VisualObject(new Vector2d16(Config.screenWidth / 2 + 22, Config.screenHeight / 2 - 4), progressBar),
-                //new VisualObject(new Vector2d16(Config.screenWidth / 2 - 25, Config.screenHeight / 2 - 4), progressBar)
+                new VisualObject(new Vector2d16(Config.screenWidth / 2 + 22, Config.screenHeight / 2 - 4), progressBarV)
             };
 
             SetSelection();
@@ -111,7 +111,7 @@ namespace GameStates
                     global::Game.gameState = new Menu();
                     break;
             }
-            ((Image.ProgressBarV)hud[0].Image).SetProgressPercentage(selection / (float)(list.Count / 3 - 2));
+            ((Image.ProgressBar)hud[0].Image).SetProgressPercentage(selection / (float)(list.Count / 3 - 2));
         }
 
         public void SetSelection()

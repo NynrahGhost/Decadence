@@ -36,7 +36,7 @@ class Game
         //Console.WriteLine("♥");
         //Console.OutputEncoding = System.Text.Encoding.ASCII;
         //Thread.Sleep(500);
-
+        
         
         while (running)
         {

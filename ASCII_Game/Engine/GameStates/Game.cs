@@ -9,9 +9,9 @@ namespace GameStates
         public Game()
         {
             Image tip = new Image.Rectangle(new Shader.RichText(new string[] {
-            "            Press 'space' to stop and resume continious walking.",
+            "           Press _space_ to stop and resume continious walking.",
             "When it's stopped, press any movement or controll buttons to walk one frame.",
-            "                         Press ESC to leave test."
+            "                         Press _esc_ to leave test."
             }, new Color8fg(255, 255, 255)), new Vector2d16(76, 3), 126);
             hud = new IRenderable[]
             {
