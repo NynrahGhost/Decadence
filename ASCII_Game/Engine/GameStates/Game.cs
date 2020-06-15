@@ -43,6 +43,25 @@ namespace GameStates
 
             Shape circle = new Shape.Circle(1);
             Shape border = new Shape.Rectangle(new Vector2d16(31, 15));
+
+            /*Shape carBorder = new Shape.Polygon(
+                new Vector2d16(6,6),
+                new Vector2d16(12,0),
+                new Vector2d16(-4,2),
+                //new Vector2d16(-2, 2),
+                new Vector2d16(2,6)
+            );*/
+
+            Shape carBorder = new Shape.Polygon(
+                new Vector2d16(0, 7),
+                new Vector2d16(0, 9),
+                new Vector2d16(8, 9),
+
+                new Vector2d16(6, 0),
+                new Vector2d16(14, 0),
+                new Vector2d16(14, 3)
+            );
+
             var tmp = new GameObject[]
             {
                 //new VisualObject(new Vector2d16(-100, -50), plainImage),
@@ -52,6 +71,8 @@ namespace GameStates
                 new TactileObject(new Vector2d16(109,13), border),
                 new TactileObject(new Vector2d16(134,13), border),
                 //new TactileObject(new Vector2d16(50,70), border),
+
+                new TactileObject(new Vector2d16(40, 20), carBorder),
 
                 new VisualObject(new Vector2d16(40, 0), buildingSmallImage),
                 new VisualObject(new Vector2d16(80, 0), buildingBigImage),
