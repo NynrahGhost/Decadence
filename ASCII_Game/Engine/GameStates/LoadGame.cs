@@ -14,9 +14,11 @@ namespace GameStates
 
         public LoadGame()
         {
-            Shader plainShader = new Shader.Plain(new Color8fg(0, 0, 0), new Color8bg(0, 0, 0), ' ');
-            Image plainImage = new Image.Rectangle(plainShader, new Vector2d16(600, 300), 0);
-            list.Add(new VisualObject(new Vector2d16() - Renderer.Dimensions * 0.5, plainImage));
+            //Shader plainShader = new Shader.Plain(new Color8fg(0, 0, 0), new Color8bg(0, 0, 0), ' ');
+            //Image plainImage = new Image.Rectangle(plainShader, new Vector2d16(600, 300), 0);
+            //list.Add(new VisualObject(new Vector2d16() - Renderer.Dimensions * 0.5, plainImage));
+            list.Add(null);
+
 
             Shader.TextureSymbol logo = new Shader.TextureSymbol(ResourceLoader.LoadResource<Atlas16>(@"Textures\mainMenu.bms"), new Vector2d32(0, 17), new Vector2d32(59, 20));
             list.Add(new VisualObject(new Vector2d16(Config.screenWidth / 2 - 30, Config.screenHeight / 5), new Image.Rectangle(logo, new Vector2d16(59, 4))));
@@ -67,6 +69,16 @@ namespace GameStates
                 list.Add(new VisualObject(new Vector2d16(Config.screenWidth / 2 - 11, Config.screenHeight / 5 + 10 + i * 6), new Image.Rectangle(
                     new Shader.RichText(name, new Color8fg(255, 255, 255)), new Vector2d16(22, 1), 128)));
             }
+            Image.ProgressBarV progressBar = new Image.ProgressBarV(19)
+            {
+                zIndex = 128
+            };
+            progressBar.SetPreset(1);
+            hud = new IRenderable[]
+            {
+                new VisualObject(new Vector2d16(Config.screenWidth / 2 + 22, Config.screenHeight / 2 - 4), progressBar),
+                //new VisualObject(new Vector2d16(Config.screenWidth / 2 - 25, Config.screenHeight / 2 - 4), progressBar)
+            };
 
             SetSelection();
 
@@ -99,6 +111,7 @@ namespace GameStates
                     global::Game.gameState = new Menu();
                     break;
             }
+            ((Image.ProgressBarV)hud[0].Image).SetProgressPercentage(selection / (float)(list.Count / 3 - 2));
         }
 
         public void SetSelection()
@@ -125,7 +138,7 @@ namespace GameStates
             } 
             else if(selection == (list.Count / 3) - 2)
             {
-                int index = list.Count / 3 + 2;
+                int index = (list.Count / 3 - 2) * 3;
 
                 list[index].position = new Vector2d16(Config.screenWidth / 2 - 12, Config.screenHeight / 5 + 8);
                 list[index + 1].position = new Vector2d16(Config.screenWidth / 2 - 6, Config.screenHeight / 5 + 12);
