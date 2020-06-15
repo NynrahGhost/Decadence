@@ -1,5 +1,12 @@
 ﻿using System.Collections.Generic;
 
+/// <summary>
+/// Object used for invoking events based on character's interaction with it.<br/>
+/// Events:<br/>
+/// <see cref="OnEnter">OnEnter</see><br/>
+/// <see cref="OnStay">OnStay</see><br/>
+/// <see cref="OnExit">OnExit</see><br/>
+/// </summary>
 class Area : TactileObject
 {
     public List<KinematicObject> objects;

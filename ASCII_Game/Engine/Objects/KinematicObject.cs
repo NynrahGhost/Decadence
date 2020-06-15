@@ -1,4 +1,7 @@
-﻿class KinematicObject : PhysicalObject
+﻿/// <summary>
+/// Object that can interact with map's geometry and react to it.
+/// </summary>
+class KinematicObject : PhysicalObject
 {
     public KinematicObject(Vector2d16 position, Shape shape, Image image) : base(position, shape, image)
     {

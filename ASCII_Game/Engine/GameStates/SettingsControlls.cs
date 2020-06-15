@@ -4,6 +4,10 @@ using System.Text;
 
 namespace GameStates
 {
+    /// <summary>
+    /// Menu -> Settings -> Controlls<br/>
+    /// Allows user to change their controlls.
+    /// </summary>
     class SettingsControlls : GameState
     {
         int selectionY = 0;

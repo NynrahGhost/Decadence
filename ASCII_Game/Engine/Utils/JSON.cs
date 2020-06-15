@@ -4,6 +4,9 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 
+/// <summary>
+/// Utility class for reading and writing, and manipulating JSON objects.
+/// </summary>
 abstract class JSON
 {
     public static Dictionary<string, object> Read(string path)

@@ -3,11 +3,18 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
 
+/// <summary>
+/// Base interface for Atlas resource.<br/>
+/// Represents 2d data structure.
+/// </summary>
 interface Atlas : IResource
 {
     public int GetData(Vector2d32 position);
 }
 
+/// <summary>
+/// Texture structure for reading 2d bitmap.
+/// </summary>
 struct Atlas8 : Atlas
 {
     byte[,] data;
@@ -32,6 +39,9 @@ struct Atlas8 : Atlas
     }
 }
 
+/// <summary>
+/// Texture structure for reading text files.
+/// </summary>
 struct Atlas16 : Atlas
 {
     string[] data;
@@ -59,6 +69,10 @@ struct Atlas16 : Atlas
     }
 }
 
+/// <summary>
+/// Texture structure for reading png images.<br/>
+/// Each pixel represents two symbols, so it would look like squere.
+/// </summary>
 struct AtlasPNG : Atlas
 {
     Bitmap bitmap;
@@ -82,6 +96,10 @@ struct AtlasPNG : Atlas
     }
 }
 
+/// <summary>
+/// Texture structure for reading png images.<br/>
+/// Each pixel represents one symbol, instead of two.
+/// </summary>
 struct AtlasPNG1x1 : Atlas
 {
     Bitmap bitmap;

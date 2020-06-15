@@ -5,6 +5,10 @@ using System.Text;
 
 namespace GameStates
 {
+    /// <summary>
+    /// Menu -> Run test<br/>
+    /// Runs premade test map with predefined main hero's inputs.
+    /// </summary>
     class Test : GameState
     {
         string actions = "wwwwwwasdssssssssssssssssssaaaaaaaaaaddddddd";

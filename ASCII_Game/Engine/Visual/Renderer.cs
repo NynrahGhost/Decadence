@@ -1,5 +1,9 @@
 ﻿using System;
 
+/// <summary>
+/// Class used for rendering objects on screen.<br/>
+/// Use <see cref="SetObjects(IRenderable[])">SetObjects(IRenderable[])</see> to put objects for rendering.
+/// </summary>
 abstract class Renderer
 {
     private static IRenderable[] objects;

@@ -4,6 +4,10 @@ using System.Text;
 
 namespace GameStates
 {
+    /// <summary>
+    /// Menu -> Settings -> Graphics<br/>
+    /// Allows user to change their graphics.
+    /// </summary>
     class SettingsGraphics : GameState
     {
         int selection = 0;

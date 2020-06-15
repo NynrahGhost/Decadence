@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
+/// <summary>
+/// Utility class for loading repetative or large data.
+/// </summary>
 abstract class ResourceLoader
 {
     public static string root = System.IO.Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName+'\\';

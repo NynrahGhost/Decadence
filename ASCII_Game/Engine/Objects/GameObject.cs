@@ -1,6 +1,9 @@
 ﻿using System.Text;
 using System.Collections.Generic;
 
+/// <summary>
+/// Base object that can appear on map.
+/// </summary>
 class GameObject
 {
     public Vector2d16 position;

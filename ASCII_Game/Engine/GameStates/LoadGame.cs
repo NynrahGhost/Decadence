@@ -6,6 +6,10 @@ using System.Linq;
 
 namespace GameStates
 {
+    /// <summary>
+    /// Menu -> Load save<br/>
+    /// Allows to chose and load a specific save from disk. 
+    /// </summary>
     class LoadGame : GameState
     {
         int selection = 0;
@@ -69,7 +73,7 @@ namespace GameStates
                 list.Add(new VisualObject(new Vector2d16(Config.screenWidth / 2 - 11, Config.screenHeight / 5 + 10 + i * 6), new Image.Rectangle(
                     new Shader.Text(name), new Vector2d16(22, 1), 128)));
             }
-            Image.ProgressBarV progressBarV = new Image.ProgressBarV(19)
+            Image.ScrollBarV progressBarV = new Image.ScrollBarV(19)
             {
                 zIndex = 128
             };
@@ -111,7 +115,7 @@ namespace GameStates
                     global::Game.gameState = new Menu();
                     break;
             }
-            ((Image.ProgressBar)hud[0].Image).SetProgressPercentage(selection / (float)(list.Count / 3 - 2));
+            ((Image.Bar)hud[0].Image).SetProgressPercentage(selection / (float)(list.Count / 3 - 2));
         }
 
         public void SetSelection()

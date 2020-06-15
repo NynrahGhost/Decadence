@@ -1,4 +1,7 @@
-﻿class Map : QuadTree, IResource
+﻿/// <summary>
+/// Class that contains information about the map. Extends <see cref="QuadTree">QuadTree</see>
+/// </summary>
+class Map : QuadTree, IResource
 {
     string name;
 

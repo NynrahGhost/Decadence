@@ -1,4 +1,7 @@
-﻿class TactileObject : GameObject, ICollidable
+﻿/// <summary>
+/// Object that can participate in collision detection.
+/// </summary>
+class TactileObject : GameObject, ICollidable
 {
     Shape shape;
 

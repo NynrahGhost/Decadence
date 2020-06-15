@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
+/// <summary>
+/// Utility class for reading and writing INI files.
+/// </summary>
 abstract class INI
 {
     public static Dictionary<string, string> Read(string path)

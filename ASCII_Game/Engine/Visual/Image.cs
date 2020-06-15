@@ -1,5 +1,8 @@
 ﻿using System.Text;
 
+/// <summary>
+/// Class that represents shape of renderable object.
+/// </summary>
 internal abstract partial class Image : IRenderable
 {
     public Shader shader;
@@ -15,10 +18,20 @@ internal abstract partial class Image : IRenderable
         this.zIndex = zIndex;
     }
 
+    /// <summary>
+    /// Start rendering process, specifing object's position on map.
+    /// </summary>
+    /// <param name="position">Object's position on map.</param>
     public abstract void Render(Vector2d16 position);
 
+    /// <summary>
+    /// Retrieves bounding box of object's visual representation.
+    /// </summary>
     public abstract Vector2d16 GetVisualBB();
 
+    /// <summary>
+    /// Class for a sequence of images, that change with animation rules.
+    /// </summary>
     public class Animated : Image, IRenderable
     {
         Image IRenderable.Image
@@ -52,6 +65,9 @@ internal abstract partial class Image : IRenderable
         }
     }
 
+    /// <summary>
+    /// Class that contains a group of images. Helps recognize them as one.
+    /// </summary>
     public class Group : Image, IRenderable
     {
         Image[] group;
@@ -102,6 +118,9 @@ internal abstract partial class Image : IRenderable
         }
     }
 
+    /// <summary>
+    /// Non-rotatable rectangle with its dimensions.
+    /// </summary>
     public class Rectangle : Image
     {
         public Vector2d16 dimensions;
@@ -135,6 +154,9 @@ internal abstract partial class Image : IRenderable
         }
     }
 
+    /// <summary>
+    /// Rotatable rectangle with its dimensions.
+    /// </summary>
     public class RectangleAngular : Rectangle
     {
         public float angle;

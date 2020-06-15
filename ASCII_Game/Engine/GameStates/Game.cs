@@ -4,6 +4,10 @@ using System.Text;
 
 namespace GameStates
 {
+    /// <summary>
+    /// Menu -> Start new journey / Menu -> Load save -> "save file.json"<br/>
+    /// Starts the main game.
+    /// </summary>
     class Game : GameState
     {
         public Game()
@@ -38,45 +42,26 @@ namespace GameStates
             //Image earthImage = new Image.Rectangle(earthShader, new Vector2d16(30, 15), 126);
 
             Shape circle = new Shape.Circle(1);
-            Shape border = new Shape.Rectangle(new Vector2d16(100, 1));
+            Shape border = new Shape.Rectangle(new Vector2d16(31, 15));
             var tmp = new GameObject[]
             {
                 //new VisualObject(new Vector2d16(-100, -50), plainImage),
                 //new PhysicalObject(new Vector2d16(50,10), circle, gradientImage),
 
-                new TactileObject(new Vector2d16(50,0), border),
-                new TactileObject(new Vector2d16(50,70), border),
+                new TactileObject(new Vector2d16(70,13), border),
+                new TactileObject(new Vector2d16(109,13), border),
+                new TactileObject(new Vector2d16(134,13), border),
+                //new TactileObject(new Vector2d16(50,70), border),
 
                 new VisualObject(new Vector2d16(40, 0), buildingSmallImage),
                 new VisualObject(new Vector2d16(80, 0), buildingBigImage),
                 new VisualObject(new Vector2d16(24, 14), truckImage),
 
-                new VisualObject(new Vector2d16(98, 16), characterImage),
+                new PhysicalObject(new Vector2d16(98, 16), circle, characterImage),
             };
             map = new Map("Test", new Vector2d16(2000, 1000), 1, tmp);
             hero = new KinematicObject(new Vector2d16(Config.screenWidth / 2, Config.screenHeight / 2), circle, characterImage);
             Renderer.SetObjects(map.GetVisuals());
-            /*
-            Shader plainShader = new Shader.Plain(new Color8fg(0, 0, 0), new Color8bg(0, 0, 0), ' ');
-            Image plainImage = new Image.Rectangle(plainShader, new Vector2d16(600, 300), 0);
-            Shader gradientShader = new Shader.Gradient(new Color8fg(255, 0, 0), new Color8fg(255, 255, 255), new Color8bg(255, 0, 0), new Color8bg(0, 0, 255), ' ');
-            Image gradientImage = new Image.Rectangle(gradientShader, new Vector2d16(20, 10));
-            Shader textureShader = new Shader.TextureSymbol(ResourceLoader.LoadResource<Atlas16>(@"Textures\characters.bms"), new Vector2d32(0, 2), new Vector2d32(7, 7));
-            Image textureImage = new Image.Rectangle(textureShader, new Vector2d16(7, 6), 127);
-
-            Shader earthShader = new Shader.TextureBackground(ResourceLoader.LoadResource<AtlasPNG>(@"Textures\earth.png"), new Vector2d32(0, 0), new Vector2d32(15, 15));
-            Image earthImage = new Image.Rectangle(earthShader, new Vector2d16(30, 15), 126);
-
-            Shape circle = new Shape.Circle(3);
-            var tmp = new GameObject[]
-            {
-                new VisualObject(new Vector2d16(-100, -50), plainImage),
-                new VisualObject(new Vector2d16(10, 0), earthImage),
-                //new PhysicalObject(new Vector2d16(30,5), circle, gradientImage),
-                new PhysicalObject(new Vector2d16(50,10), circle, gradientImage)
-            };
-            map = new Map("Test", new Vector2d16(2000, 1000), 1, tmp);
-            hero = new KinematicObject(new Vector2d16(40, 15), circle, textureImage);*/
         }
 
         public override void Physics(EInput input)

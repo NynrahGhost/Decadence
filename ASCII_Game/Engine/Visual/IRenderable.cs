@@ -1,4 +1,7 @@
-﻿interface IRenderable
+﻿/// <summary>
+/// Base interface for renderable objects.
+/// </summary>
+interface IRenderable
 {
     public Image Image { get; }
 

@@ -1,5 +1,8 @@
 ﻿using System.Text;
 
+/// <summary>
+/// Object that can both participate in collision detection and be rendered.
+/// </summary>
 class PhysicalObject : TactileObject, IRenderable
 {
     public Image Image => image;

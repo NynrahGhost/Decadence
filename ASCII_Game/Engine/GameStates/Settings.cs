@@ -4,6 +4,10 @@ using System.Text;
 
 namespace GameStates
 {
+    /// <summary>
+    /// Menu -> Settings<br/>
+    /// Allows user to change their preferances.
+    /// </summary>
     class Settings : GameState
     {
         int selection = 0;

@@ -1,5 +1,8 @@
 ﻿using System.Text;
 
+/// <summary>
+/// Object that can be rendered on screen.
+/// </summary>
 class VisualObject : GameObject, IRenderable
 {
     public Image Image => image;

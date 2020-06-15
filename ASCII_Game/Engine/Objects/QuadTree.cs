@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
+/// <summary>
+/// Tree-like data structure, used for narrowing the search for collisions and objects to render.
+/// </summary>
 class QuadTree
 {
     protected Vector2d16 dimensions;

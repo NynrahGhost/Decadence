@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
+/// <summary>
+/// Utility class for manipulations with ANSII escape sequences.
+/// </summary>
 abstract class ANSII
 {
     public static string CursorPosition(int line, int column)

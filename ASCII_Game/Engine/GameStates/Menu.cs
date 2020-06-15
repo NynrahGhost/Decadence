@@ -4,6 +4,10 @@ using System.Text;
 
 namespace GameStates
 {
+    /// <summary>
+    /// Menu -> Load save<br/>
+    /// Starting point of the game. Allows to choose settings, view credits, run test map, load a saved game, or start a new one. 
+    /// </summary>
     class Menu : GameState
     {
         int selection = 0;

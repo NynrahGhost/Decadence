@@ -4,6 +4,10 @@ using System.Text;
 
 namespace GameStates
 {
+    /// <summary>
+    /// Menu -> Credits<br/>
+    /// Shows developers with their roles in the project.
+    /// </summary>
     class Credits : GameState
     {
         Image credits = new Image.Rectangle(new Shader.RichText(new string[]{

@@ -1,5 +1,10 @@
 ﻿using System.Collections.Generic;
 
+/// <summary>
+/// Class used to describe object's symbol and color in specific position.<br/>
+/// Use <see cref="Compute(Vector2d16, Vector2d16, Vector2d16)">Compute(Vector2d16, Vector2d16, Vector2d16)</see> to get
+/// <see cref="Fragment8">Fragment8</see> of an object at specific position.
+/// </summary>
 abstract class Shader
 {
     /// <summary>

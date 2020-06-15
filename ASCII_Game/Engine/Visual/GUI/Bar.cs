@@ -4,7 +4,11 @@ using System.Text;
 
 internal partial class Image
 {
-    public abstract class ProgressBar : Image
+    /// <summary>
+    /// Base class for GUI bars.<br/>
+    /// Includes scroll bars and progress bars.
+    /// </summary>
+    public abstract class Bar : Image
     {
         public short length;
         public short progress;
@@ -19,7 +23,7 @@ internal partial class Image
         public Color8fg midfg = new Color8fg(255, 255, 255);
         public Color8fg framefg = new Color8fg(255, 255, 255);
 
-        public ProgressBar(short length, byte zIndex = 0, float percentage = 0)
+        public Bar(short length, byte zIndex = 0, float percentage = 0)
         {
             this.length = length;
             SetProgressPercentage(percentage);
@@ -28,10 +32,12 @@ internal partial class Image
         public abstract void SetProgressPercentage(float percentage);
     }
 
-
-    public class ProgressBarV : ProgressBar
+    /// <summary>
+    /// Vertical scroll bar.
+    /// </summary>
+    public class ScrollBarV : Bar
     {
-        public ProgressBarV(short length, byte zIndex = 127, float percentage = 0) : base(length, zIndex, percentage) { }
+        public ScrollBarV(short length, byte zIndex = 127, float percentage = 0) : base(length, zIndex, percentage) { }
 
         private static string[,] endUpper = new string[,]
         {
@@ -110,7 +116,7 @@ internal partial class Image
         /// </summary>
         /// <param name="preset">0 - square, 1 - sci-fi, 2 - rounded, 3 - wide square, 4 - modern</param>
         /// <returns></returns>
-        public ProgressBarV SetPreset(byte preset)
+        public ScrollBarV SetPreset(byte preset)
         {
             switch (preset)
             {
@@ -201,9 +207,12 @@ internal partial class Image
         }
     }
 
-    public class ProgressBarH : ProgressBar
+    /// <summary>
+    /// Horizontal scroll bar.
+    /// </summary>
+    public class ScrollBarH : Bar
     {
-        public ProgressBarH(short length, byte zIndex = 127, float percentage = 127) : base(length, zIndex, percentage) { }
+        public ScrollBarH(short length, byte zIndex = 127, float percentage = 127) : base(length, zIndex, percentage) { }
 
         private static string[,] endUpper = new string[,]
         {
@@ -299,7 +308,7 @@ internal partial class Image
         /// </summary>
         /// <param name="preset"></param>
         /// <returns></returns>
-        public ProgressBarH SetPreset(byte preset)
+        public ScrollBarH SetPreset(byte preset)
         {
             switch (preset)
             {
