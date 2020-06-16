@@ -125,6 +125,8 @@ internal abstract partial class Image : IRenderable
     {
         public Vector2d16 dimensions;
 
+        protected Rectangle() { }
+
         public Rectangle(Shader shader, Vector2d16 dimensions, byte zIndex = 0) : base(shader, zIndex)
         {
             this.dimensions = dimensions;

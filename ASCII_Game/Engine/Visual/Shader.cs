@@ -181,6 +181,8 @@ abstract class Shader
     {
         protected string[] text;
 
+        protected Text() { }
+
         public Text(string text)
         {
             this.text = text.Split('\n');
@@ -221,7 +223,8 @@ abstract class Shader
     }
     
     /// <summary>
-    /// Extended class for text objects.
+    /// Extended class for text objects.<br/><br/>
+    /// Alignment can be set by putting /l, /r, /c at the beginning of the string.<br/><br/>
     /// Styles can be added by encapsulating text with tags.<br/>
     /// # - bold*<br/>
     /// | - faint*<br/>
@@ -238,13 +241,53 @@ abstract class Shader
     {
         public Color8fg foreground;
 
-        public RichText(string text, Color8fg foreground) : base(text)
+        public RichText(string text, Color8fg foreground)
         {
+            if (text.StartsWith('/'))
+            {
+                switch (text[1])
+                {
+                    case 'c':
+                        break;
+                    case 'r':
+                        break;
+                    case 'l':
+                        break;
+                }
+            }
+            else
+            {
+                this.text = new string[] { text };
+            }
             this.foreground = foreground;
         }
 
-        public RichText(string[] text, Color8fg foreground) : base(text)
+        public RichText(string[] text, Color8fg foreground)
         {
+            int max = 0;
+            foreach (string str in text)
+                if (str.Length > max)
+                    max = str.Length;
+            for(int i = 0; i < text.Length; ++i)
+                if (text[i][0] == '/')
+                {
+                    switch (text[i][1])
+                    {
+                        case 'c':
+                            text[i] = text[i].Substring(2).Trim();
+                            text[i] = text[i].PadLeft((max - text[i].Length)/2 + text[i].Length);
+                            break;
+                        case 'r':
+                            text[i] = text[i].Substring(2).Trim();
+                            text[i] = text[i].PadLeft(max);
+                            break;
+                        case 'l':
+                            text[i] = text[i].Substring(2).Trim();
+                            text[i] = text[i].PadRight(max);
+                            break;
+                    }
+                }
+            this.text = text;
             this.foreground = foreground;
         }
 

@@ -2,7 +2,12 @@
 
 /// <summary>
 /// Structure that represents a bundle of two short values.<br/>
-/// Supposed to be used as coordinates.
+/// Supposed to be used as coordinates.<br/>
+/// Can be instantiated via tuples.<br/>
+/// Example:<br/>
+/// <example><code>
+/// Vector2d16 vector = (16, 16)
+/// </code></example>
 /// </summary>
 struct Vector2d16
 {
@@ -43,6 +48,11 @@ struct Vector2d16
         return Math.Sqrt((_1 - vector._1) * (_1 - vector._1) + (_2 - vector._2) * (_2 - vector._2));
     }
 
+    public static implicit operator Vector2d16((short _1, short _2) tuple)
+    {
+        return new Vector2d16(tuple._1, tuple._2);
+    }
+
     public static Vector2d16 operator +(Vector2d16 addition1, Vector2d16 addition2)
     {
         return new Vector2d16(addition1._1 + addition2._1, addition1._2 + addition2._2);
@@ -77,6 +87,11 @@ struct Vector2d16
 /// <summary>
 /// Structure that represents a bundle of two int values.<br/>
 /// Supposed to be used as line & character in file reading.
+/// Can be instantiated via tuples.<br/>
+/// Example:<br/>
+/// <example><code>
+/// Vector2d32 vector = (32, 32)
+/// </code></example>
 /// </summary>
 struct Vector2d32
 {
@@ -117,6 +132,11 @@ struct Vector2d32
         return Math.Sqrt((_1 - vector._1) * (_1 - vector._1) + (_2 - vector._2) * (_2 - vector._2));
     }
 
+    public static implicit operator Vector2d32((int _1, int _2) tuple)
+    {
+        return new Vector2d32(tuple._1, tuple._2);
+    }
+
     public static Vector2d32 operator +(Vector2d32 addition1, Vector2d32 addition2)
     {
         return new Vector2d32(addition1._1 + addition2._1, addition1._2 + addition2._2);
@@ -139,7 +159,12 @@ struct Vector2d32
 }
 
 /// <summary>
-/// Structure that represents a bundle of two float values.
+/// Structure that represents a bundle of two float values.<br/>
+/// Can be instantiated via tuples.<br/>
+/// Example:<br/>
+/// <example><code>
+/// Vector2d32f vector = (32f, 32f)
+/// </code></example>
 /// </summary>
 struct Vector2d32f
 {
@@ -180,6 +205,11 @@ struct Vector2d32f
         return Math.Sqrt((_1 - vector._1) * (_1 - vector._1) + (_2 - vector._2) * (_2 - vector._2));
     }
 
+    public static implicit operator Vector2d32f((float _1, float _2) tuple)
+    {
+        return new Vector2d32f(tuple._1, tuple._2);
+    }
+
     public static Vector2d32f operator +(Vector2d32f addition1, Vector2d32f addition2)
     {
         return new Vector2d32f(addition1._1 + addition2._1, addition1._2 + addition2._2);
@@ -203,6 +233,11 @@ struct Vector2d32f
 
 /// <summary>
 /// Structure that represents a bundle of two double values.
+/// /// Can be instantiated via tuples.<br/>
+/// Example:<br/>
+/// <example><code>
+/// Vector2d64f vector = (64., 64.)
+/// </code></example>
 /// </summary>
 struct Vector2d64f
 {
@@ -235,6 +270,11 @@ struct Vector2d64f
     public double Distance(Vector2d64f vector)
     {
         return Math.Sqrt((_1 - vector._1) * (_1 - vector._1) + (_2 - vector._2) * (_2 - vector._2));
+    }
+
+    public static implicit operator Vector2d64f((double _1, double _2) tuple)
+    {
+        return new Vector2d64f(tuple._1, tuple._2);
     }
 
     public static Vector2d64f operator +(Vector2d64f addition1, Vector2d64f addition2)
@@ -306,6 +346,8 @@ struct Color8fg : Color
 {
     byte color;
 
+    public readonly static Color8fg white = (255, 255, 255);
+
     public Color8fg(byte color) 
     {
         this.color = color;
@@ -340,6 +382,11 @@ struct Color8fg : Color
     public byte GetBlue()
     {
         return (byte)((color - 16) % 6 * 51);
+    }
+
+    public static implicit operator Color8fg((byte r, byte g, byte b) tuple)
+    {
+        return new Color8fg(tuple.r, tuple.g, tuple.b);
     }
 
     public static implicit operator string(Color8fg color)
@@ -403,6 +450,11 @@ struct Color8bg : Color
     public byte GetBlue()
     {
         return (byte)((color - 16) % 6 * 51);
+    }
+
+    public static implicit operator Color8bg((byte r, byte g, byte b) tuple)
+    {
+        return new Color8bg(tuple.r, tuple.g, tuple.b);
     }
 
     public static implicit operator string(Color8bg color)
