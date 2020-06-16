@@ -1,4 +1,6 @@
-﻿class SuitInfo : ItemInfo
+﻿using System.Linq;
+
+public class SuitInfo : ItemInfo
 {
     private readonly float Protection;
     private readonly uint ParametersId;
@@ -7,10 +9,19 @@
         float protection, uint parametersId) :
         base(name, weight, description, price)
     {
-        this.Protection = protection;
-        this.ParametersId = parametersId;
+        Protection = protection;
+        ParametersId = parametersId;
     }
 
-    public ref readonly float GetProtection() { return ref Protection; }
-    public ref readonly uint GetParametersId() { return ref ParametersId; }
+    public float GetProtection() { return Protection; }
+    public uint GetParametersId() { return ParametersId; }
+    
+    public override string[] GetInfo()
+    {
+        return (new[]{"Name: " + GetName(),
+            "Description: " + GetDescription(),
+            "Weight: " + GetWeight(),
+            "Price: " + GetPrice(),
+            "Protection: " + Protection}).Concat(GameItemsInfo.Effects[ParametersId].GetInfo()).ToArray();
+    }
 }

@@ -21,11 +21,18 @@
         this.timeOfAction = timeOfAction;
     }
 
-    public ref readonly sbyte GetAgility() { return ref agility; }
-    public ref readonly sbyte GetCharisma() { return ref charisma; }
-    public ref readonly sbyte GetEndurance() { return ref endurance; }
-    public ref readonly sbyte GetAccuracy() { return ref accuracy; }
-    public ref readonly sbyte GetResistance() { return ref resistance; }
-    public ref readonly sbyte GetLuck() { return ref luck; }
-    public ref readonly long GetTimeOfAction() { return ref timeOfAction; }
+    public sbyte GetAgility() { return agility; }
+    public sbyte GetCharisma() { return charisma; }
+    public sbyte GetEndurance() { return endurance; }
+    public sbyte GetAccuracy() { return accuracy; }
+    public sbyte GetResistance() { return resistance; }
+    public sbyte GetLuck() { return luck; }
+    public long GetTimeOfAction() { return timeOfAction; }
+
+    public string[] GetInfo()
+    {
+        return new[] { "Agility: " + agility, "Charisma: " + charisma, "Endurance: " + endurance, 
+            "Accuracy: " + accuracy, "Resistance: " + resistance, "Luck: " + luck, 
+            "Time of action: " + timeOfAction};
+    }
 }

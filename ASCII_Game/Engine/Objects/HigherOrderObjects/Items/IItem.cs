@@ -1,14 +1,13 @@
 ﻿public interface IItem
 {
-    int ItemId { get; }
+    uint ItemId { get; }
     bool Sellable { get; }
-    ushort Count { get; }
+    ushort Count { get; set; }
     ItemType Type { get; }
 
-    public bool SellItem();
-    public bool SellItems(int number);
-    public bool GiveItem();
+    public bool SellItems(int number = 1);
+    public bool GiveItems(int number = 1);
     public bool UseItem();
     public string GetName();
-    public string GetInfo();
+    public string[] GetInfo();
 }

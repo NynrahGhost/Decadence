@@ -1,4 +1,6 @@
-﻿public class MedicineInfo : ItemInfo
+﻿using System.Linq;
+
+public class MedicineInfo : ItemInfo
 {
     private readonly uint ParametersId;
 
@@ -8,5 +10,13 @@
         ParametersId = parametersId;
     }
 
-    public ref readonly uint GetParametersId() { return ref ParametersId; }
+    public uint GetParametersId() { return ParametersId; }
+
+    public override string[] GetInfo()
+    {
+        return (new[]{"Name: " + GetName(),
+            "Description: " + GetDescription(),
+            "Weight: " + GetWeight(),
+            "Price: " + GetPrice()}).Concat(GameItemsInfo.Effects[ParametersId].GetInfo()).ToArray();
+    }
 }

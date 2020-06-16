@@ -37,14 +37,14 @@
         this.money = money;
     }
 
-    public ref readonly string GetName() { return ref name; }
-    public ref readonly ushort GetHealth() { return ref health; }
-    public ref readonly byte GetAgility() { return ref agility; }
-    public ref readonly byte GetCharisma() { return ref charisma; }
-    public ref readonly byte GetEndurance() { return ref endurance; }
-    public ref readonly byte GetAccuracy() { return ref accuracy; }
-    public ref readonly byte GetResistance() { return ref resistance; }
-    public ref readonly byte GetLuck() { return ref luck; }
-    public ref readonly byte GetLevel() { return ref level; }
-    public ref readonly uint GetMoney() { return ref money; }
+    public string GetName() { return name; }
+    public ushort GetHealth() { return health; }
+    public byte GetAgility() { return agility; }
+    public byte GetCharisma() { return charisma; }
+    public byte GetEndurance() { return endurance; }
+    public byte GetAccuracy() { return accuracy; }
+    public byte GetResistance() { return resistance; }
+    public byte GetLuck() { return luck; }
+    public byte GetLevel() { return level; }
+    public uint GetMoney() { return money; }
 }

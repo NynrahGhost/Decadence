@@ -1,12 +1,12 @@
 ﻿class ItemCartridge : IItem
 {
-    public int ItemId { get { return ItemId; } set { ItemId = value; } }
+    public uint ItemId { get { return ItemId; } set { ItemId = value; } }
     public bool Sellable { get { return Sellable; } set { Sellable = value; } }
     public ushort Count { get { return Count; } set { Count = value; } }
 
     public ItemType Type { get { return Type; } set { Type = value; } }
 
-    public ItemCartridge(int itemId, bool sellable, ItemType type, ushort count = 1)
+    public ItemCartridge(uint itemId, bool sellable, ItemType type, ushort count = 1)
     {
         ItemId = itemId;
         Sellable = sellable;
@@ -14,20 +14,16 @@
         Count = count;
     }
 
-    public string GetInfo()
+    public string[] GetInfo()
     {
-        return "";
+        return GameItemsInfo.CartridgeItems[ItemId].GetInfo();
     }
     public string GetName()
     {
-        return "";
+        return GameItemsInfo.CartridgeItems[ItemId].GetName();
     }
 
-    public bool GiveItem()
-    {
-        return false;
-    }
-    public bool SellItem()
+    public bool GiveItems(int number)
     {
         return false;
     }

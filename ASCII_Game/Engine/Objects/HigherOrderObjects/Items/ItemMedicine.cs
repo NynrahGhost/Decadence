@@ -2,13 +2,13 @@
 
 public class ItemMedicine : IItem
 {
-    public int ItemId { get { return ItemId; } set { ItemId = value; } }
+    public uint ItemId { get { return ItemId; } set { ItemId = value; } }
     public bool Sellable { get { return Sellable; } set { Sellable = value; } }
     public ushort Count { get { return Count; } set { Count = value; } }
 
     public ItemType Type { get { return Type; } set { Type = value; } }
 
-    public ItemMedicine(int itemId, bool sellable, ItemType type, ushort count = 1)
+    public ItemMedicine(uint itemId, bool sellable, ItemType type, ushort count = 1)
     {
         ItemId = itemId;
         Sellable = sellable;
@@ -16,20 +16,15 @@ public class ItemMedicine : IItem
         Count = count;
     }
 
-    public string GetInfo()
+    public string[] GetInfo()
     {
-        return "";
+        return GameItemsInfo.MedicineItems[ItemId].GetInfo();
     }
     public string GetName()
     {
-        return "";
+        return GameItemsInfo.MedicineItems[ItemId].GetName();
     }
-
-    public bool GiveItem()
-    {
-        return false;
-    }
-    public bool SellItem()
+    public bool GiveItems(int number)
     {
         return false;
     }
