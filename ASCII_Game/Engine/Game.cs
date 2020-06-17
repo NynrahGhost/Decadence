@@ -43,8 +43,8 @@ class Game
             delta = DateTime.Now.Ticks - delta;
 
             game.Inputs();
-            game.Physics(delta * 0.0000001f);
-            game.Render(delta * 0.0000001f);
+            game.Physics(delta);// * 0.0000001f);
+            game.Render(delta);// * 0.0000001f);
 
             delta = DateTime.Now.Ticks;
             Thread.Sleep(framerate);
@@ -60,6 +60,7 @@ class Game
     void Physics(float delta)
     {
         gameState.Physics(input);
+        gameState.Process(delta);
     }
 
     void Inputs()

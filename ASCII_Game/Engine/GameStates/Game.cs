@@ -13,9 +13,9 @@ namespace GameStates
         public Game()
         {
             Image tip = new Image.Rectangle(new Shader.RichText(new string[] {
-            "           Press _space_ to stop and resume continious walking.",
+            "/cPress _space_ to stop and resume continious walking.",
             "When it's stopped, press any movement or controll buttons to walk one frame.",
-            "                         Press _esc_ to leave test."
+            "/cPress _esc_ to leave test."
             }, new Color8fg(255, 255, 255)), new Vector2d16(76, 3), 126);
             hud = new IRenderable[]
             {
@@ -34,8 +34,8 @@ namespace GameStates
             Shader truckShader = new Shader.TextureSymbol(ResourceLoader.LoadResource<Atlas16>(@"Textures\Textures_test.txt"), new Vector2d32(0, 30), new Vector2d32(15, 39));
 
             Image characterImage = new Image.Rectangle(characterShader, new Vector2d16(3, 3), 128);
-            Image buildingSmallImage = new Image.Rectangle(buildingSmallShader, new Vector2d16(33, 18), 127);
-            Image buildingBigImage = new Image.Rectangle(buildingBigShader, new Vector2d16(81, 18), 127);
+            Image buildingSmallImage = new Image.Rectangle(buildingSmallShader, new Vector2d16(33, 20), 127);
+            Image buildingBigImage = new Image.Rectangle(buildingBigShader, new Vector2d16(81, 20), 127);
             Image truckImage = new Image.Rectangle(truckShader, new Vector2d16(15, 10), 127);
 
             //Shader earthShader = new Shader.TextureBackground(ResourceLoader.LoadResource<AtlasPNG>(@"Textures\earth.png"), new Vector2d32(0, 0), new Vector2d32(15, 15));
@@ -62,6 +62,8 @@ namespace GameStates
                 new Vector2d16(14, 3)
             );
 
+            PhysicalObject character = new PhysicalObject(new Vector2d16(98, 16), circle, characterImage);
+
             var tmp = new GameObject[]
             {
                 //new VisualObject(new Vector2d16(-100, -50), plainImage),
@@ -78,8 +80,49 @@ namespace GameStates
                 new VisualObject(new Vector2d16(80, 0), buildingBigImage),
                 new VisualObject(new Vector2d16(24, 14), truckImage),
 
-                new PhysicalObject(new Vector2d16(98, 16), circle, characterImage),
+                new PhysicalObject(new Vector2d16(98, 16), circle, characterImage)
+                //new PhysicalObject(new Vector2d16(98, 16), circle, characterImage),
             };
+
+            //Console.WriteLine(s.Value);
+            events.Add(new Animation(hud[0]).
+                SetProperties((object x, object y) => { ((GameObject)x).position = (Vector2d16)y; }).
+                AddFrame(new Vector2d16(20, 24)).
+                AddFrame(new Vector2d16(40, 24)).
+                AddFrame(new Vector2d16(40, 30)).
+                AddFrame(new Vector2d16(20, 30)).
+                AddFrame(new Vector2d16(20, 24)).
+                AddFunctions(Animation.square).
+                AddFunctions(Animation.square).
+                AddFunctions(Animation.square).
+                AddFunctions(Animation.square).
+                AddFunctions(Animation.square).
+                AddTimespan(5000000L).
+                AddTimespan(10000000L).
+                AddTimespan(15000000L).
+                AddTimespan(20000000L).
+                AddTimespan(20000000L).
+                SetActive(true));
+
+            events.Add(new Animation(tmp[7]).
+                SetProperties((object x, object y) => { ((GameObject)x).position = (Vector2d16)y; }).
+                AddFrame(new Vector2d16(98, 20)).
+                AddFrame(new Vector2d16(40, 20)).
+                AddFrame(new Vector2d16(40, 20)).
+                AddFrame(new Vector2d16(98, 20)).
+                AddFrame(new Vector2d16(98, 20)).
+                AddFunctions(Animation.liniar).
+                AddFunctions(Animation.liniar).
+                AddFunctions(Animation.liniar).
+                AddFunctions(Animation.liniar).
+                AddFunctions(Animation.liniar).
+                AddTimespan(20000000L).
+                AddTimespan(40000000L).
+                AddTimespan(60000000L).
+                AddTimespan(80000000L).
+                AddTimespan(80000000L).
+                SetActive(true));
+
             map = new Map("Test", new Vector2d16(2000, 1000), 1, tmp);
             hero = new KinematicObject(new Vector2d16(Config.screenWidth / 2, Config.screenHeight / 2), circle, characterImage);
             Renderer.SetObjects(map.GetVisuals());
@@ -120,6 +163,15 @@ namespace GameStates
                     Renderer.worldPosition = new Vector2d16(0, 0);
                     break;
             }
+        }
+
+        public override void Process(float delta)
+        {
+            //((GameObject)hud[0]).position += (1, 0); 
+            //Console.WriteLine(new Color8fg(255,255,255) + ((Animation)events[0]).time);
+            foreach (IEvent e in events)
+                if (e.IsActive())
+                    e.Process(delta);
         }
     }
 
