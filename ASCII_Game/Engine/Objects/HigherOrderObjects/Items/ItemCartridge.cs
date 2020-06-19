@@ -6,12 +6,12 @@
 
     public ItemType Type { get { return Type; } set { Type = value; } }
 
-    public ItemCartridge(uint itemId, bool sellable, ItemType type, ushort count = 1)
+    public ItemCartridge(uint itemId, bool sellable, ushort count = 1)
     {
         ItemId = itemId;
         Sellable = sellable;
-        Type = type;
         Count = count;
+        Type = ItemType.Cartridge;
     }
 
     public string[] GetInfo()

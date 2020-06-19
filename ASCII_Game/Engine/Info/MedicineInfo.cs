@@ -17,6 +17,7 @@ public class MedicineInfo : ItemInfo
         return (new[]{"Name: " + GetName(),
             "Description: " + GetDescription(),
             "Weight: " + GetWeight(),
-            "Price: " + GetPrice()}).Concat(GameItemsInfo.Effects[ParametersId].GetInfo()).ToArray();
+            "Price: " + GetPrice(),
+            "Effect: "}).Concat(GameItemsInfo.Effects[ParametersId].GetInfo()).ToArray();
     }
 }

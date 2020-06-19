@@ -1,35 +1,43 @@
 ﻿class MonsterInfo
 {
-    private readonly string name;
-    private readonly string description;
-    private readonly ushort health;
-    private readonly byte agility;
-    private readonly byte accuracy;
-    private readonly byte resistance;
-    private readonly byte level;
+    private readonly string Name;
+    private readonly string Description;
+    private readonly ushort Health;
+    private readonly byte Agility;
+    private readonly byte Accuracy;
+    private readonly byte Resistance;
+    private readonly byte Level;
 
-    private readonly ushort money;
+    private readonly uint EffectId;
+    private readonly float EffectProbability;
+
+    private readonly ushort Money;
 
     public MonsterInfo(string name, string description, ushort health, byte agility, byte accuracy, byte resistance, 
-        byte level, ushort money)
+        byte level, ushort money, uint effectId, float effectProbability)
     {
-        this.name = name;
-        this.description = description;
-        this.health = health;
-        this.agility = agility;
-        this.accuracy = accuracy;
-        this.resistance = resistance;
-        this.level = level;
+        Name = name;
+        Description = description;
+        Health = health;
+        Agility = agility;
+        Accuracy = accuracy;
+        Resistance = resistance;
+        Level = level;
 
-        this.money = money;
+        EffectId = effectId;
+        EffectProbability = effectProbability;
+
+        Money = money;
     }
 
-    public string GetName() { return name; }
-    public string GetDescription() { return description; }
-    public ushort GetHealth() { return health; }
-    public byte GetAgility() { return agility; }
-    public byte GetAccuracy() { return accuracy; }
-    public byte GetResistance() { return resistance; }
-    public byte GetLevel() { return level; }
-    public ushort GetMoney() { return money; }
+    public string GetName() { return Name; }
+    public string GetDescription() { return Description; }
+    public ushort GetHealth() { return Health; }
+    public byte GetAgility() { return Agility; }
+    public byte GetAccuracy() { return Accuracy; }
+    public byte GetResistance() { return Resistance; }
+    public byte GetLevel() { return Level; }
+    public uint GetEffectId() { return EffectId; }
+    public float GetEffectProbability() { return EffectProbability; }
+    public ushort GetMoney() { return Money; }
 }

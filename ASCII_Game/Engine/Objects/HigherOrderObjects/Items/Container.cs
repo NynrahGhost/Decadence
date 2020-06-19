@@ -34,7 +34,7 @@ public class Container
                 {
                     CurrentWeight = (uint)(CurrentWeight + weight * item.Count);
                     if (Weapons.ContainsKey(item.ItemId)) { Weapons[item.ItemId].Count += item.Count; }
-                    else { Weapons.Add(item.ItemId, new ItemCartridge(item.ItemId, item.Sellable, item.Type, item.Count)); }
+                    else { Weapons.Add(item.ItemId, new ItemCartridge(item.ItemId, item.Sellable, item.Count)); }
                     return true;
                 }
             case ItemType.Medicine:
@@ -47,7 +47,7 @@ public class Container
                 {
                     CurrentWeight = (uint)(CurrentWeight + weight * item.Count);
                     if (Medicines.ContainsKey(item.ItemId)) { Weapons[item.ItemId].Count += item.Count; }
-                    else { Medicines.Add(item.ItemId, new ItemMedicine(item.ItemId, item.Sellable, item.Type, item.Count)); }
+                    else { Medicines.Add(item.ItemId, new ItemMedicine(item.ItemId, item.Sellable, item.Count)); }
                     return true;
                 }
             case ItemType.Quest:
@@ -60,7 +60,7 @@ public class Container
                 {
                     CurrentWeight = (uint)(CurrentWeight + weight * item.Count);
                     if (Other.ContainsKey(item.ItemId)) { Weapons[item.ItemId].Count += item.Count; }
-                    else { Other.Add(item.ItemId, new ItemQuest(item.ItemId, item.Sellable, item.Type, item.Count)); }
+                    else { Other.Add(item.ItemId, new ItemQuest(item.ItemId, item.Sellable, item.Count)); }
                     return true;
                 }
             case ItemType.Simple:
@@ -73,7 +73,7 @@ public class Container
                 {
                     CurrentWeight = (uint)(CurrentWeight + weight * item.Count);
                     if (Other.ContainsKey(item.ItemId)) { Weapons[item.ItemId].Count += item.Count; }
-                    else { Other.Add(item.ItemId, new ItemSimple(item.ItemId, item.Sellable, item.Type, item.Count));}
+                    else { Other.Add(item.ItemId, new ItemSimple(item.ItemId, item.Sellable, item.Count));}
                     return true;
                 }
             case ItemType.Suit:
@@ -86,7 +86,7 @@ public class Container
                 {
                     CurrentWeight = (uint)(CurrentWeight + weight * item.Count);
                     if (Suits.ContainsKey(item.ItemId)) { Weapons[item.ItemId].Count += item.Count; }
-                    else { Suits.Add(item.ItemId, new ItemSuit(item.ItemId, item.Sellable, item.Type, item.Count)); }
+                    else { Suits.Add(item.ItemId, new ItemSuit(item.ItemId, item.Sellable, item.Count)); }
                     return true;
                 }
             case ItemType.Weapon:
@@ -99,7 +99,7 @@ public class Container
                 {
                     CurrentWeight = (uint)(CurrentWeight + weight * item.Count);
                     if (Weapons.ContainsKey(item.ItemId)) { Weapons[item.ItemId].Count += item.Count; }
-                    else { Weapons.Add(item.ItemId, new ItemWeapon(item.ItemId, item.Sellable, item.Type, item.Count)); }
+                    else { Weapons.Add(item.ItemId, new ItemWeapon(item.ItemId, item.Sellable, item.Count)); }
                     return true;
                 }
         }

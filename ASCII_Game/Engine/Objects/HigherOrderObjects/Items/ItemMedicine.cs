@@ -8,12 +8,12 @@ public class ItemMedicine : IItem
 
     public ItemType Type { get { return Type; } set { Type = value; } }
 
-    public ItemMedicine(uint itemId, bool sellable, ItemType type, ushort count = 1)
+    public ItemMedicine(uint itemId, bool sellable, ushort count = 1)
     {
         ItemId = itemId;
         Sellable = sellable;
-        Type = type;
         Count = count;
+        Type = ItemType.Medicine;
     }
 
     public string[] GetInfo()
