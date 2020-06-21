@@ -119,6 +119,17 @@ class Game
             input = EInput.attack;
         }
 
+
+        else if (key == Config.inventory)
+        {
+            input = EInput.inventory;
+        }
+        else if (key == Config.map)
+        {
+            input = EInput.map;
+        }
+
+
         else if (key == Config.enter)
         {
             input = EInput.enter;
@@ -147,6 +158,9 @@ enum EInput
 
     use,
     attack,
+
+    inventory,
+    map,
 
     enter,
     escape

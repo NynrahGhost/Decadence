@@ -58,7 +58,7 @@ abstract class Renderer
             {
                 obj.Render(((GameObject)obj).position);
             }
-        Game.gameState.hero.Render(Game.gameState.hero.position);
+        Game.gameState.hero?.Render(Game.gameState.hero.position);
         foreach (IRenderable obj in Game.gameState.hud)
         {
             obj.Render(((GameObject)obj).position + worldPosition);

@@ -158,6 +158,9 @@ namespace GameStates
                     System.Console.Beep();
                     System.Console.Beep();
                     break;
+                case EInput.inventory:
+                    global::Game.gameState = new Inventory(this);
+                    break;
                 case EInput.escape:
                     global::Game.gameState = new Menu();
                     Renderer.worldPosition = new Vector2d16(0, 0);
