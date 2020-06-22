@@ -72,6 +72,11 @@ internal abstract partial class Image : IRenderable
     {
         Image[] group;
 
+        public Group(params Image[] group) 
+        {
+            this.group = group;
+        }
+
         public Group(Shader shader, byte zIndex = 127) : base(shader, zIndex) { }
 
         public Group(Shader shader, Image[] group, byte zIndex = 127) : base(shader, zIndex)
@@ -127,7 +132,7 @@ internal abstract partial class Image : IRenderable
 
         protected Rectangle() { }
 
-        public Rectangle(Shader shader, Vector2d16 dimensions, byte zIndex = 0) : base(shader, zIndex)
+        public Rectangle(Shader shader, Vector2d16 dimensions, byte zIndex = 127) : base(shader, zIndex)
         {
             this.dimensions = dimensions;
         }

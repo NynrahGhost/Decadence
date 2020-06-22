@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using static Animation;
 
 namespace GameStates
 {
@@ -18,7 +17,7 @@ namespace GameStates
             "When it's stopped, press any movement or controll buttons to walk one frame.",
             "/cPress _esc_ to leave test."
             }, new Color8fg(255, 255, 255)), new Vector2d16(76, 3), 126);
-            hud = new VisualObject[]
+            hud = new IRenderable[]
             {
                 new VisualObject(new Vector2d16(Config.screenWidth / 2 - 33, Config.screenHeight / 5 * 4), tip) //new Vector2d16(Config.screenWidth / 2, Config.screenHeight / 5 * 4)
             };
@@ -86,20 +85,43 @@ namespace GameStates
             };
 
             //Console.WriteLine(s.Value);
-            Interpolator[] funcs = new Interpolator[5];
-            Array.Fill(funcs, Interpolator.Square);
-            events.Add(new Animation((GameObject)hud[0])
-                .AddFrames((20, 24), (40, 24), (40, 30), (20, 30), (20, 24))
-                .AddFunctions(funcs)
-                .AddTimespans(5000000L,10000000L,15000000L,20000000L,20000000L)
-                .SetActive(true));
+            events.Add(new Animation(hud[0]).
+                SetProperties((object x, object y) => { ((GameObject)x).position = (Vector2d16)y; }).
+                AddFrame(new Vector2d16(20, 24)).
+                AddFrame(new Vector2d16(40, 24)).
+                AddFrame(new Vector2d16(40, 30)).
+                AddFrame(new Vector2d16(20, 30)).
+                AddFrame(new Vector2d16(20, 24)).
+                AddFunctions(Animation.square).
+                AddFunctions(Animation.square).
+                AddFunctions(Animation.square).
+                AddFunctions(Animation.square).
+                AddFunctions(Animation.square).
+                AddTimespan(5000000L).
+                AddTimespan(10000000L).
+                AddTimespan(15000000L).
+                AddTimespan(20000000L).
+                AddTimespan(20000000L).
+                SetActive(true));
 
-            Interpolator[] funcs1 = new Interpolator[5];
-            Array.Fill(funcs1, Interpolator.Linear);
-            events.Add(new Animation(tmp[7]).AddFrames((98, 20),(40, 20),(40, 20),(98, 20),(98, 20))
-                .AddFunctions(funcs1)
-                .AddTimespans(20000000L,40000000L,60000000L,80000000L,80000000L)
-                .SetActive(true));
+            events.Add(new Animation(tmp[7]).
+                SetProperties((object x, object y) => { ((GameObject)x).position = (Vector2d16)y; }).
+                AddFrame(new Vector2d16(98, 20)).
+                AddFrame(new Vector2d16(40, 20)).
+                AddFrame(new Vector2d16(40, 20)).
+                AddFrame(new Vector2d16(98, 20)).
+                AddFrame(new Vector2d16(98, 20)).
+                AddFunctions(Animation.liniar).
+                AddFunctions(Animation.liniar).
+                AddFunctions(Animation.liniar).
+                AddFunctions(Animation.liniar).
+                AddFunctions(Animation.liniar).
+                AddTimespan(20000000L).
+                AddTimespan(40000000L).
+                AddTimespan(60000000L).
+                AddTimespan(80000000L).
+                AddTimespan(80000000L).
+                SetActive(true));
 
             map = new Map("Test", new Vector2d16(2000, 1000), 1, tmp);
             hero = new KinematicObject(new Vector2d16(Config.screenWidth / 2, Config.screenHeight / 2), circle, characterImage);
@@ -135,6 +157,9 @@ namespace GameStates
                     System.Console.Beep();
                     System.Console.Beep();
                     System.Console.Beep();
+                    break;
+                case EInput.inventory:
+                    global::Game.gameState = new Inventory(this);
                     break;
                 case EInput.escape:
                     global::Game.gameState = new Menu();
