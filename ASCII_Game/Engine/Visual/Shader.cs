@@ -241,17 +241,32 @@ abstract class Shader
     {
         public Color8fg foreground;
 
+        /// <summary>
+        /// Extended class for text objects.<br/><br/>
+        /// Alignment can be set by putting /l, /r, /c at the beginning of the string.<br/><br/>
+        /// Styles can be added by encapsulating text with tags.<br/>
+        /// # - bold*<br/>
+        /// | - faint*<br/>
+        /// / - italic*<br/>
+        /// _ - underlined<br/>
+        /// ^ - blink*<br/>
+        /// % - cross-out*<br/>
+        /// ~ - video inverse<br/>
+        /// @ - fraktur*<br/><br/>
+        /// 
+        /// <i>*Not supported in windows 10 console.</i>
+        /// </summary>
         public RichText(string text, Color8fg foreground)
         {
-            if (text.StartsWith('/'))
+            int max = text.Length;
+            if (text[0] == '/')
             {
                 switch (text[1])
                 {
                     case 'c':
-                        break;
                     case 'r':
-                        break;
                     case 'l':
+                        this.text = new string[] { text.Substring(2).Trim() };
                         break;
                 }
             }
@@ -262,6 +277,21 @@ abstract class Shader
             this.foreground = foreground;
         }
 
+        /// <summary>
+        /// Extended class for text objects.<br/><br/>
+        /// Alignment can be set by putting /l, /r, /c at the beginning of the string.<br/><br/>
+        /// Styles can be added by encapsulating text with tags.<br/>
+        /// # - bold*<br/>
+        /// | - faint*<br/>
+        /// / - italic*<br/>
+        /// _ - underlined<br/>
+        /// ^ - blink*<br/>
+        /// % - cross-out*<br/>
+        /// ~ - video inverse<br/>
+        /// @ - fraktur*<br/><br/>
+        /// 
+        /// <i>*Not supported in windows 10 console.</i>
+        /// </summary>
         public RichText(string[] text, Color8fg foreground)
         {
             int max = 0;
@@ -275,7 +305,7 @@ abstract class Shader
                     {
                         case 'c':
                             text[i] = text[i].Substring(2).Trim();
-                            text[i] = text[i].PadLeft((max - text[i].Length)/2 + text[i].Length);
+                            text[i] = text[i].PadLeft((max - text[i].Length)/2 + text[i].Length).PadRight((max - text[i].Length) / 2 + text[i].Length);
                             break;
                         case 'r':
                             text[i] = text[i].Substring(2).Trim();

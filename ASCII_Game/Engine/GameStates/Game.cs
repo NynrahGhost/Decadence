@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using static Animation;
 
 namespace GameStates
 {
@@ -13,11 +14,11 @@ namespace GameStates
         public Game()
         {
             Image tip = new Image.Rectangle(new Shader.RichText(new string[] {
-            "           Press _space_ to stop and resume continious walking.",
+            "/cPress _space_ to stop and resume continious walking.",
             "When it's stopped, press any movement or controll buttons to walk one frame.",
-            "                         Press _esc_ to leave test."
+            "/cPress _esc_ to leave test."
             }, new Color8fg(255, 255, 255)), new Vector2d16(76, 3), 126);
-            hud = new IRenderable[]
+            hud = new VisualObject[]
             {
                 new VisualObject(new Vector2d16(Config.screenWidth / 2 - 33, Config.screenHeight / 5 * 4), tip) //new Vector2d16(Config.screenWidth / 2, Config.screenHeight / 5 * 4)
             };
@@ -34,8 +35,8 @@ namespace GameStates
             Shader truckShader = new Shader.TextureSymbol(ResourceLoader.LoadResource<Atlas16>(@"Textures\Textures_test.txt"), new Vector2d32(0, 30), new Vector2d32(15, 39));
 
             Image characterImage = new Image.Rectangle(characterShader, new Vector2d16(3, 3), 128);
-            Image buildingSmallImage = new Image.Rectangle(buildingSmallShader, new Vector2d16(33, 18), 127);
-            Image buildingBigImage = new Image.Rectangle(buildingBigShader, new Vector2d16(81, 18), 127);
+            Image buildingSmallImage = new Image.Rectangle(buildingSmallShader, new Vector2d16(33, 20), 127);
+            Image buildingBigImage = new Image.Rectangle(buildingBigShader, new Vector2d16(81, 20), 127);
             Image truckImage = new Image.Rectangle(truckShader, new Vector2d16(15, 10), 127);
 
             //Shader earthShader = new Shader.TextureBackground(ResourceLoader.LoadResource<AtlasPNG>(@"Textures\earth.png"), new Vector2d32(0, 0), new Vector2d32(15, 15));
@@ -62,6 +63,8 @@ namespace GameStates
                 new Vector2d16(14, 3)
             );
 
+            PhysicalObject character = new PhysicalObject(new Vector2d16(98, 16), circle, characterImage);
+
             var tmp = new GameObject[]
             {
                 //new VisualObject(new Vector2d16(-100, -50), plainImage),
@@ -78,8 +81,26 @@ namespace GameStates
                 new VisualObject(new Vector2d16(80, 0), buildingBigImage),
                 new VisualObject(new Vector2d16(24, 14), truckImage),
 
-                new PhysicalObject(new Vector2d16(98, 16), circle, characterImage),
+                new PhysicalObject(new Vector2d16(98, 16), circle, characterImage)
+                //new PhysicalObject(new Vector2d16(98, 16), circle, characterImage),
             };
+
+            //Console.WriteLine(s.Value);
+            Interpolator[] funcs = new Interpolator[5];
+            Array.Fill(funcs, Interpolator.Square);
+            events.Add(new Animation((GameObject)hud[0])
+                .AddFrames((20, 24), (40, 24), (40, 30), (20, 30), (20, 24))
+                .AddFunctions(funcs)
+                .AddTimespans(5000000L,10000000L,15000000L,20000000L,20000000L)
+                .SetActive(true));
+
+            Interpolator[] funcs1 = new Interpolator[5];
+            Array.Fill(funcs1, Interpolator.Linear);
+            events.Add(new Animation(tmp[7]).AddFrames((98, 20),(40, 20),(40, 20),(98, 20),(98, 20))
+                .AddFunctions(funcs1)
+                .AddTimespans(20000000L,40000000L,60000000L,80000000L,80000000L)
+                .SetActive(true));
+
             map = new Map("Test", new Vector2d16(2000, 1000), 1, tmp);
             hero = new KinematicObject(new Vector2d16(Config.screenWidth / 2, Config.screenHeight / 2), circle, characterImage);
             Renderer.SetObjects(map.GetVisuals());
@@ -120,6 +141,15 @@ namespace GameStates
                     Renderer.worldPosition = new Vector2d16(0, 0);
                     break;
             }
+        }
+
+        public override void Process(float delta)
+        {
+            //((GameObject)hud[0]).position += (1, 0); 
+            //Console.WriteLine(new Color8fg(255,255,255) + ((Animation)events[0]).time);
+            foreach (IEvent e in events)
+                if (e.IsActive())
+                    e.Process(delta);
         }
     }
 

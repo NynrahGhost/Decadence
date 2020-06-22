@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<DialogueSegment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Text>Hi there</Text>
+  <Choices>
+    <DialogueChoice>
+      <ChoiceText>Hi</ChoiceText>
+    </DialogueChoice>
+    <DialogueChoice>
+      <ChoiceText>Hello</ChoiceText>
+    </DialogueChoice>
+    <DialogueChoice>
+      <ChoiceText>Fuck you</ChoiceText>
+      <Conditions />
+      <NextSegment>
+        <Text>Fuck you too, buddy. Now go back and don't pick this option again.</Text>
+        <Actions />
+        <Response>
+          <Repeat>0</Repeat>
+          <Response>ReturnToChoice</Response>
+        </Response>
+      </NextSegment>
+    </DialogueChoice>
+  </Choices>
+  <Next>
+    <Text>Well, this was fun. Bye.</Text>
+    <Response>
+      <Repeat>0</Repeat>
+      <Response>DoNothing</Response>
+    </Response>
+  </Next>
+  <Response>
+    <Repeat>0</Repeat>
+    <Response>DoNothing</Response>
+  </Response>
+</DialogueSegment>

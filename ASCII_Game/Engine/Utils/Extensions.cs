@@ -1,4 +1,6 @@
-﻿static class ArrayExtension
+﻿using System;
+
+static class ArrayExtension
 {
     public static string ToString(this Fragment8[,] frag)
     {

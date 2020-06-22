@@ -166,7 +166,7 @@ class QuadTree
 
         public override void Add(GameObject obj)
         {
-            Vector2d16 bb = obj.GetPhysicAABB();
+            Vector2d16 bb = new Vector2d16(1, 1);
 
             if ((obj.position._1 - position._1 < bb._1 >> 1) || (obj.position._2 - position._2 < bb._2 >> 1))
             {
