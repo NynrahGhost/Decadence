@@ -10,6 +10,33 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Engine\Actions\**" />
+    <Compile Remove="Engine\Checking\**" />
+    <Compile Remove="Engine\Conditionals\**" />
+    <Compile Remove="Engine\Quests\**" />
+    <EmbeddedResource Remove="Engine\Actions\**" />
+    <EmbeddedResource Remove="Engine\Checking\**" />
+    <EmbeddedResource Remove="Engine\Conditionals\**" />
+    <EmbeddedResource Remove="Engine\Quests\**" />
+    <None Remove="Engine\Actions\**" />
+    <None Remove="Engine\Checking\**" />
+    <None Remove="Engine\Conditionals\**" />
+    <None Remove="Engine\Quests\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Engine\Objects\AbstractDamageable.cs" />
+    <Compile Remove="Engine\Objects\AbstractHoldable.cs" />
+    <Compile Remove="Engine\Objects\AbstractHolder.cs" />
+    <Compile Remove="Engine\Objects\AbstractWeapon.cs" />
+    <Compile Remove="Engine\Objects\Dialogue.cs" />
+  </ItemGroup>
+
   <ItemGroup>
     <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
   </ItemGroup>

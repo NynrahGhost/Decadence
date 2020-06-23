@@ -11,9 +11,9 @@ namespace GameStates
     class Credits : GameState
     {
         Image credits = new Image.Rectangle(new Shader.RichText(new string[]{
-            "              Screenwriter    Evhenyi Voitsekhovskyi", "",
-            "Lead designer & programmer    Mykhailo Kutsenko", "",
-            "     Designer & programmer    Nataliia Smalchenko", "",
+            "              Screenwriter    Evhenyi Voitsekhovskyi", " ",
+            "Lead designer & programmer    Mykhailo Kutsenko", " ",
+            "     Designer & programmer    Nataliia Smalchenko", " ",
             "                Programmer    Ivan Vasyliv"
         }, new Color8fg(255, 255, 255)), new Vector2d16(70, 7), 200);
 

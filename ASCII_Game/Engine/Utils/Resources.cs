@@ -6,13 +6,26 @@ using System.Collections.Generic;
 /// </summary>
 abstract class ResourceLoader
 {
-    public static string root = System.IO.Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName+'\\';
+    public static string root = GetRoot();
+    //Environment.CurrentDirectory + '\\'; 
+    //System.IO.Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName+'\\';
 
     public static Dictionary<string, Atlas> atlasPool = new Dictionary<string, Atlas>();
 
     public static Image images;
 
     public static Shader shaders;
+
+    private static string GetRoot()
+    {
+        string root;
+#if DEBUG
+        root = System.IO.Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + '\\';
+#else
+        root = Environment.CurrentDirectory + '\\';
+#endif
+        return root;
+    }
 
     public static T LoadResource<T>(string path)
     {

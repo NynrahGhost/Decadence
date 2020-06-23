@@ -6,6 +6,9 @@ namespace GameStates
 {
     class Inventory : GameState
     {
+        int selectionY = 0;
+        int selectionX = 0;
+
         GameStates.Game game;
 
         public Inventory(GameStates.Game game)
@@ -13,7 +16,8 @@ namespace GameStates
             this.game = game;
             hud = new IRenderable[]
             {
-            new GUI.Container((2,1), new Vector2d16(Config.screenWidth - 8, Config.screenHeight-4), true, 3)
+                new GUI.Container((4,2), new Vector2d16(Config.screenWidth - 9, Config.screenHeight-3), true, 3),
+                new GUI.Container((6,3), new Vector2d16(Config.screenWidth * 0.2, Config.screenHeight-5), true, 3)
             };
         }
 

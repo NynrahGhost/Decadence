@@ -240,8 +240,6 @@ abstract class Shape
         }
     }
 
-    public class Triangle { }
-
     public class Circle : Shape
     {
         public short radius;

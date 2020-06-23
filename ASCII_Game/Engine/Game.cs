@@ -1,8 +1,22 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using System.Threading;
 
 class Game
 {
+
+    [DllImport("kernel32.dll")]
+    private static extern bool GetConsoleMode(IntPtr hConsoleHandle, out uint lpMode);
+
+    [DllImport("kernel32.dll")]
+    private static extern bool SetConsoleMode(IntPtr hConsoleHandle, uint dwMode);
+
+    [DllImport("kernel32.dll", SetLastError = true)]
+    private static extern IntPtr GetStdHandle(int nStdHandle);
+
+    [DllImport("kernel32.dll")]
+    public static extern uint GetLastError();
+
     public static GameState gameState = new GameStates.Menu();
     public static bool running = true;
 
@@ -10,6 +24,22 @@ class Game
 
     public Game()
     {
+        var iStdOut = GetStdHandle(-11);
+        if (!GetConsoleMode(iStdOut, out uint outConsoleMode))
+        {
+            Console.WriteLine("failed to get output console mode");
+            Console.ReadKey();
+            return;
+        }
+
+        outConsoleMode |= 0x0004 | 0x0008;
+        if (!SetConsoleMode(iStdOut, outConsoleMode))
+        {
+            Console.WriteLine($"failed to set output console mode, error code: {GetLastError()}");
+            Console.ReadKey();
+            return;
+        }
+
         Config.RestoreDefaults();
         Config.Load(@"Config\config.ini");
         //Config.Save(@"Config\congig.ini");

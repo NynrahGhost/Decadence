@@ -4,12 +4,12 @@ public class WeaponInfo : ItemInfo
 {
     private readonly uint CartridgeId;
     private readonly uint Damage;
-    private readonly long Cooldown;
+    private readonly float Cooldown;
     private readonly uint EffectId;
     private readonly float EffectProbability;
 
     public WeaponInfo(string name, ushort weight, string description, ushort price, 
-        uint carteidgeId, uint damage, long cooldown, uint effectId, float effectProbability) :
+        uint carteidgeId, uint damage, float cooldown, uint effectId, float effectProbability) :
         base(name, weight, description, price)
     {
         CartridgeId = carteidgeId;
@@ -21,7 +21,7 @@ public class WeaponInfo : ItemInfo
 
     public uint GetCartridgeId() { return CartridgeId; }
     public uint GetDamage() { return Damage; }
-    public long GetCooldown() { return Cooldown; }
+    public float GetCooldown() { return Cooldown; }
     public uint GetEffectId() { return EffectId; }
     public float GetEffectProbability() { return EffectProbability; }
 

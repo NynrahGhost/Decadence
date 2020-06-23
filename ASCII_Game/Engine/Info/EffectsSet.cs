@@ -7,10 +7,10 @@
     private readonly sbyte resistance;
     private readonly sbyte luck;
 
-    private readonly long timeOfAction;
+    private readonly float timeOfAction;
 
     public EffectsSet(sbyte agility, sbyte charisma, sbyte endurance, sbyte accuracy, 
-        sbyte resistance, sbyte luck, long timeOfAction)
+        sbyte resistance, sbyte luck, float timeOfAction)
     {
         this.agility = agility;
         this.charisma = charisma;
@@ -27,7 +27,7 @@
     public sbyte GetAccuracy() { return accuracy; }
     public sbyte GetResistance() { return resistance; }
     public sbyte GetLuck() { return luck; }
-    public long GetTimeOfAction() { return timeOfAction; }
+    public float GetTimeOfAction() { return timeOfAction; }
 
     public string[] GetInfo()
     {

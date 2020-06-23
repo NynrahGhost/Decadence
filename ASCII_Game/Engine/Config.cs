@@ -1,6 +1,8 @@
-﻿static class Config
+﻿using System.Collections.Generic;
+
+static class Config
 {
-    public static string profileName = "user1";
+    public static string profileName = "config";
     public static object[] controlls = new object[]
     {
         100, 50, 15,
@@ -53,9 +55,15 @@
 
     public static void Load(string path) 
     {
-      //Dictionary<string,string>
-        var dict = INI.Read(path);
-
+        Dictionary<string, string> dict;
+        try
+        {
+            dict = INI.Read(path);
+        }
+        catch (System.Exception e)
+        {
+            return;
+        }
         int counter = -1;
                //KeyValuePair<string, string>
         foreach (var entry in dict)
@@ -71,39 +79,6 @@
             else
                 controlls[++counter] = entry.Value[0];
         }
-
-        /*
-        string value;
-        if(dict.TryGetValue("Height", out value))
-            controlls[0] = int.Parse(value);
-
-        if (dict.TryGetValue("Width", out value))
-            controlls[1] = int.Parse(value);
-
-        if (dict.TryGetValue("Framerate", out value))
-            controlls[2] = int.Parse(value);
-
-        if (dict.TryGetValue("MoveUp", out value))
-            controlls[0] = value[0];
-
-        if (dict.TryGetValue("MoveDown", out value))
-            moveBackward = value[0];
-
-        if (dict.TryGetValue("MoveLeft", out value))
-            moveLeft = value[0];
-
-        if (dict.TryGetValue("MoveRight", out value))
-            moveRight = value[0];
-
-        if (dict.TryGetValue("MoveRight", out value))
-            moveRight = value[0];
-
-        if (dict.TryGetValue("Use", out value))
-            use = value[0];
-
-        if (dict.TryGetValue("Attack", out value))
-            attack = value[0];
-        */
     }
 
     public static void Save(string path)

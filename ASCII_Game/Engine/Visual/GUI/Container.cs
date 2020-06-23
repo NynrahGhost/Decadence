@@ -47,49 +47,49 @@ internal partial class GUI
                 case 1:
                     borders = new VisualObject[]
                     {
-                        new VisualObject(position, new Image.Rectangle(plain, (dimensions._1, dimensions._2))),
+                        new VisualObject((0, 0), new Image.Rectangle(plain, (dimensions._1, dimensions._2))),
 
-                        new VisualObject(position, new Image.Rectangle(lightH, (dimensions._1, 1))),
-                        new VisualObject(position + (0, dimensions._2), new Image.Rectangle(lightH, (dimensions._1, 1))),
-                        new VisualObject(position, new Image.Rectangle(lightV, (1, dimensions._2))),
-                        new VisualObject(position + (dimensions._1, 0), new Image.Rectangle(lightV, (1, dimensions._2))),
+                        new VisualObject((0, 0), new Image.Rectangle(lightH, (dimensions._1, 1))),
+                        new VisualObject((0, dimensions._2), new Image.Rectangle(lightH, (dimensions._1, 1))),
+                        new VisualObject((0, 0), new Image.Rectangle(lightV, (1, dimensions._2))),
+                        new VisualObject((dimensions._1, 0), new Image.Rectangle(lightV, (1, dimensions._2))),
 
-                        new VisualObject(position, new Image.Rectangle(lightUL, (1, 1))),
-                        new VisualObject(position + (dimensions._1, 0), new Image.Rectangle(lightUR, (1, 1))),
-                        new VisualObject(position + (0, dimensions._2), new Image.Rectangle(lightLR, (1, 1))),
-                        new VisualObject(position + (dimensions._1, dimensions._2), new Image.Rectangle(lightLL, (1, 1)))
+                        new VisualObject((0, 0), new Image.Rectangle(lightUL, (1, 1))),
+                        new VisualObject((dimensions._1, 0), new Image.Rectangle(lightUR, (1, 1))),
+                        new VisualObject((0, dimensions._2), new Image.Rectangle(lightLR, (1, 1))),
+                        new VisualObject((dimensions._1, dimensions._2), new Image.Rectangle(lightLL, (1, 1)))
                     };
                     break;
                 case 2:
                     borders = new VisualObject[]
                     {
-                        new VisualObject(position, new Image.Rectangle(plain, (dimensions._1, dimensions._2))),
+                        new VisualObject((0, 0), new Image.Rectangle(plain, (dimensions._1, dimensions._2))),
 
-                        new VisualObject(position, new Image.Rectangle(heavyH, (dimensions._1, 1))),
-                        new VisualObject(position + (0, dimensions._2), new Image.Rectangle(heavyH, (dimensions._1, 1))),
-                        new VisualObject(position, new Image.Rectangle(heavyV, (1, dimensions._2))),
-                        new VisualObject(position + (dimensions._1, 0), new Image.Rectangle(heavyV, (1, dimensions._2))),
+                        new VisualObject((0, 0), new Image.Rectangle(heavyH, (dimensions._1, 1))),
+                        new VisualObject((0, dimensions._2), new Image.Rectangle(heavyH, (dimensions._1, 1))),
+                        new VisualObject((0, 0), new Image.Rectangle(heavyV, (1, dimensions._2))),
+                        new VisualObject((dimensions._1, 0), new Image.Rectangle(heavyV, (1, dimensions._2))),
 
-                        new VisualObject(position, new Image.Rectangle(heavyUL, (1, 1))),
-                        new VisualObject(position + (dimensions._1, 0), new Image.Rectangle(heavyUR, (1, 1))),
-                        new VisualObject(position + (0, dimensions._2), new Image.Rectangle(heavyLR, (1, 1))),
-                        new VisualObject(position + (dimensions._1, dimensions._2), new Image.Rectangle(heavyLL, (1, 1)))
+                        new VisualObject((0, 0), new Image.Rectangle(heavyUL, (1, 1))),
+                        new VisualObject( (dimensions._1, 0), new Image.Rectangle(heavyUR, (1, 1))),
+                        new VisualObject((0, dimensions._2), new Image.Rectangle(heavyLR, (1, 1))),
+                        new VisualObject((dimensions._1, dimensions._2), new Image.Rectangle(heavyLL, (1, 1)))
                     };
                     break;
                 case 3:
                     borders = new VisualObject[]
                     {
-                        new VisualObject(position, new Image.Rectangle(plain, (dimensions._1, dimensions._2))),
+                        new VisualObject((0, 0), new Image.Rectangle(plain, (dimensions._1, dimensions._2))),
 
-                        new VisualObject(position, new Image.Rectangle(doubleH, (dimensions._1, 1))),
-                        new VisualObject(position + (0, dimensions._2), new Image.Rectangle(doubleH, (dimensions._1, 1))),
-                        new VisualObject(position, new Image.Rectangle(doubleV, (1, dimensions._2))),
-                        new VisualObject(position + (dimensions._1, 0), new Image.Rectangle(doubleV, (1, dimensions._2))),
+                        new VisualObject((0, 0), new Image.Rectangle(doubleH, (dimensions._1, 1))),
+                        new VisualObject((0, dimensions._2), new Image.Rectangle(doubleH, (dimensions._1, 1))),
+                        new VisualObject((0, 0), new Image.Rectangle(doubleV, (1, dimensions._2))),
+                        new VisualObject((dimensions._1, 0), new Image.Rectangle(doubleV, (1, dimensions._2))),
 
-                        new VisualObject(position, new Image.Rectangle(doubleUL, (1, 1))),
-                        new VisualObject(position + (dimensions._1, 0), new Image.Rectangle(doubleUR, (1, 1))),
-                        new VisualObject(position + (0, dimensions._2), new Image.Rectangle(doubleLR, (1, 1))),
-                        new VisualObject(position + (dimensions._1, dimensions._2), new Image.Rectangle(doubleLL, (1, 1)))
+                        new VisualObject((0, 0), new Image.Rectangle(doubleUL, (1, 1))),
+                        new VisualObject((dimensions._1, 0), new Image.Rectangle(doubleUR, (1, 1))),
+                        new VisualObject((0, dimensions._2), new Image.Rectangle(doubleLR, (1, 1))),
+                        new VisualObject((dimensions._1, dimensions._2), new Image.Rectangle(doubleLL, (1, 1)))
                     };
                     break;
             }
