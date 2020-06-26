@@ -50,6 +50,8 @@ class QuadTree
     {
         List<IRenderable> result = new List<IRenderable>();
         root.GetVisuals(result);
+        if(Game.gameState.hero != null)
+            result.Add(Game.gameState.hero);
         return result.ToArray();
     }
 

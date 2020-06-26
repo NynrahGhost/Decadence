@@ -44,9 +44,14 @@ abstract class Renderer
 
     public static void SetObjects(IRenderable[] objects)
     {
+        /*
         Array.Sort(objects, delegate (IRenderable _1, IRenderable _2) {
             return _1.Image.zIndex.CompareTo(_2.Image.zIndex);
         });
+        */
+
+        Sort.QuickSort(objects);
+
         Renderer.objects = objects;
     }
 
@@ -58,7 +63,7 @@ abstract class Renderer
             {
                 obj.Render(((GameObject)obj).position);
             }
-        Game.gameState.hero?.Render(Game.gameState.hero.position);
+        //Game.gameState.hero?.Render(Game.gameState.hero.position);
         foreach (IRenderable obj in Game.gameState.hud)
         {
             obj.Render(((GameObject)obj).position + worldPosition);

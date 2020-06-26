@@ -38,14 +38,45 @@ public struct Vector2d16
         this._2 = (short)_2;
     }
 
+    /// <summary>
+    /// Retrieves distance between two vectors.<br/>
+    /// If you need to compare distances towards two separate vectors, use 
+    /// <see cref="CompareDistance(Vector2d16, Vector2d16, Vector2d16)">CompareDistance</see> method.
+    /// </summary>
+    /// <returns></returns>
     public static double Distance(Vector2d16 vector1, Vector2d16 vector2)
     {
         return Math.Sqrt((vector1._1 - vector2._1) * (vector1._1 - vector2._1) + (vector1._2 - vector2._2) * (vector1._2 - vector2._2));
     }
 
+    /// <summary>
+    /// Retrieves distance between two vectors.<br/>
+    /// If you need to compare distances towards two separate vectors, use 
+    /// <see cref="CompareDistance(Vector2d16, Vector2d16, Vector2d16)">CompareDistance</see> method.
+    /// </summary>
+    /// <returns></returns>
     public double Distance(Vector2d16 vector)
     {
         return Math.Sqrt((_1 - vector._1) * (_1 - vector._1) + (_2 - vector._2) * (_2 - vector._2));
+    }
+
+    /// <summary>
+    /// Optimized comparision of distances towards a vector.<br/>
+    /// Doesn't use square root, thus can be used frequently without performance issues.<br/><br/>
+    /// Returns 1, if <paramref name="to1"/> is further then <paramref name="to2"/>, -1 otherwise, and 0 if distances are equal.
+    /// </summary>
+    public int CompareDistance(Vector2d16 from, Vector2d16 to1, Vector2d16 to2)
+    {
+        int res =
+           (from._1 - to1._1) * (from._1 - to1._1) + (from._2 - to1._2) * (from._2 - to1._2)
+           -
+           (from._1 - to2._1) * (from._1 - to2._1) + (from._2 - to2._2) * (from._2 - to2._2);
+
+        if (res > 0)
+            return 1;
+        if (res < 0)
+            return -1;
+        return 0;
     }
 
     public static implicit operator Vector2d16((short _1, short _2) tuple)
