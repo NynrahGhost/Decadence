@@ -124,7 +124,10 @@ abstract class Shader
 
         public override Fragment8 Compute(Vector2d16 current, Vector2d16 start, Vector2d16 end)
         {
-            return new Fragment8( new Color8fg(255,255,255), new Color8bg(0), (char)atlas.GetData(this.start - start + current));
+            char ch = (char)atlas.GetData(this.start - start + current);
+            if (ch == 0)
+                return Fragment8.GetNull();
+            return new Fragment8( new Color8fg(255,255,255), Color8bg.GetNull(), ch);
         }
     }
 

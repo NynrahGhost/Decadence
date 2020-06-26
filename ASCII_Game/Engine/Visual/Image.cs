@@ -155,7 +155,9 @@ internal abstract partial class Image : IRenderable
                     int posY = position._2 - Renderer.worldPosition._2 + y;
                     if (posX < 0 || posX >= (Renderer.Width) || posY < 0 || posY >= (Renderer.Height))
                         continue;
-                    Renderer.buffer[posY, posX] = shader.Compute(new Vector2d16(x, y), start, end);
+                    Fragment8 frag = shader.Compute(new Vector2d16(x, y), start, end);
+                    if(!frag.IsNull())
+                        Renderer.buffer[posY, posX] = frag;
                 }
             }
         }

@@ -97,14 +97,33 @@ namespace GameStates
                 AddFunctions(Animation.square).
                 AddFunctions(Animation.square).
                 AddFunctions(Animation.square).
-                AddTimespan(5000000L).
-                AddTimespan(10000000L).
-                AddTimespan(15000000L).
-                AddTimespan(20000000L).
-                AddTimespan(20000000L).
+                AddTimespan(1).
+                AddTimespan(2).
+                AddTimespan(3).
+                AddTimespan(4).
+                AddTimespan(4).
                 SetActive(true));
 
             events.Add(new Animation(tmp[7]).
+                SetProperties((object x, object y) => { ((GameObject)x).position = (Vector2d16)y; }).
+                AddFrame(new Vector2d16(98, 20)).
+                AddFrame(new Vector2d16(40, 20)).
+                AddFrame(new Vector2d16(40, 20)).
+                AddFrame(new Vector2d16(98, 20)).
+                AddFrame(new Vector2d16(98, 20)).
+                AddFunctions(Animation.liniar).
+                AddFunctions(Animation.liniar).
+                AddFunctions(Animation.liniar).
+                AddFunctions(Animation.liniar).
+                AddFunctions(Animation.liniar).
+                AddTimespan(2).
+                AddTimespan(4).
+                AddTimespan(6).
+                AddTimespan(8).
+                AddTimespan(8).
+                SetActive(true));
+
+            /*events.Add(new Animation(tmp[7]).
                 SetProperties((object x, object y) => { ((GameObject)x).position = (Vector2d16)y; }).
                 AddFrame(new Vector2d16(98, 20)).
                 AddFrame(new Vector2d16(40, 20)).
@@ -121,7 +140,7 @@ namespace GameStates
                 AddTimespan(60000000L).
                 AddTimespan(80000000L).
                 AddTimespan(80000000L).
-                SetActive(true));
+                SetActive(true));*/
 
             map = new Map("Test", new Vector2d16(2000, 1000), 1, tmp);
             hero = new KinematicObject(new Vector2d16(Config.screenWidth / 2, Config.screenHeight / 2), circle, characterImage);
