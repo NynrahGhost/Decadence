@@ -13,7 +13,7 @@
         var pivot = minIndex - 1;
         for (var i = minIndex; i < maxIndex; i++)
         {
-            if (array[i].Image.zIndex < array[maxIndex].Image.zIndex || ((GameObject)array[i]).position._2 < ((GameObject)array[maxIndex]).position._2)
+            if (array[i].ZIndex < array[maxIndex].ZIndex || ((GameObject)array[i]).Position._2 < ((GameObject)array[maxIndex]).Position._2)
             {
                 ++pivot;
                 Swap(ref array[pivot], ref array[i]);

@@ -11,6 +11,27 @@ abstract class Shape
 
     public abstract bool Collide(Vector2d16 ownPosition, Shape shape, Vector2d16 position);
 
+    public static Shape FromJSON(List<object> array)
+    {
+        switch (array[0])
+        {
+            case 0:
+                return new Circle((short)(int)array[1]);
+            case 1:
+                List<object> dimensions = (List<object>)array[1];
+                return new Rectangle(((short)(int)dimensions[0], (short)(int)dimensions[1]));
+            case 2:
+                List<Vector2d16> points = new List<Vector2d16>();
+                for(int i = 0; i < ((object[])array[1]).Length; ++i)
+                {
+                    short[] point = (short[])((List<object>)array[1])[i];
+                    points.Add((point[0], point[1]));
+                }
+                return new Polygon(points.ToArray());
+        }
+        throw new JSONException("Shape cannot be created from given array.");
+    }
+
     private static bool Collide(Circle circle1, Vector2d16 pos1, Circle circle2, Vector2d16 pos2)
     {
         return pos1.Distance(pos2) < circle1.radius + circle2.radius;

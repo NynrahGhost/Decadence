@@ -1,62 +1,50 @@
-﻿using System.Text;
+﻿using System.Collections.Generic;
+using System.Text;
 
 /// <summary>
 /// Class that represents shape of renderable object.
 /// </summary>
-internal abstract partial class Image : IRenderable
+internal abstract partial class Image
 {
-    public Shader shader;
-    public byte zIndex;
-
-    Image IRenderable.Image => this;
-
     public Image() { }
-
-    public Image(Shader shader, byte zIndex=127)
-    {
-        this.shader = shader;
-        this.zIndex = zIndex;
-    }
 
     /// <summary>
     /// Start rendering process, specifing object's position on map.
     /// </summary>
     /// <param name="position">Object's position on map.</param>
-    public abstract void Render(Vector2d16 position);
+    public abstract void Render(Shader shader, Vector2d16 position);
 
     /// <summary>
     /// Retrieves bounding box of object's visual representation.
     /// </summary>
     public abstract Vector2d16 GetVisualBB();
 
+    public static Image FromJSON(List<object> array)
+    {
+        switch (array[0])
+        {
+            case 0:
+                return new Rectangle(((short)(int)array[1], (short)(int)array[2]));
+        }
+        throw new JSONException("Image cannot be created from given array.");
+    }
+
     /// <summary>
     /// Class for a sequence of images, that change with animation rules.
     /// </summary>
-    public class Animated : Image, IRenderable
+    public class Animated : Image
     {
-        Image IRenderable.Image
-        {
-            get { return frames[current]; }
-        }
-
         short current = 0;
         Image[] frames;
 
-        public Animated(params Image[] frames) : base(null)
+        public Animated(params Image[] frames)
         {
             this.frames = frames;
         }
 
-        public Animated(Shader shader, byte zIndex = 127) : base(shader, zIndex) { }
-
-        public Animated(Shader shader, Image[] frames, byte zIndex = 127) : base(shader, zIndex)
+        public override void Render(Shader shader, Vector2d16 position)
         {
-            this.frames = frames;
-        }
-
-        public override void Render(Vector2d16 position)
-        {
-            frames[current].Render(position);
+            frames[current].Render(shader, position);
         }
 
         public override Vector2d16 GetVisualBB()
@@ -68,7 +56,7 @@ internal abstract partial class Image : IRenderable
     /// <summary>
     /// Class that contains a group of images. Helps recognize them as one.
     /// </summary>
-    public class Group : Image, IRenderable
+    public class Group : Image
     {
         Image[] group;
 
@@ -77,17 +65,10 @@ internal abstract partial class Image : IRenderable
             this.group = group;
         }
 
-        public Group(Shader shader, byte zIndex = 127) : base(shader, zIndex) { }
-
-        public Group(Shader shader, Image[] group, byte zIndex = 127) : base(shader, zIndex)
-        {
-            this.group = group;
-        }
-
-        public override void Render(Vector2d16 position)
+        public override void Render(Shader shader, Vector2d16 position)
         {
             foreach (Image image in group)
-                image.Render(position);
+                image.Render(shader, position);
         }
 
         public override Vector2d16 GetVisualBB()
@@ -103,26 +84,6 @@ internal abstract partial class Image : IRenderable
         }
     }
 
-    class Polygon : Image
-    {
-        public Vector2d16[] points;
-
-        public Polygon(Shader shader = null, params Vector2d16[] points) : base(shader)
-        {
-            this.points = points;
-        }
-
-        public override Vector2d16 GetVisualBB()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override void Render(Vector2d16 position)
-        {
-
-        }
-    }
-
     /// <summary>
     /// Non-rotatable rectangle with its dimensions.
     /// </summary>
@@ -132,7 +93,7 @@ internal abstract partial class Image : IRenderable
 
         protected Rectangle() { }
 
-        public Rectangle(Shader shader, Vector2d16 dimensions, byte zIndex = 127) : base(shader, zIndex)
+        public Rectangle(Vector2d16 dimensions)
         {
             this.dimensions = dimensions;
         }
@@ -142,7 +103,7 @@ internal abstract partial class Image : IRenderable
             return dimensions;
         }
 
-        public override void Render(Vector2d16 position)
+        public override void Render(Shader shader, Vector2d16 position)
         {
             Vector2d16 start = new Vector2d16(0,0);
             Vector2d16 end = dimensions;
@@ -163,36 +124,13 @@ internal abstract partial class Image : IRenderable
         }
     }
 
-    /// <summary>
-    /// Rotatable rectangle with its dimensions.
-    /// </summary>
-    public class RectangleAngular : Rectangle
-    {
-        public float angle;
-
-        public RectangleAngular(Shader shader, Vector2d16 dimensions, float angle) : base(shader, dimensions)
-        {
-            this.angle = angle;
-        }
-    }
-
-    public class Triangle
-    {
-        public Vector2d16 dimensions;
-    }
-
-    public class TriangleAngular : Triangle
-    {
-        public float angle;
-    }
-
     public class Line : Image
     {
         public Vector2d16 start;
         public Vector2d16 end;
         public byte density;
 
-        public Line(Shader shader, Vector2d16 start, Vector2d16 end, byte density) : base(shader)
+        public Line(Shader shader, Vector2d16 start, Vector2d16 end, byte density)
         {
             this.start = start;
             this.end = end;
@@ -204,7 +142,7 @@ internal abstract partial class Image : IRenderable
             return end - start;
         }
 
-        public override void Render(Vector2d16 position)
+        public override void Render(Shader shader, Vector2d16 position)
         {
             StringBuilder sb = new StringBuilder();
 
@@ -245,7 +183,7 @@ internal abstract partial class Image : IRenderable
         public Vector2d16 end;
         public byte density;
 
-        public BezierCurve(Shader shader, Vector2d16 start, Vector2d16 middle, Vector2d16 end, byte density) : base(shader)
+        public BezierCurve(Shader shader, Vector2d16 start, Vector2d16 middle, Vector2d16 end, byte density)
         {
             this.start = start;
             this.middle = middle;
@@ -258,7 +196,7 @@ internal abstract partial class Image : IRenderable
             return end - start;
         }
 
-        public override void Render(Vector2d16 position)
+        public override void Render(Shader shader, Vector2d16 position)
         {
             StringBuilder sb = new StringBuilder();
 

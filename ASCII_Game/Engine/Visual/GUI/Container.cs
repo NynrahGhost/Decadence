@@ -95,10 +95,10 @@ internal partial class GUI
             }
             if (rounded)
             {
-                borders[5].Image.shader = roundUL;
-                borders[6].Image.shader = roundUR;
-                borders[7].Image.shader = roundLR;
-                borders[8].Image.shader = roundLL;
+                borders[5].Shader = roundUL;
+                borders[6].Shader = roundUR;
+                borders[7].Shader = roundLR;
+                borders[8].Shader = roundLL;
             }
         }
 

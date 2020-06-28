@@ -22,16 +22,16 @@ namespace GameStates
             "            Press 'space' to stop and resume continious walking.",
             "When it's stopped, press any movement or controll buttons to walk one frame.",
             "                         Press ESC to leave test."
-            }, new Color8fg(255,255,255)), new Vector2d16(67, 3), 126);
+            }, new Color8(255,255,255)), new Vector2d16(67, 3), 126);
             hud = new IRenderable[]
             {
                 new VisualObject(new Vector2d16(Config.screenWidth / 2 - 33, Config.screenHeight / 5 * 4), tip) //new Vector2d16(Config.screenWidth / 2, Config.screenHeight / 5 * 4)
             };
 
-            Shader plainShader = new Shader.Plain(new Color8fg(0, 0, 0), new Color8bg(0, 0, 0), ' ');
+            Shader plainShader = new Shader.Plain(new Color8(0, 0, 0), new Color8(0, 0, 0), ' ');
             Image plainImage = new Image.Rectangle(plainShader, new Vector2d16(600, 300), 0);
 
-            Shader gradientShader = new Shader.Gradient(new Color8fg(255, 0, 0), new Color8fg(255, 255, 255), new Color8bg(255, 0, 0), new Color8bg(0, 0, 255), ' ');
+            Shader gradientShader = new Shader.Gradient(new Color8(255, 0, 0), new Color8(255, 255, 255), new Color8(255, 0, 0), new Color8(0, 0, 255), ' ');
             Image gradientImage = new Image.Rectangle(gradientShader, new Vector2d16(20, 10));
 
             Shader characterShader = new Shader.TextureSymbol(ResourceLoader.LoadResource<Atlas16>(@"Textures\Textures_test.txt"), new Vector2d32(0, 95), new Vector2d32(2, 97));

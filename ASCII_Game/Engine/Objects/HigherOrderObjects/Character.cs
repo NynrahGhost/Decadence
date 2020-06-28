@@ -2,7 +2,7 @@
 {
     EDirection direction = EDirection.south;
 
-    public Character(Vector2d16 position, Shape shape, Image image) : base(position, shape, image)
+    public Character(Vector2d16 position, int image, int shader, byte zIndex, int shape) : base(position, image, shader, zIndex, shape)
     {
 
     }

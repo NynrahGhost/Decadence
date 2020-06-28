@@ -12,17 +12,17 @@ namespace GameStates
     {
         int selection = 0;
 
-        Image newGame = new Image.Rectangle(new Shader.RichText("Start new journey", new Color8fg(0, 0, 255)), new Vector2d16(17, 1), 200);
-        Image loadGame = new Image.Rectangle(new Shader.RichText("Load game", new Color8fg(255, 255, 255)), new Vector2d16(9, 1), 200);
-        Image test = new Image.Rectangle(new Shader.RichText("Run test", new Color8fg(255, 255, 255)), new Vector2d16(8, 1), 200);
-        Image mapEditor = new Image.Rectangle(new Shader.RichText("Map editor", new Color8fg(255, 255, 255)), new Vector2d16(10, 1), 200);
-        Image settings = new Image.Rectangle(new Shader.RichText("Settings", new Color8fg(255, 255, 255)), new Vector2d16(8, 1), 200);
-        Image credits = new Image.Rectangle(new Shader.RichText("Credits", new Color8fg(255, 255, 255)), new Vector2d16(7, 1), 200);
-        Image exit = new Image.Rectangle(new Shader.RichText("Exit", new Color8fg(255, 255, 255)), new Vector2d16(4, 1), 200);
+        Image newGame = new Image.Rectangle(new Shader.RichText("Start new journey", new Color8(0, 0, 255)), new Vector2d16(17, 1), 200);
+        Image loadGame = new Image.Rectangle(new Shader.RichText("Load game", new Color8(255, 255, 255)), new Vector2d16(9, 1), 200);
+        Image test = new Image.Rectangle(new Shader.RichText("Run test", new Color8(255, 255, 255)), new Vector2d16(8, 1), 200);
+        Image mapEditor = new Image.Rectangle(new Shader.RichText("Map editor", new Color8(255, 255, 255)), new Vector2d16(10, 1), 200);
+        Image settings = new Image.Rectangle(new Shader.RichText("Settings", new Color8(255, 255, 255)), new Vector2d16(8, 1), 200);
+        Image credits = new Image.Rectangle(new Shader.RichText("Credits", new Color8(255, 255, 255)), new Vector2d16(7, 1), 200);
+        Image exit = new Image.Rectangle(new Shader.RichText("Exit", new Color8(255, 255, 255)), new Vector2d16(4, 1), 200);
 
         public Menu()
         {
-            Shader plainShader = new Shader.Plain(new Color8fg(0, 0, 0), new Color8bg(0, 0, 0), ' ');
+            Shader plainShader = new Shader.Plain(new Color8(0, 0, 0), new Color8(0, 0, 0), ' ');
             Image plainImage = new Image.Rectangle(plainShader, new Vector2d16(600, 300), 0);
 
             Shader logoShader = new Shader.TextureSymbol(ResourceLoader.LoadResource<Atlas16>(@"Textures\mainMenu.bms"), new Vector2d16(0, 0), new Vector2d16(51, 5));
@@ -30,9 +30,9 @@ namespace GameStates
 
             //Image mainMenuImage = new Image.Rectangle(mainMenu, new Vector2d16(30, 15), 126);
 
-            Image team = new Image.Rectangle(new Shader.RichText("Made by Code0", new Color8fg(60, 60, 60)), new Vector2d16(14, 1), 200);
+            Image team = new Image.Rectangle(new Shader.RichText("Made by Code0", new Color8(60, 60, 60)), new Vector2d16(14, 1), 200);
 
-            Shader cursorShader = new Shader.Plain(new Color8fg(0, 0, 255), Color8bg.GetNull(), '>');
+            Shader cursorShader = new Shader.Plain(new Color8(0, 0, 255), Color8.GetNull(), '>');
             Image cursor = new Image.Rectangle(cursorShader, new Vector2d16(1, 1), 127);
 
             Shape circle = new Shape.Circle(1);
@@ -85,44 +85,44 @@ namespace GameStates
             switch (selection)
             {
                 case 0:
-                    ((Shader.RichText)loadGame.shader).foreground = new Color8fg(255, 255, 255);
+                    ((Shader.RichText)loadGame.shader).foreground = new Color8(255, 255, 255);
                     hero.Move(new Vector2d16(Config.screenWidth / 2 - 10, Config.screenHeight / 5 + 8));
-                    ((Shader.RichText)newGame.shader).foreground = new Color8fg(0, 0, 255);
+                    ((Shader.RichText)newGame.shader).foreground = new Color8(0, 0, 255);
                     break;
                 case 1:
-                    ((Shader.RichText)newGame.shader).foreground = new Color8fg(255, 255, 255);
-                    ((Shader.RichText)test.shader).foreground = new Color8fg(255, 255, 255);
+                    ((Shader.RichText)newGame.shader).foreground = new Color8(255, 255, 255);
+                    ((Shader.RichText)test.shader).foreground = new Color8(255, 255, 255);
                     hero.Move(new Vector2d16(Config.screenWidth / 2 - 6, Config.screenHeight / 5 + 10));
-                    ((Shader.RichText)loadGame.shader).foreground = new Color8fg(0, 0, 255);
+                    ((Shader.RichText)loadGame.shader).foreground = new Color8(0, 0, 255);
                     break;
                 case 2:
-                    ((Shader.RichText)loadGame.shader).foreground = new Color8fg(255, 255, 255);
-                    ((Shader.RichText)mapEditor.shader).foreground = new Color8fg(255, 255, 255);
+                    ((Shader.RichText)loadGame.shader).foreground = new Color8(255, 255, 255);
+                    ((Shader.RichText)mapEditor.shader).foreground = new Color8(255, 255, 255);
                     hero.Move(new Vector2d16(Config.screenWidth / 2 - 7, Config.screenHeight / 5 + 12));
-                    ((Shader.RichText)test.shader).foreground = new Color8fg(0, 0, 255);
+                    ((Shader.RichText)test.shader).foreground = new Color8(0, 0, 255);
                     break;
                 case 3:
-                    ((Shader.RichText)test.shader).foreground = new Color8fg(255, 255, 255);
-                    ((Shader.RichText)settings.shader).foreground = new Color8fg(255, 255, 255);
+                    ((Shader.RichText)test.shader).foreground = new Color8(255, 255, 255);
+                    ((Shader.RichText)settings.shader).foreground = new Color8(255, 255, 255);
                     hero.Move(new Vector2d16(Config.screenWidth / 2 - 7, Config.screenHeight / 5 + 14));
-                    ((Shader.RichText)mapEditor.shader).foreground = new Color8fg(0, 0, 255);
+                    ((Shader.RichText)mapEditor.shader).foreground = new Color8(0, 0, 255);
                     break;
                 case 4:
-                    ((Shader.RichText)mapEditor.shader).foreground = new Color8fg(255, 255, 255);
-                    ((Shader.RichText)credits.shader).foreground = new Color8fg(255, 255, 255);
+                    ((Shader.RichText)mapEditor.shader).foreground = new Color8(255, 255, 255);
+                    ((Shader.RichText)credits.shader).foreground = new Color8(255, 255, 255);
                     hero.Move(new Vector2d16(Config.screenWidth / 2 - 6, Config.screenHeight / 5 + 16));
-                    ((Shader.RichText)settings.shader).foreground = new Color8fg(0, 0, 255);
+                    ((Shader.RichText)settings.shader).foreground = new Color8(0, 0, 255);
                     break;
                 case 5:
-                    ((Shader.RichText)settings.shader).foreground = new Color8fg(255, 255, 255);
-                    ((Shader.RichText)exit.shader).foreground = new Color8fg(255, 255, 255);
+                    ((Shader.RichText)settings.shader).foreground = new Color8(255, 255, 255);
+                    ((Shader.RichText)exit.shader).foreground = new Color8(255, 255, 255);
                     hero.Move(new Vector2d16(Config.screenWidth / 2 - 5, Config.screenHeight / 5 + 18));
-                    ((Shader.RichText)credits.shader).foreground = new Color8fg(0, 0, 255);
+                    ((Shader.RichText)credits.shader).foreground = new Color8(0, 0, 255);
                     break;
                 case 6:
-                    ((Shader.RichText)credits.shader).foreground = new Color8fg(255, 255, 255);
+                    ((Shader.RichText)credits.shader).foreground = new Color8(255, 255, 255);
                     hero.Move(new Vector2d16(Config.screenWidth / 2 - 4, Config.screenHeight / 5 + 20));
-                    ((Shader.RichText)exit.shader).foreground = new Color8fg(0, 0, 255);
+                    ((Shader.RichText)exit.shader).foreground = new Color8(0, 0, 255);
                     break;
             }
         }

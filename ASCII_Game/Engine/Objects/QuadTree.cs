@@ -104,8 +104,8 @@ class QuadTree
                     if (gameObj is IRenderable)
                     {
                         IRenderable renderable = gameObj as IRenderable;
-                        Vector2d16 aMin = (gameObj).position - (renderable.GetVisualBB());
-                        Vector2d16 aMax = (gameObj).position + (renderable.GetVisualBB());
+                        Vector2d16 aMin = (gameObj).Position - (renderable.GetVisualBB());
+                        Vector2d16 aMax = (gameObj).Position + (renderable.GetVisualBB());
                         //Vector2d16 bMin = Renderer.worldPosition - Renderer.Dimensions * 0.5;
                         //Vector2d16 bMax = Renderer.worldPosition + Renderer.Dimensions * 0.5;
                         Vector2d16 bMin = Renderer.worldPosition;
@@ -130,7 +130,7 @@ class QuadTree
         }
     }
 
-    class Link : Node
+    protected class Link : Node
     {
         public Node _1;
         public Node _2;
@@ -170,20 +170,20 @@ class QuadTree
         {
             Vector2d16 bb = new Vector2d16(1, 1);
 
-            if ((obj.position._1 - position._1 < bb._1 >> 1) || (obj.position._2 - position._2 < bb._2 >> 1))
+            if ((obj.Position._1 - position._1 < bb._1 >> 1) || (obj.Position._2 - position._2 < bb._2 >> 1))
             {
                 AddToArray(obj);
                 //Console.WriteLine(position);
                 return;
             }
 
-            if (obj.position._1 < position._1)
-                if (obj.position._2 > position._2)
+            if (obj.Position._1 < position._1)
+                if (obj.Position._2 > position._2)
                     _1.Add(obj);
                 else
                     _3.Add(obj);
             else
-                if (obj.position._2 > position._2)
+                if (obj.Position._2 > position._2)
                     _2.Add(obj);
                 else
                     _4.Add(obj);
@@ -193,13 +193,13 @@ class QuadTree
         {
             GetLocalCollisions(result, obj);
 
-            if (obj.position._1 < position._1)
-                if (obj.position._2 > position._2)
+            if (obj.Position._1 < position._1)
+                if (obj.Position._2 > position._2)
                     _1.GetCollisions(result, obj);
                 else
                     _3.GetCollisions(result, obj);
             else
-                if (obj.position._2 > position._2)
+                if (obj.Position._2 > position._2)
                     _2.GetCollisions(result, obj);
                 else
                     _4.GetCollisions(result, obj);
@@ -222,7 +222,7 @@ class QuadTree
         }
     }
 
-    class Leaf : Node
+    protected class Leaf : Node
     {
         public Leaf()
         {

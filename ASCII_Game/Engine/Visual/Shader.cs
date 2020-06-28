@@ -20,18 +20,30 @@ abstract class Shader
         Vector2d16 end
         );
 
+    public static Shader FromJSON(List<object> array)
+    {
+        switch (array[0])
+        {
+            case 0:
+                //System.Console.WriteLine(new Color8(0,0,255).AsBackground() + new Color8(0, 255, 0).AsForeground() + ((Color8)array[1]).GetBlue());
+                //throw new System.Exception();
+                return new Plain((Color8)array[1], (Color8)array[2],((string)array[3])[0]);
+        }
+        throw new JSONException("Shader cannot be created from given array.");
+    }
+
     /// <summary>
     /// Shader that fills an image with one symbol and corresponding foreground and background color.
     /// </summary>
     public class Plain : Shader
     {
-        Color8fg foreground;
-        Color8bg background;
+        Color8 foreground;
+        Color8 background;
         char symbol;
 
         public Plain(
-            Color8fg foreground,
-            Color8bg background,
+            Color8 foreground,
+            Color8 background,
             char symbol
         )
         {
@@ -46,6 +58,7 @@ abstract class Shader
             Vector2d16 end
         )
         {
+            //System.Console.WriteLine(foreground.GetGreen());
             return new Fragment8(foreground, background, symbol);
         }
     }
@@ -55,17 +68,17 @@ abstract class Shader
     /// </summary>
     public class Gradient : Shader
     {
-        Color8fg foregroundStart;
-        Color8fg foregroundEnd;
-        Color8bg backgroundStart;
-        Color8bg backgroundEnd;
+        Color8 foregroundStart;
+        Color8 foregroundEnd;
+        Color8 backgroundStart;
+        Color8 backgroundEnd;
         char symbol;
 
         public Gradient (
-            Color8fg foregroundStart,
-            Color8fg foregroundEnd,
-            Color8bg backgroundStart,
-            Color8bg backgroundEnd,
+            Color8 foregroundStart,
+            Color8 foregroundEnd,
+            Color8 backgroundStart,
+            Color8 backgroundEnd,
             char symbol
         )
         {
@@ -84,12 +97,12 @@ abstract class Shader
         {
             double lerp = (double)(current._1 - start._1) / (double)(end._1 - start._1);
             return new Fragment8(
-                new Color8fg(
+                new Color8(
                     (byte)(foregroundStart.GetRed() - (foregroundStart.GetRed() - foregroundEnd.GetRed()) * lerp),
                     (byte)(foregroundStart.GetGreen() - (foregroundStart.GetGreen() - foregroundEnd.GetGreen()) * lerp),
                     (byte)(foregroundStart.GetBlue() - (foregroundStart.GetBlue() - foregroundEnd.GetBlue()) * lerp)
                     ),
-                new Color8bg(
+                new Color8(
                     (byte)(backgroundStart.GetRed() - (backgroundStart.GetRed() - backgroundEnd.GetRed()) * lerp),
                     (byte)(backgroundStart.GetGreen() - (backgroundStart.GetGreen() - backgroundEnd.GetGreen()) * lerp),
                     (byte)(backgroundStart.GetBlue() - (backgroundStart.GetBlue() - backgroundEnd.GetBlue()) * lerp)
@@ -127,7 +140,7 @@ abstract class Shader
             char ch = (char)atlas.GetData(this.start - start + current);
             if (ch == 0)
                 return Fragment8.GetNull();
-            return new Fragment8( new Color8fg(255,255,255), Color8bg.GetNull(), ch);
+            return new Fragment8( new Color8(255,255,255), Color8.GetNull(), ch);
         }
     }
 
@@ -150,7 +163,7 @@ abstract class Shader
         public override Fragment8 Compute(Vector2d16 current, Vector2d16 start, Vector2d16 end)
         {
             System.Drawing.Color color = System.Drawing.Color.FromArgb(atlas.GetData(this.start - start + current));
-            return new Fragment8(new Color8fg(0), new Color8bg(color.R, color.G, color.B), ' ');
+            return new Fragment8(new Color8(0), new Color8(color.R, color.G, color.B), ' ');
         }
     }
 
@@ -173,7 +186,7 @@ abstract class Shader
         public override Fragment8 Compute(Vector2d16 current, Vector2d16 start, Vector2d16 end)
         {
             System.Drawing.Color color = System.Drawing.Color.FromArgb(atlas.GetData(this.start - start + current));
-            return new Fragment8(new Color8fg(color.R, color.G, color.B), new Color8bg(0), (char)atlas.GetData(this.start - start + current));
+            return new Fragment8(new Color8(color.R, color.G, color.B), new Color8(0), (char)atlas.GetData(this.start - start + current));
         }
     }
 
@@ -221,7 +234,7 @@ abstract class Shader
         {
             if (text.Length <= current._2 || text[current._2].Length <= current._1)
                 return Fragment8.GetNull();
-            return new Fragment8(new Color8fg(255,255,255), Color8bg.GetNull(), text[current._2][current._1]);
+            return new Fragment8(new Color8(255,255,255), Color8.GetNull(), text[current._2][current._1]);
         }
     }
     
@@ -242,7 +255,7 @@ abstract class Shader
     /// </summary>
     public class RichText : Text
     {
-        public Color8fg foreground;
+        public Color8 foreground;
 
         /// <summary>
         /// Extended class for text objects.<br/><br/>
@@ -259,7 +272,7 @@ abstract class Shader
         /// 
         /// <i>*Not supported in windows 10 console.</i>
         /// </summary>
-        public RichText(string text, Color8fg foreground)
+        public RichText(string text, Color8 foreground)
         {
             int max = text.Length;
             if (text[0] == '/')
@@ -295,7 +308,7 @@ abstract class Shader
         /// 
         /// <i>*Not supported in windows 10 console.</i>
         /// </summary>
-        public RichText(string[] text, Color8fg foreground)
+        public RichText(string[] text, Color8 foreground)
         {
             int max = 0;
             foreach (string str in text)
@@ -331,23 +344,23 @@ abstract class Shader
             switch (text[current._2][current._1])
             {
                 case '#': //Bold
-                    return new Fragment8(foreground, Color8bg.GetNull(), (char)0xDB80);
+                    return new Fragment8(foreground, Color8.GetNull(), (char)0xDB80);
                 case '|': //Faint
-                    return new Fragment8(foreground, Color8bg.GetNull(), (char)0xDB81);
+                    return new Fragment8(foreground, Color8.GetNull(), (char)0xDB81);
                 case '/': //Italic
-                    return new Fragment8(foreground, Color8bg.GetNull(), (char)0xDB82);
+                    return new Fragment8(foreground, Color8.GetNull(), (char)0xDB82);
                 case '_': //Underlined
-                    return new Fragment8(foreground, Color8bg.GetNull(), (char)0xDB83);
+                    return new Fragment8(foreground, Color8.GetNull(), (char)0xDB83);
                 case '^': //Blink
-                    return new Fragment8(foreground, Color8bg.GetNull(), (char)0xDB84);
+                    return new Fragment8(foreground, Color8.GetNull(), (char)0xDB84);
                 case '%': //Crossed-out
-                    return new Fragment8(foreground, Color8bg.GetNull(), (char)0xDB85);
+                    return new Fragment8(foreground, Color8.GetNull(), (char)0xDB85);
                 case '~': //Video inverse
-                    return new Fragment8(foreground, Color8bg.GetNull(), (char)0xDB86);
+                    return new Fragment8(foreground, Color8.GetNull(), (char)0xDB86);
                 case '@': //Fraktur
-                    return new Fragment8(foreground, Color8bg.GetNull(), (char)0xDB87);
+                    return new Fragment8(foreground, Color8.GetNull(), (char)0xDB87);
                 default:
-                    return new Fragment8(foreground, Color8bg.GetNull(), text[current._2][current._1]);
+                    return new Fragment8(foreground, Color8.GetNull(), text[current._2][current._1]);
             }
         }
     }

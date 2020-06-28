@@ -9,11 +9,8 @@ internal partial class Image
     /// </summary>
     public class Text : Rectangle
     {
-        public Text(byte zIndex = 127, params string[] text)
+        public Text(params string[] text)
         {
-            this.zIndex = zIndex; 
-            shader = new Shader.Text(text);
-
             int max = 0;
             foreach (string str in text)
                 if (str.Length > max)
@@ -40,15 +37,8 @@ internal partial class Image
     /// </summary>
     public class RichText : Rectangle
     {
-        public RichText(params string[] text) : this((255, 255, 255), 127, text) { }
-        public RichText(byte zIndex = 127, params string[] text) : this((255, 255, 255), zIndex, text) { }
-
-        public RichText(Color8fg color, byte zIndex = 127, params string[] text)
+        public RichText(params string[] text)
         {
-            this.zIndex = zIndex;
-            
-            shader = new Shader.RichText(text, color);
-
             int max = 0;
             foreach (string str in text)
                 if (str.Length > max)

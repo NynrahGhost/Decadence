@@ -13,54 +13,54 @@ namespace GameStates
         int selectionY = 0;
         int selectionX = 0;
 
-        Image moveUp = new Image.Rectangle(new Shader.RichText("Move up", new Color8fg(0, 0, 255)), new Vector2d16(7, 1), 200);
-        Image moveUpValue = new Image.Rectangle(new Shader.RichText(Config.moveForward.ToString(), new Color8fg(0, 0, 255)), new Vector2d16(4, 1), 200);
+        Image moveUp = new Image.Rectangle(new Shader.RichText("Move up", new Color8(0, 0, 255)), new Vector2d16(7, 1), 200);
+        Image moveUpValue = new Image.Rectangle(new Shader.RichText(Config.moveForward.ToString(), new Color8(0, 0, 255)), new Vector2d16(4, 1), 200);
 
-        Image moveDown = new Image.Rectangle(new Shader.RichText("Move down", new Color8fg(255, 255, 255)), new Vector2d16(9, 1), 200);
-        Image moveDownValue = new Image.Rectangle(new Shader.RichText(Config.moveBackward.ToString(), new Color8fg(255, 255, 255)), new Vector2d16(4, 1), 200);
+        Image moveDown = new Image.Rectangle(new Shader.RichText("Move down", new Color8(255, 255, 255)), new Vector2d16(9, 1), 200);
+        Image moveDownValue = new Image.Rectangle(new Shader.RichText(Config.moveBackward.ToString(), new Color8(255, 255, 255)), new Vector2d16(4, 1), 200);
 
-        Image moveLeft = new Image.Rectangle(new Shader.RichText("Move left", new Color8fg(255, 255, 255)), new Vector2d16(9, 1), 200);
-        Image moveLeftValue = new Image.Rectangle(new Shader.RichText(Config.moveLeft.ToString(), new Color8fg(255, 255, 255)), new Vector2d16(4, 1), 200);
+        Image moveLeft = new Image.Rectangle(new Shader.RichText("Move left", new Color8(255, 255, 255)), new Vector2d16(9, 1), 200);
+        Image moveLeftValue = new Image.Rectangle(new Shader.RichText(Config.moveLeft.ToString(), new Color8(255, 255, 255)), new Vector2d16(4, 1), 200);
 
-        Image moveRight = new Image.Rectangle(new Shader.RichText("Move right", new Color8fg(255, 255, 255)), new Vector2d16(10, 1), 200);
-        Image moveRightValue = new Image.Rectangle(new Shader.RichText(Config.moveRight.ToString(), new Color8fg(255, 255, 255)), new Vector2d16(4, 1), 200);
+        Image moveRight = new Image.Rectangle(new Shader.RichText("Move right", new Color8(255, 255, 255)), new Vector2d16(10, 1), 200);
+        Image moveRightValue = new Image.Rectangle(new Shader.RichText(Config.moveRight.ToString(), new Color8(255, 255, 255)), new Vector2d16(4, 1), 200);
 
-        Image moveAltUp = new Image.Rectangle(new Shader.RichText("Move alt up", new Color8fg(255, 255, 255)), new Vector2d16(11, 1), 200);
-        Image moveAltUpValue = new Image.Rectangle(new Shader.RichText(Config.moveAltForward.ToString(), new Color8fg(255, 255, 255)), new Vector2d16(4, 1), 200);
+        Image moveAltUp = new Image.Rectangle(new Shader.RichText("Move alt up", new Color8(255, 255, 255)), new Vector2d16(11, 1), 200);
+        Image moveAltUpValue = new Image.Rectangle(new Shader.RichText(Config.moveAltForward.ToString(), new Color8(255, 255, 255)), new Vector2d16(4, 1), 200);
 
-        Image moveAltDown = new Image.Rectangle(new Shader.RichText("Move alt down", new Color8fg(255, 255, 255)), new Vector2d16(14, 1), 200);
-        Image moveAltDownValue = new Image.Rectangle(new Shader.RichText(Config.moveAltBackward.ToString(), new Color8fg(255, 255, 255)), new Vector2d16(4, 1), 200);
+        Image moveAltDown = new Image.Rectangle(new Shader.RichText("Move alt down", new Color8(255, 255, 255)), new Vector2d16(14, 1), 200);
+        Image moveAltDownValue = new Image.Rectangle(new Shader.RichText(Config.moveAltBackward.ToString(), new Color8(255, 255, 255)), new Vector2d16(4, 1), 200);
 
-        Image moveAltLeft = new Image.Rectangle(new Shader.RichText("Move alt left", new Color8fg(255, 255, 255)), new Vector2d16(14, 1), 200);
-        Image moveAltLeftValue = new Image.Rectangle(new Shader.RichText(Config.moveAltLeft.ToString(), new Color8fg(255, 255, 255)), new Vector2d16(4, 1), 200);
+        Image moveAltLeft = new Image.Rectangle(new Shader.RichText("Move alt left", new Color8(255, 255, 255)), new Vector2d16(14, 1), 200);
+        Image moveAltLeftValue = new Image.Rectangle(new Shader.RichText(Config.moveAltLeft.ToString(), new Color8(255, 255, 255)), new Vector2d16(4, 1), 200);
 
-        Image moveAltRight = new Image.Rectangle(new Shader.RichText("Move alt right", new Color8fg(255, 255, 255)), new Vector2d16(14, 1), 200);
-        Image moveAltRightValue = new Image.Rectangle(new Shader.RichText(Config.moveAltRight.ToString(), new Color8fg(255, 255, 255)), new Vector2d16(4, 1), 200);
+        Image moveAltRight = new Image.Rectangle(new Shader.RichText("Move alt right", new Color8(255, 255, 255)), new Vector2d16(14, 1), 200);
+        Image moveAltRightValue = new Image.Rectangle(new Shader.RichText(Config.moveAltRight.ToString(), new Color8(255, 255, 255)), new Vector2d16(4, 1), 200);
 
 
 
-        Image save = new Image.Rectangle(new Shader.RichText("Save", new Color8fg(255, 255, 255)), new Vector2d16(4, 1), 200);
-        Image back = new Image.Rectangle(new Shader.RichText("Back", new Color8fg(255, 255, 255)), new Vector2d16(4, 1), 200);
+        Image save = new Image.Rectangle(new Shader.RichText("Save", new Color8(255, 255, 255)), new Vector2d16(4, 1), 200);
+        Image back = new Image.Rectangle(new Shader.RichText("Back", new Color8(255, 255, 255)), new Vector2d16(4, 1), 200);
 
         public SettingsControlls()
         {
-            Shader plainShader = new Shader.Plain(new Color8fg(0, 0, 0), new Color8bg(0, 0, 0), ' ');
+            Shader plainShader = new Shader.Plain(new Color8(0, 0, 0), new Color8(0, 0, 0), ' ');
             Image plainImage = new Image.Rectangle(plainShader, new Vector2d16(600, 300), 0);
 
             Shader logoShader = new Shader.TextureSymbol(ResourceLoader.LoadResource<Atlas16>(@"Textures\mainMenu.bms"), new Vector2d16(0, 6), new Vector2d16(47, 11));
             Image logo = new Image.Rectangle(logoShader, new Vector2d16(51, 5), 1);
 
-            Image graphics = new Image.Rectangle(new Shader.RichText("Graphics", new Color8fg(255, 255, 255)), new Vector2d16(8, 1), 200);
-            Image controls = new Image.Rectangle(new Shader.RichText("Controls", new Color8fg(0, 0, 255)), new Vector2d16(8, 1), 200);
-            Image backOld = new Image.Rectangle(new Shader.RichText("Back", new Color8fg(255, 255, 255)), new Vector2d16(4, 1), 200);
+            Image graphics = new Image.Rectangle(new Shader.RichText("Graphics", new Color8(255, 255, 255)), new Vector2d16(8, 1), 200);
+            Image controls = new Image.Rectangle(new Shader.RichText("Controls", new Color8(0, 0, 255)), new Vector2d16(8, 1), 200);
+            Image backOld = new Image.Rectangle(new Shader.RichText("Back", new Color8(255, 255, 255)), new Vector2d16(4, 1), 200);
 
-            Image oldDecoration = new Image.Rectangle(new Shader.RichText(new string[] { "|", "|", "|", "|", "|" }, new Color8fg(255, 255, 255)), new Vector2d16(1, 5), 200);
-            Image oldCursor = new Image.Rectangle(new Shader.RichText(new string[] { "> |" }, new Color8fg(0, 0, 255)), new Vector2d16(3, 1), 200);
+            Image oldDecoration = new Image.Rectangle(new Shader.RichText(new string[] { "|", "|", "|", "|", "|" }, new Color8(255, 255, 255)), new Vector2d16(1, 5), 200);
+            Image oldCursor = new Image.Rectangle(new Shader.RichText(new string[] { "> |" }, new Color8(0, 0, 255)), new Vector2d16(3, 1), 200);
 
-            Image decoration = new Image.Rectangle(new Shader.RichText(new string[] { "|", "|", "|", "|", "|", "|", "|", "•", "•", "•", "|", "|", "|" }, new Color8fg(255, 255, 255)), new Vector2d16(1, 14), 200);
-            Image decoration2 = new Image.Rectangle(new Shader.RichText(new string[] { "|", "|", "|", "|", "|", "|", "|" }, new Color8fg(255, 255, 255)), new Vector2d16(1, 7), 200);
+            Image decoration = new Image.Rectangle(new Shader.RichText(new string[] { "|", "|", "|", "|", "|", "|", "|", "•", "•", "•", "|", "|", "|" }, new Color8(255, 255, 255)), new Vector2d16(1, 14), 200);
+            Image decoration2 = new Image.Rectangle(new Shader.RichText(new string[] { "|", "|", "|", "|", "|", "|", "|" }, new Color8(255, 255, 255)), new Vector2d16(1, 7), 200);
 
-            Shader cursorShader = new Shader.RichText("> |", new Color8fg(0, 0, 255));
+            Shader cursorShader = new Shader.RichText("> |", new Color8(0, 0, 255));
             Image cursor = new Image.Rectangle(cursorShader, new Vector2d16(3, 1), 127);
             Image cursorOld = new Image.Rectangle(cursorShader, new Vector2d16(3, 1), 201);
 
@@ -157,14 +157,14 @@ namespace GameStates
                         case 0:
                             ClearSelection();
                             hero.Move(new Vector2d16(Config.screenWidth / 2 - 7, Config.screenHeight / 5 + 8));
-                            ((Shader.RichText)moveUp.shader).foreground = new Color8fg(0, 0, 255);
-                            ((Shader.RichText)moveUpValue.shader).foreground = new Color8fg(0, 0, 255);
+                            ((Shader.RichText)moveUp.shader).foreground = new Color8(0, 0, 255);
+                            ((Shader.RichText)moveUpValue.shader).foreground = new Color8(0, 0, 255);
                             break;
                         case 1:
                             ClearSelection();
                             hero.Move(new Vector2d16(Config.screenWidth / 2 + 11, Config.screenHeight / 5 + 8));
-                            ((Shader.RichText)moveAltUp.shader).foreground = new Color8fg(0, 0, 255);
-                            ((Shader.RichText)moveAltUpValue.shader).foreground = new Color8fg(0, 0, 255);
+                            ((Shader.RichText)moveAltUp.shader).foreground = new Color8(0, 0, 255);
+                            ((Shader.RichText)moveAltUpValue.shader).foreground = new Color8(0, 0, 255);
                             break;
                     }
                     break;
@@ -174,14 +174,14 @@ namespace GameStates
                         case 0:
                             ClearSelection();
                             hero.Move(new Vector2d16(Config.screenWidth / 2 - 7, Config.screenHeight / 5 + 10));
-                            ((Shader.RichText)moveDown.shader).foreground = new Color8fg(0, 0, 255);
-                            ((Shader.RichText)moveDownValue.shader).foreground = new Color8fg(0, 0, 255);
+                            ((Shader.RichText)moveDown.shader).foreground = new Color8(0, 0, 255);
+                            ((Shader.RichText)moveDownValue.shader).foreground = new Color8(0, 0, 255);
                             break;
                         case 1:
                             ClearSelection();
                             hero.Move(new Vector2d16(Config.screenWidth / 2 + 11, Config.screenHeight / 5 + 10));
-                            ((Shader.RichText)moveAltDown.shader).foreground = new Color8fg(0, 0, 255);
-                            ((Shader.RichText)moveAltDownValue.shader).foreground = new Color8fg(0, 0, 255);
+                            ((Shader.RichText)moveAltDown.shader).foreground = new Color8(0, 0, 255);
+                            ((Shader.RichText)moveAltDownValue.shader).foreground = new Color8(0, 0, 255);
                             break;
                     }
                     break;
@@ -191,14 +191,14 @@ namespace GameStates
                         case 0:
                             ClearSelection();
                             hero.Move(new Vector2d16(Config.screenWidth / 2 - 7, Config.screenHeight / 5 + 12));
-                            ((Shader.RichText)moveLeft.shader).foreground = new Color8fg(0, 0, 255);
-                            ((Shader.RichText)moveLeftValue.shader).foreground = new Color8fg(0, 0, 255);
+                            ((Shader.RichText)moveLeft.shader).foreground = new Color8(0, 0, 255);
+                            ((Shader.RichText)moveLeftValue.shader).foreground = new Color8(0, 0, 255);
                             break;
                         case 1:
                             ClearSelection();
                             hero.Move(new Vector2d16(Config.screenWidth / 2 + 11, Config.screenHeight / 5 + 12));
-                            ((Shader.RichText)moveAltLeft.shader).foreground = new Color8fg(0, 0, 255);
-                            ((Shader.RichText)moveAltLeftValue.shader).foreground = new Color8fg(0, 0, 255);
+                            ((Shader.RichText)moveAltLeft.shader).foreground = new Color8(0, 0, 255);
+                            ((Shader.RichText)moveAltLeftValue.shader).foreground = new Color8(0, 0, 255);
                             break;
                     }
                     break;
@@ -208,52 +208,52 @@ namespace GameStates
                         case 0:
                             ClearSelection();
                             hero.Move(new Vector2d16(Config.screenWidth / 2 - 7, Config.screenHeight / 5 + 14));
-                            ((Shader.RichText)moveRight.shader).foreground = new Color8fg(0, 0, 255);
-                            ((Shader.RichText)moveRightValue.shader).foreground = new Color8fg(0, 0, 255);
+                            ((Shader.RichText)moveRight.shader).foreground = new Color8(0, 0, 255);
+                            ((Shader.RichText)moveRightValue.shader).foreground = new Color8(0, 0, 255);
                             break;
                         case 1:
                             ClearSelection();
                             hero.Move(new Vector2d16(Config.screenWidth / 2 + 11, Config.screenHeight / 5 + 14));
-                            ((Shader.RichText)moveAltRight.shader).foreground = new Color8fg(0, 0, 255);
-                            ((Shader.RichText)moveAltRightValue.shader).foreground = new Color8fg(0, 0, 255);
+                            ((Shader.RichText)moveAltRight.shader).foreground = new Color8(0, 0, 255);
+                            ((Shader.RichText)moveAltRightValue.shader).foreground = new Color8(0, 0, 255);
                             break;
                     }
                     break;
                 case 4:
                     ClearSelection();
                     hero.Move(new Vector2d16(Config.screenWidth / 2 - 7, Config.screenHeight / 5 + 18));
-                    ((Shader.RichText)save.shader).foreground = new Color8fg(0, 0, 255);
+                    ((Shader.RichText)save.shader).foreground = new Color8(0, 0, 255);
                     break;
                 case 5:
                     ClearSelection();
                     hero.Move(new Vector2d16(Config.screenWidth / 2 - 7, Config.screenHeight / 5 + 20));
-                    ((Shader.RichText)back.shader).foreground = new Color8fg(0, 0, 255);
+                    ((Shader.RichText)back.shader).foreground = new Color8(0, 0, 255);
                     break;
             }
         }
 
         private void ClearSelection()
         {
-            ((Shader.RichText)moveUp.shader).foreground = new Color8fg(255, 255, 255);
-            ((Shader.RichText)moveUpValue.shader).foreground = new Color8fg(255, 255, 255);
-            ((Shader.RichText)moveDown.shader).foreground = new Color8fg(255, 255, 255);
-            ((Shader.RichText)moveDownValue.shader).foreground = new Color8fg(255, 255, 255);
-            ((Shader.RichText)moveLeft.shader).foreground = new Color8fg(255, 255, 255);
-            ((Shader.RichText)moveLeftValue.shader).foreground = new Color8fg(255, 255, 255);
-            ((Shader.RichText)moveRight.shader).foreground = new Color8fg(255, 255, 255);
-            ((Shader.RichText)moveRightValue.shader).foreground = new Color8fg(255, 255, 255);
+            ((Shader.RichText)moveUp.shader).foreground = new Color8(255, 255, 255);
+            ((Shader.RichText)moveUpValue.shader).foreground = new Color8(255, 255, 255);
+            ((Shader.RichText)moveDown.shader).foreground = new Color8(255, 255, 255);
+            ((Shader.RichText)moveDownValue.shader).foreground = new Color8(255, 255, 255);
+            ((Shader.RichText)moveLeft.shader).foreground = new Color8(255, 255, 255);
+            ((Shader.RichText)moveLeftValue.shader).foreground = new Color8(255, 255, 255);
+            ((Shader.RichText)moveRight.shader).foreground = new Color8(255, 255, 255);
+            ((Shader.RichText)moveRightValue.shader).foreground = new Color8(255, 255, 255);
 
-            ((Shader.RichText)moveAltUp.shader).foreground = new Color8fg(255, 255, 255);
-            ((Shader.RichText)moveAltUpValue.shader).foreground = new Color8fg(255, 255, 255);
-            ((Shader.RichText)moveAltDown.shader).foreground = new Color8fg(255, 255, 255);
-            ((Shader.RichText)moveAltDownValue.shader).foreground = new Color8fg(255, 255, 255);
-            ((Shader.RichText)moveAltLeft.shader).foreground = new Color8fg(255, 255, 255);
-            ((Shader.RichText)moveAltLeftValue.shader).foreground = new Color8fg(255, 255, 255);
-            ((Shader.RichText)moveAltRight.shader).foreground = new Color8fg(255, 255, 255);
-            ((Shader.RichText)moveAltRightValue.shader).foreground = new Color8fg(255, 255, 255);
+            ((Shader.RichText)moveAltUp.shader).foreground = new Color8(255, 255, 255);
+            ((Shader.RichText)moveAltUpValue.shader).foreground = new Color8(255, 255, 255);
+            ((Shader.RichText)moveAltDown.shader).foreground = new Color8(255, 255, 255);
+            ((Shader.RichText)moveAltDownValue.shader).foreground = new Color8(255, 255, 255);
+            ((Shader.RichText)moveAltLeft.shader).foreground = new Color8(255, 255, 255);
+            ((Shader.RichText)moveAltLeftValue.shader).foreground = new Color8(255, 255, 255);
+            ((Shader.RichText)moveAltRight.shader).foreground = new Color8(255, 255, 255);
+            ((Shader.RichText)moveAltRightValue.shader).foreground = new Color8(255, 255, 255);
 
-            ((Shader.RichText)save.shader).foreground = new Color8fg(255, 255, 255);
-            ((Shader.RichText)back.shader).foreground = new Color8fg(255, 255, 255);
+            ((Shader.RichText)save.shader).foreground = new Color8(255, 255, 255);
+            ((Shader.RichText)back.shader).foreground = new Color8(255, 255, 255);
         }
 
         public void Action()

@@ -369,30 +369,28 @@ public interface Color
 }
 
 /// <summary>
-/// Structure that represents an 8-bit foreground color.<br/>
+/// Structure that represents an 8-bit color.<br/>
 /// Due to the way of ASCII escape sequences handling foreground and background colors,<br/>
 /// they're divided in two different structs.
 /// </summary>
-public struct Color8fg : Color
+public struct Color8 : Color
 {
     byte color;
 
-    public readonly static Color8fg white = (255, 255, 255);
-
-    public Color8fg(byte color) 
+    public Color8(byte color)
     {
         this.color = color;
     }
 
-    public Color8fg(int r, int g, int b)
+    public Color8(byte r, byte g, byte b)
     {
         r /= 51; g /= 51; b /= 51;
         color = (byte)(r * 36 + g * 6 + b + 16);
     }
 
-    public static Color8fg GetNull()
+    public static Color8 GetNull()
     {
-        return new Color8fg(0);
+        return new Color8(0);
     }
 
     public bool IsNull()
@@ -415,92 +413,46 @@ public struct Color8fg : Color
         return (byte)((color - 16) % 6 * 51);
     }
 
-    public static implicit operator Color8fg((byte r, byte g, byte b) tuple)
+    public static implicit operator Color8(string str)
     {
-        return new Color8fg(tuple.r, tuple.g, tuple.b);
+        return Convert.FromHexToColor8(str);
     }
 
-    public static implicit operator string(Color8fg color)
+    public static implicit operator Color8((byte r, byte g, byte b) tuple)
     {
-        if (color.color == 0)
+        return new Color8(tuple.r, tuple.g, tuple.b);
+    }
+
+    public string AsForeground()
+    {
+        if (color == 0)
             return null;
-        return "\u001b[38;5;"+color.color+'m';
+        return "\u001b[38;5;" + color + 'm';
     }
 
-    public static bool operator ==(Color8fg color, int integer)
+    public string AsBackground()
+    {
+        if (color == 0)
+            return null;
+        return "\u001b[48;5;"+ color +'m';
+    }
+
+    public static bool operator ==(Color8 color1, Color8 color2)
+    {
+        return color1.color == color2.color;
+    }
+
+    public static bool operator !=(Color8 color1, Color8 color2)
+    {
+        return color1.color != color2.color;
+    }
+
+    public static bool operator ==(Color8 color, int integer)
     {
         return color.color == integer;
     }
 
-    public static bool operator !=(Color8fg color, int integer)
-    {
-        return color.color != integer;
-    }
-}
-
-/// <summary>
-/// Structure that represents an 8-bit background color.<br/>
-/// Due to the way of ASCII escape sequences handling foreground and background colors,<br/>
-/// they're divided in two different structs.
-/// </summary>
-public struct Color8bg : Color
-{
-    byte color;
-
-    public Color8bg(byte color)
-    {
-        this.color = color;
-    }
-
-    public Color8bg(byte r, byte g, byte b)
-    {
-        r /= 51; g /= 51; b /= 51;
-        color = (byte)(r * 36 + g * 6 + b + 16);
-    }
-
-    public static Color8bg GetNull()
-    {
-        return new Color8bg(0);
-    }
-
-    public bool IsNull()
-    {
-        return color == 0;
-    }
-
-    public byte GetRed()
-    {
-        return (byte)((color - 16) / 36 % 6 * 51);
-    }
-
-    public byte GetGreen()
-    {
-        return (byte)((color - 16) / 6 % 6 * 51);
-    }
-
-    public byte GetBlue()
-    {
-        return (byte)((color - 16) % 6 * 51);
-    }
-
-    public static implicit operator Color8bg((byte r, byte g, byte b) tuple)
-    {
-        return new Color8bg(tuple.r, tuple.g, tuple.b);
-    }
-
-    public static implicit operator string(Color8bg color)
-    {
-        if (color.color == 0)
-            return null;
-        return "\u001b[48;5;"+ color.color +'m';
-    }
-
-    public static bool operator ==(Color8bg color, int integer)
-    {
-        return color.color == integer;
-    }
-
-    public static bool operator !=(Color8bg color, int integer)
+    public static bool operator !=(Color8 color, int integer)
     {
         return color.color != integer;
     }
@@ -598,11 +550,11 @@ public struct Color24bg : Color
 /// </summary>
 public struct Fragment8
 {
-    public Color8fg foreground;
-    public Color8bg background;
+    public Color8 foreground;
+    public Color8 background;
     public char symbol;
 
-    public static Fragment8 nullFragment = new Fragment8(Color8fg.GetNull(), Color8bg.GetNull(), (char)0);
+    public static Fragment8 nullFragment = new Fragment8(Color8.GetNull(), Color8.GetNull(), (char)0);
 
     public static Fragment8 GetNull()
     {
@@ -615,7 +567,7 @@ public struct Fragment8
         return foreground.IsNull() && background.IsNull() && (symbol == 0);
     }
 
-    public Fragment8(Color8fg foreground, Color8bg background, char symbol)
+    public Fragment8(Color8 foreground, Color8 background, char symbol)
     {
         this.foreground = foreground;
         this.background = background;
@@ -624,7 +576,7 @@ public struct Fragment8
 
     public static implicit operator string(Fragment8 fragment)
     {
-        return fragment.foreground + fragment.background + fragment.symbol;
+        return fragment.foreground.AsForeground() + fragment.background.AsBackground() + fragment.symbol;
     }
 }
 

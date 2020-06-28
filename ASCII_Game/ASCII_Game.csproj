@@ -30,11 +30,21 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Engine\GameStates\Credits.cs" />
+    <Compile Remove="Engine\GameStates\Game.cs" />
+    <Compile Remove="Engine\GameStates\Inventory.cs" />
+    <Compile Remove="Engine\GameStates\LoadGame.cs" />
+    <Compile Remove="Engine\GameStates\Menu.cs" />
+    <Compile Remove="Engine\GameStates\Settings.cs" />
+    <Compile Remove="Engine\GameStates\SettingsControlls.cs" />
+    <Compile Remove="Engine\GameStates\SettingsGraphics.cs" />
+    <Compile Remove="Engine\GameStates\Test.cs" />
     <Compile Remove="Engine\Objects\AbstractDamageable.cs" />
     <Compile Remove="Engine\Objects\AbstractHoldable.cs" />
     <Compile Remove="Engine\Objects\AbstractHolder.cs" />
     <Compile Remove="Engine\Objects\AbstractWeapon.cs" />
     <Compile Remove="Engine\Objects\Dialogue.cs" />
+    <Compile Remove="Engine\Visual\GUI\Container.cs" />
   </ItemGroup>
 
   <ItemGroup>

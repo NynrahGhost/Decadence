@@ -12,21 +12,21 @@ namespace GameStates
     {
         int selection = 0;
 
-        Image graphics = new Image.Rectangle(new Shader.RichText("Graphics", new Color8fg(0, 0, 255)), new Vector2d16(8, 1), 200);
-        Image controls = new Image.Rectangle(new Shader.RichText("Controls", new Color8fg(255, 255, 255)), new Vector2d16(8, 1), 200);
-        Image back = new Image.Rectangle(new Shader.RichText("Back", new Color8fg(255, 255, 255)), new Vector2d16(4, 1), 200);
+        Image graphics = new Image.Rectangle(new Shader.RichText("Graphics", new Color8(0, 0, 255)), new Vector2d16(8, 1), 200);
+        Image controls = new Image.Rectangle(new Shader.RichText("Controls", new Color8(255, 255, 255)), new Vector2d16(8, 1), 200);
+        Image back = new Image.Rectangle(new Shader.RichText("Back", new Color8(255, 255, 255)), new Vector2d16(4, 1), 200);
 
         public Settings()
         {
-            Shader plainShader = new Shader.Plain(new Color8fg(0, 0, 0), new Color8bg(0, 0, 0), ' ');
+            Shader plainShader = new Shader.Plain(new Color8(0, 0, 0), new Color8(0, 0, 0), ' ');
             Image plainImage = new Image.Rectangle(plainShader, new Vector2d16(600, 300), 0);
 
             Shader logoShader = new Shader.TextureSymbol(ResourceLoader.LoadResource<Atlas16>(@"Textures\mainMenu.bms"), new Vector2d16(0, 6), new Vector2d16(47, 11));
             Image logo = new Image.Rectangle(logoShader, new Vector2d16(51, 5), 1);
 
-            Image decoration = new Image.Rectangle(new Shader.RichText(new string[] { "|", "|", "|", "|", "|" }, new Color8fg(255, 255, 255)), new Vector2d16(1, 5), 200);
+            Image decoration = new Image.Rectangle(new Shader.RichText(new string[] { "|", "|", "|", "|", "|" }, new Color8(255, 255, 255)), new Vector2d16(1, 5), 200);
 
-            Shader cursorShader = new Shader.RichText("> |", new Color8fg(0, 0, 255));
+            Shader cursorShader = new Shader.RichText("> |", new Color8(0, 0, 255));
             Image cursor = new Image.Rectangle(cursorShader, new Vector2d16(3, 1), 127);
 
             Shape circle = new Shape.Circle(1);
@@ -75,20 +75,20 @@ namespace GameStates
             switch (selection)
             {
                 case 0:
-                    ((Shader.RichText)controls.shader).foreground = new Color8fg(255, 255, 255);
+                    ((Shader.RichText)controls.shader).foreground = new Color8(255, 255, 255);
                     hero.Move(new Vector2d16(Config.screenWidth / 2 - 27, Config.screenHeight / 5 + 8));
-                    ((Shader.RichText)graphics.shader).foreground = new Color8fg(0, 0, 255);
+                    ((Shader.RichText)graphics.shader).foreground = new Color8(0, 0, 255);
                     break;
                 case 1:
-                    ((Shader.RichText)graphics.shader).foreground = new Color8fg(255, 255, 255);
-                    ((Shader.RichText)back.shader).foreground = new Color8fg(255, 255, 255);
+                    ((Shader.RichText)graphics.shader).foreground = new Color8(255, 255, 255);
+                    ((Shader.RichText)back.shader).foreground = new Color8(255, 255, 255);
                     hero.Move(new Vector2d16(Config.screenWidth / 2 - 27, Config.screenHeight / 5 + 10));
-                    ((Shader.RichText)controls.shader).foreground = new Color8fg(0, 0, 255);
+                    ((Shader.RichText)controls.shader).foreground = new Color8(0, 0, 255);
                     break;
                 case 2:
-                    ((Shader.RichText)controls.shader).foreground = new Color8fg(255, 255, 255);
+                    ((Shader.RichText)controls.shader).foreground = new Color8(255, 255, 255);
                     hero.Move(new Vector2d16(Config.screenWidth / 2 - 27, Config.screenHeight / 5 + 12));
-                    ((Shader.RichText)back.shader).foreground = new Color8fg(0, 0, 255);
+                    ((Shader.RichText)back.shader).foreground = new Color8(0, 0, 255);
                     break;
             }
         }

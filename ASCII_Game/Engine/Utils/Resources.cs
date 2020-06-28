@@ -12,10 +12,6 @@ abstract class ResourceLoader
 
     public static Dictionary<string, Atlas> atlasPool = new Dictionary<string, Atlas>();
 
-    public static Image images;
-
-    public static Shader shaders;
-
     private static string GetRoot()
     {
         string root;

@@ -18,10 +18,10 @@ internal partial class Image
         public byte mid;
         public byte frame;
 
-        public Color8fg endUfg = new Color8fg(255, 255, 255);
-        public Color8fg endLfg = new Color8fg(255, 255, 255);
-        public Color8fg midfg = new Color8fg(255, 255, 255);
-        public Color8fg framefg = new Color8fg(255, 255, 255);
+        public Color8 endUfg = new Color8(255, 255, 255);
+        public Color8 endLfg = new Color8(255, 255, 255);
+        public Color8 midfg = new Color8(255, 255, 255);
+        public Color8 framefg = new Color8(255, 255, 255);
 
         public Bar(short length, byte zIndex = 0, float percentage = 0)
         {
@@ -159,7 +159,7 @@ internal partial class Image
             return new Vector2d16((short)3, length);
         }
 
-        public override void Render(Vector2d16 position)
+        public override void Render(Shader shader, Vector2d16 position)
         {
             int posX;
             int posY;
@@ -171,7 +171,7 @@ internal partial class Image
                     posY = position._2 - Renderer.worldPosition._2 + y;
                     if (posX < 0 || posX >= (Renderer.Width) || posY < 0 || posY >= (Renderer.Height))
                         continue;
-                    Renderer.buffer[posY, posX] = new Fragment8(framefg, new Color8bg(0, 0, 0), body[frame][x]);
+                    Renderer.buffer[posY, posX] = new Fragment8(framefg, new Color8((byte)0, (byte)0, (byte)0), body[frame][x]);
 
                 }
 
@@ -182,7 +182,7 @@ internal partial class Image
                     posY = position._2 - Renderer.worldPosition._2 + y;
                     if (posX < 0 || posX >= (Renderer.Width) || posY < 0 || posY >= (Renderer.Height))
                         continue;
-                    Renderer.buffer[posY, posX] = new Fragment8(endUfg, new Color8bg(0, 0, 0), endUpper[endU, y][x]);
+                    Renderer.buffer[posY, posX] = new Fragment8(endUfg, new Color8((byte)0, (byte)0, (byte)0), endUpper[endU, y][x]);
                 }
 
             for (int y = 0; y < 3; ++y)
@@ -192,7 +192,7 @@ internal partial class Image
                     posY = position._2 - Renderer.worldPosition._2 + y + progress;
                     if (posX < 0 || posX >= (Renderer.Width) || posY < 0 || posY >= (Renderer.Height))
                         continue;
-                    Renderer.buffer[posY, posX] = new Fragment8(midfg, new Color8bg(0, 0, 0), middle[mid, y][x]);
+                    Renderer.buffer[posY, posX] = new Fragment8(midfg, new Color8((byte)0, (byte)0, (byte)0), middle[mid, y][x]);
                 }
 
             for (int y = 0; y < 3; ++y)
@@ -202,7 +202,7 @@ internal partial class Image
                     posY = position._2 - Renderer.worldPosition._2 + y + length - 3;
                     if (posX < 0 || posX >= (Renderer.Width) || posY < 0 || posY >= (Renderer.Height))
                         continue;
-                    Renderer.buffer[posY, posX] = new Fragment8(endLfg, new Color8bg(0, 0, 0), endLower[endL, y][x]);
+                    Renderer.buffer[posY, posX] = new Fragment8(endLfg, new Color8((byte)0, (byte)0, (byte)0), endLower[endL, y][x]);
                 }
         }
     }
@@ -387,7 +387,7 @@ internal partial class Image
             return new Vector2d16(length, (short)2);
         }
 
-        public override void Render(Vector2d16 position)
+        public override void Render(Shader shader, Vector2d16 position)
         {
             int posX;
             int posY;
@@ -400,7 +400,7 @@ internal partial class Image
                         posY = position._2 - Renderer.worldPosition._2 + y;
                         if (posX < 0 || posX >= (Renderer.Width) || posY < 0 || posY >= (Renderer.Height))
                             continue;
-                        Renderer.buffer[posY, posX] = new Fragment8(framefg, new Color8bg(0, 0, 0), body[frame, y][x]);
+                        Renderer.buffer[posY, posX] = new Fragment8(framefg, new Color8((byte)0, (byte)0, (byte)0), body[frame, y][x]);
                     }
 
             for (int y = 0; y < 2; ++y)
@@ -410,7 +410,7 @@ internal partial class Image
                     posY = position._2 - Renderer.worldPosition._2 + y;
                     if (posX < 0 || posX >= (Renderer.Width) || posY < 0 || posY >= (Renderer.Height))
                         continue;
-                    Renderer.buffer[posY, posX] = new Fragment8(endUfg, new Color8bg(0, 0, 0), endUpper[endU, y][x]);
+                    Renderer.buffer[posY, posX] = new Fragment8(endUfg, new Color8((byte)0, (byte)0, (byte)0), endUpper[endU, y][x]);
                 }
 
             for (int y = 0; y < 2; ++y)
@@ -420,7 +420,7 @@ internal partial class Image
                     posY = position._2 - Renderer.worldPosition._2 + y;
                     if (posX < 0 || posX >= (Renderer.Width) || posY < 0 || posY >= (Renderer.Height))
                         continue;
-                    Renderer.buffer[posY, posX] = new Fragment8(midfg, new Color8bg(0, 0, 0), middle[mid, y][x]);
+                    Renderer.buffer[posY, posX] = new Fragment8(midfg, new Color8((byte)0, (byte)0, (byte)0), middle[mid, y][x]);
                 }
 
             for (int y = 0; y < 2; ++y)
@@ -430,7 +430,7 @@ internal partial class Image
                     posY = position._2 - Renderer.worldPosition._2 + y;
                     if (posX < 0 || posX >= (Renderer.Width) || posY < 0 || posY >= (Renderer.Height))
                         continue;
-                    Renderer.buffer[posY, posX] = new Fragment8(endLfg, new Color8bg(0, 0, 0), endLower[endL, y][x]);
+                    Renderer.buffer[posY, posX] = new Fragment8(endLfg, new Color8((byte)0, (byte)0, (byte)0), endLower[endL, y][x]);
                 }
         }
     }

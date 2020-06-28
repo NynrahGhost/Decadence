@@ -1,16 +1,27 @@
 {
-	"name": "nameVal",
-	"key": "keyVal",
-	"key2": "key2Val",
-	"array": [true, "2", 3],
-	"obj": {
-		"key": "value",
-		"innerKey": "inner"
-	},
-	"obj2": {
-		"key": "value",
-		"innerKey": "inner"
-	},
-	"key3": "key3Val",
-	"key4": "key4Val"
+	"name": "testMap",
+	"images": [
+		{"type": "rectangle", "dimensions": [10,20]}
+	],
+	"shaders": [
+		{"type": "plain", "params": [#ff, #00, "#"]}
+	],
+	"shapes": [
+		{"type": "rectangle", "params": [[10,20]]}
+	],
+	"visualObjects": [
+		{" ": [[0,0],0,0,127]},
+		{" ": [[10,20],1,1,127]}
+	],
+	"tactileObjects": [
+		{" ": [[0,0],0]},
+	],
+	"physicalObjects": [
+		{" ": [[0,0],1,2,2,127]},
+	],
+	"player": 
+		{" ": [[0,0],0,0,127]},
+	"entities": [
+		{" ": [[0,0],0,0,127]}
+	],
 }

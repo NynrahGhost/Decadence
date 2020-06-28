@@ -151,7 +151,7 @@ public class Vector2d16W : Wrapper, IDisposable
 
     public unsafe Vector2d16* value;
 
-    public unsafe Vector2d16W(Vector2d16* value) { Console.WriteLine(new Color8fg(255, 255, 255) + *value); }
+    public unsafe Vector2d16W(Vector2d16* value) { Console.WriteLine(new Color8(255, 255, 255) + *value); }
 
     public void Dispose() { }
 }

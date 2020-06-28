@@ -17,7 +17,7 @@ class Game
     [DllImport("kernel32.dll")]
     public static extern uint GetLastError();
 
-    public static GameState gameState = new GameStates.Menu();
+    public static GameState gameState = new GameStates.MapTest(@"Maps/TestMap.json");//new GameStates.Menu();
     public static bool running = true;
 
     public static EInput input = EInput.none;
@@ -58,15 +58,7 @@ class Game
         long delta = DateTime.Now.Ticks;
         int framerate = 1000 / Config.framerate;
 
-        //Console.WriteLine(JSON.ToString(JSON.ToJSON(new Game())));
-
-        //map.
-
-        //Console.WriteLine("‗");
-        //Console.WriteLine("♥");
-        //Console.OutputEncoding = System.Text.Encoding.ASCII;
-        //Thread.Sleep(500);
-        
+        //Console.WriteLine(new Color8(0, 0, 0).AsBackground() + new Color8(255, 255, 255).AsForeground() + JSON.ToString(JSON.Read("Maps/TestMap.json")));
         
         while (running)
         {

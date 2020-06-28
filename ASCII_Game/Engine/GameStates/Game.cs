@@ -16,16 +16,16 @@ namespace GameStates
             "/cPress _space_ to stop and resume continious walking.",
             "When it's stopped, press any movement or controll buttons to walk one frame.",
             "/cPress _esc_ to leave test."
-            }, new Color8fg(255, 255, 255)), new Vector2d16(76, 3), 126);
+            }, new Color8(255, 255, 255)), new Vector2d16(76, 3), 126);
             hud = new IRenderable[]
             {
                 new VisualObject(new Vector2d16(Config.screenWidth / 2 - 33, Config.screenHeight / 5 * 4), tip) //new Vector2d16(Config.screenWidth / 2, Config.screenHeight / 5 * 4)
             };
 
-            Shader plainShader = new Shader.Plain(new Color8fg(0, 0, 0), new Color8bg(0, 0, 0), ' ');
+            Shader plainShader = new Shader.Plain(new Color8(0, 0, 0), new Color8(0, 0, 0), ' ');
             Image plainImage = new Image.Rectangle(plainShader, new Vector2d16(600, 300), 0);
 
-            Shader gradientShader = new Shader.Gradient(new Color8fg(255, 0, 0), new Color8fg(255, 255, 255), new Color8bg(255, 0, 0), new Color8bg(0, 0, 255), ' ');
+            Shader gradientShader = new Shader.Gradient(new Color8(255, 0, 0), new Color8(255, 255, 255), new Color8(255, 0, 0), new Color8(0, 0, 255), ' ');
             Image gradientImage = new Image.Rectangle(gradientShader, new Vector2d16(20, 10));
 
             Shader characterShader = new Shader.TextureSymbol(ResourceLoader.LoadResource<Atlas16>(@"Textures\Textures_test.txt"), new Vector2d32(0, 95), new Vector2d32(2, 97));
@@ -86,7 +86,7 @@ namespace GameStates
 
             //Console.WriteLine(s.Value);
             events.Add(new Animation(hud[0]).
-                SetProperties((object x, object y) => { ((GameObject)x).position = (Vector2d16)y; }).
+                SetProperties((object x, object y) => { ((GameObject)x).Position = (Vector2d16)y; }).
                 AddFrame(new Vector2d16(20, 24)).
                 AddFrame(new Vector2d16(40, 24)).
                 AddFrame(new Vector2d16(40, 30)).
@@ -105,7 +105,7 @@ namespace GameStates
                 SetActive(true));
 
             events.Add(new Animation(tmp[7]).
-                SetProperties((object x, object y) => { ((GameObject)x).position = (Vector2d16)y; }).
+                SetProperties((object x, object y) => { ((GameObject)x).Position = (Vector2d16)y; }).
                 AddFrame(new Vector2d16(98, 20)).
                 AddFrame(new Vector2d16(40, 20)).
                 AddFrame(new Vector2d16(40, 20)).
@@ -123,25 +123,6 @@ namespace GameStates
                 AddTimespan(8).
                 SetActive(true));
 
-            /*events.Add(new Animation(tmp[7]).
-                SetProperties((object x, object y) => { ((GameObject)x).position = (Vector2d16)y; }).
-                AddFrame(new Vector2d16(98, 20)).
-                AddFrame(new Vector2d16(40, 20)).
-                AddFrame(new Vector2d16(40, 20)).
-                AddFrame(new Vector2d16(98, 20)).
-                AddFrame(new Vector2d16(98, 20)).
-                AddFunctions(Animation.liniar).
-                AddFunctions(Animation.liniar).
-                AddFunctions(Animation.liniar).
-                AddFunctions(Animation.liniar).
-                AddFunctions(Animation.liniar).
-                AddTimespan(20000000L).
-                AddTimespan(40000000L).
-                AddTimespan(60000000L).
-                AddTimespan(80000000L).
-                AddTimespan(80000000L).
-                SetActive(true));*/
-
             map = new Map("Test", new Vector2d16(2000, 1000), 1, tmp);
             hero = new KinematicObject(new Vector2d16(Config.screenWidth / 2, Config.screenHeight / 2), circle, characterImage);
             Renderer.SetObjects(map.GetVisuals());
@@ -154,19 +135,19 @@ namespace GameStates
             switch (input)
             {
                 case EInput.moveForward:
-                    if (hero.Move(hero.position + new Vector2d16(0, -1)))
+                    if (hero.Move(hero.Position + new Vector2d16(0, -1)))
                         Renderer.worldPosition._2 -= 1;
                     break;
                 case EInput.moveBackward:
-                    if (hero.Move(hero.position + new Vector2d16(0, 1)))
+                    if (hero.Move(hero.Position + new Vector2d16(0, 1)))
                         Renderer.worldPosition._2 += 1;
                     break;
                 case EInput.moveLeft:
-                    if (hero.Move(hero.position + new Vector2d16(-2, 0)))
+                    if (hero.Move(hero.Position + new Vector2d16(-2, 0)))
                         Renderer.worldPosition._1 -= 2;
                     break;
                 case EInput.moveRight:
-                    if (hero.Move(hero.position + new Vector2d16(2, 0)))
+                    if (hero.Move(hero.Position + new Vector2d16(2, 0)))
                         Renderer.worldPosition._1 += 2;
                     break;
                 case EInput.use:

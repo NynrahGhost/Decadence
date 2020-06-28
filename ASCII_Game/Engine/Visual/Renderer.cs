@@ -25,16 +25,8 @@ abstract class Renderer
     private static bool reverse = false;
     private static bool fraktur = false;
 
-    private static VisualObject plain = new VisualObject(
-        new Vector2d16() - Dimensions / 2,
-        new Image.Rectangle(
-            new Shader.Plain(
-                new Color8fg(0, 0, 0),
-                new Color8bg(0, 0, 0), ' '),
-            Dimensions * 3,
-            0)
-        );
-
+    private static Image.Rectangle plainImage = new Image.Rectangle(Dimensions);
+    private static Shader.Plain plainShader = new Shader.Plain((255,255,255), (0,0,0), ' ');
 
 
     public static void Reload()
@@ -57,23 +49,24 @@ abstract class Renderer
 
     public static void Render()
     {
-        plain.Render(plain.position + worldPosition);
+        plainImage.Render(plainShader, worldPosition);
+
         if (objects != null)
             foreach (IRenderable obj in objects)
             {
-                obj.Render(((GameObject)obj).position);
+                obj.Render(obj.Position);
             }
         //Game.gameState.hero?.Render(Game.gameState.hero.position);
         foreach (IRenderable obj in Game.gameState.hud)
         {
-            obj.Render(((GameObject)obj).position + worldPosition);
+            obj.Render(obj.Position + worldPosition);
         }
 
         System.Text.StringBuilder sb = new System.Text.StringBuilder();
 
         int shift = 0;
-        Color8fg fg = new Color8fg(0);
-        Color8bg bg = new Color8bg(0);
+        Color8 fg = new Color8(0);
+        Color8 bg = new Color8(0);
         
         for (int y = 0; y < Config.screenHeight; ++y)
         {
@@ -192,18 +185,18 @@ abstract class Renderer
 
                 if (current.foreground != fg)
                 {
-                    sb.Append(fg);
+                    sb.Append(fg.AsForeground());
                     fg = current.foreground;
                 }
                 if (current.background != bg)
                 {
-                    sb.Append(bg);
+                    sb.Append(bg.AsBackground());
                     bg = current.background;
                 }
 
                 if(shift>0)
                     sb.Append(ANSII.CursorRight(shift));
-                sb.Append(fg + bg + current.symbol);
+                sb.Append(fg.AsForeground() + bg.AsBackground() + current.symbol);
                 shift = 0;
             }
         }

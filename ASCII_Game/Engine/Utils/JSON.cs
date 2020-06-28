@@ -61,7 +61,8 @@ abstract class JSON
                 default:
                     if (state == EState.key)
                     {
-                        key.Append(ch);
+                        if(ch!='"')
+                            key.Append(ch);
                     }
                     if (state == EState.value)
                     {
@@ -148,6 +149,8 @@ abstract class JSON
         int num;
         if (int.TryParse(value.ToString(), out num))
             return num;
+        if (value[0] == '#')
+            return Convert.FromHexToColor8(value.ToString());
         if (value[0] == '"' & value[value.Length-1] == '"')
             return value.Remove(0, 1).Remove(value.Length - 1, 1).ToString();
         if (value.Equals("true"))
@@ -162,10 +165,10 @@ abstract class JSON
     public static StringBuilder ToString(Dictionary<string, object> json)
     {
         StringBuilder sb = new StringBuilder();
-        sb.Append('{');
+        sb.Append("{\n");
         foreach (var entry in json)
         {
-            sb.Append("\n\t\""+entry.Key+"\": ");
+            sb.Append("\t\""+entry.Key+"\": ");
             switch (entry.Value)
             {
                 case Dictionary<string, object> d:
@@ -178,15 +181,16 @@ abstract class JSON
                     sb.Append(ToString(entry.Value));
                     break;
             }
+            sb.Append("\n\r");
         }
-        sb.Append("\n}\n");
+        sb.Append("}");
         return sb;
     }
 
     public static StringBuilder ToString(List<object> array)
     {
         StringBuilder sb = new StringBuilder();
-        sb.Append("[\n");
+        sb.Append("[");
         foreach (var entry in array)
         {
             sb.Append(' ');
@@ -198,12 +202,12 @@ abstract class JSON
                 case List<object> l:
                     sb.Append(ToString(l));
                     break;
-                default:
-                    sb.Append(ToString(entry));
+                case object o:
+                    sb.Append(ToString(o));
                     break;
             }
         }
-        sb.Append("]\n");
+        sb.Append(" ]");
         return sb;
     }
 
@@ -214,6 +218,7 @@ abstract class JSON
         {
             case string s:
                 sb.Append('"' + s + '"');
+                //sb.Append(s);
                 break;
             default:
                 sb.Append(obj);
